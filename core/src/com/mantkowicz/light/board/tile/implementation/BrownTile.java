@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.mantkowicz.light.board.tile.Tile;
 
 public class BrownTile extends Tile {
-    public BrownTile(AssetManager assetManager) {
-        super(assetManager.get("brown.png", Texture.class));
+    public BrownTile(Long id, AssetManager assetManager) {
+        super(id, assetManager.get("brown.png", Texture.class));
     }
 
     @Override

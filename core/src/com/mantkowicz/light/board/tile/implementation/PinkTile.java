@@ -4,8 +4,8 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.mantkowicz.light.board.tile.Tile;
 
 public class PinkTile extends Tile {
-    public PinkTile(AssetManager assetManager) {
-        super(assetManager.get("pink.png"));
+    public PinkTile(Long id, AssetManager assetManager) {
+        super(id, assetManager.get("pink.png"));
     }
 
     @Override
