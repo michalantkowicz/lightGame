@@ -6,22 +6,22 @@ import com.mantkowicz.light.board.tile.TileType;
 import com.mantkowicz.light.board.tile.implementation.*;
 
 public class TileFactory {
-    static public Tile createTile(AssetManager assetManager, TileType tileType) {
+    static public Tile createTile(Long id, AssetManager assetManager, TileType tileType) {
         switch (tileType) {
             case FLOOR:
-                return new FloorTile(assetManager);
+                return new FloorTile(id, assetManager);
             case WALL:
-                return new WallTile(assetManager);
+                return new WallTile(id, assetManager);
             case RED:
-                return new RedTile(assetManager);
+                return new RedTile(id, assetManager);
             case PINK:
-                return new PinkTile(assetManager);
+                return new PinkTile(id, assetManager);
             case BROWN:
-                return new BrownTile(assetManager);
+                return new BrownTile(id, assetManager);
             case GREEN:
-                return new GreenTile(assetManager);
+                return new GreenTile(id, assetManager);
             case GREY:
-                return new GreyTile(assetManager);
+                return new GreyTile(id, assetManager);
             default:
                 throw new IllegalArgumentException("There is no tile implementation for this tile type: " + tileType.name());
         }

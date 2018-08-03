@@ -20,9 +20,11 @@ import java.util.Map;
 public class TmxTiledMapLoader implements TiledMapLoader<TmxTileMapLoaderProperties> {
     private AssetManager assetManager;
     private Map<Tuple<Integer, Integer>, Tile> tilesMap = new HashMap<>();
+    private long currentId;
 
     public TmxTiledMapLoader(AssetManager assetManager) {
         this.assetManager = assetManager;
+        this.currentId = 0L;
     }
 
     @Override
@@ -117,6 +119,6 @@ public class TmxTiledMapLoader implements TiledMapLoader<TmxTileMapLoaderPropert
 
     private Tile createTile(TiledMapTileSet tileSet, int tileDefinitionId) {
         TileType type = TileType.valueOf(tileSet.getTile(tileDefinitionId).getProperties().get("tileClass", String.class));
-        return TileFactory.createTile(assetManager, type);
+        return TileFactory.createTile(currentId++, assetManager, type);
     }
 }
