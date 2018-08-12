@@ -10,9 +10,7 @@ import com.mantkowicz.light.board.tile.Tile;
 import com.mantkowicz.light.map.TiledMapLoader;
 import com.mantkowicz.light.map.implementation.tmx.TmxTileMapLoaderProperties;
 import com.mantkowicz.light.map.implementation.tmx.TmxTiledMapLoader;
-import com.mantkowicz.light.path.PathService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GameScreen implements Screen {
@@ -31,19 +29,14 @@ public class GameScreen implements Screen {
         TmxTileMapLoaderProperties properties = new TmxTileMapLoaderProperties().setTileMapFileName("map2.tmx");
         TiledMapLoader<TmxTileMapLoaderProperties> tmxTiledMapLoader = new TmxTiledMapLoader(assetManager);
 
-        List<Tile> tiles = new ArrayList<>();
-
-        for(Tile tile : tmxTiledMapLoader.getTiles(properties)) {
-            board.addActor(tile);
-            tiles.add(tile);
-        }
-
-        PathService.setTiles(tiles);
+        List<Tile> tiles = board.loadTiles(tmxTiledMapLoader, properties);
 
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
-        stage.addActor(board);
+        for (Tile tile : tiles) {
+            stage.addActor(tile);
+        }
     }
 
     @Override
