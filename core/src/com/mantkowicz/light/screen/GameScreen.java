@@ -3,7 +3,10 @@ package com.mantkowicz.light.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mantkowicz.light.board.Board;
 import com.mantkowicz.light.board.tile.Tile;
@@ -12,6 +15,7 @@ import com.mantkowicz.light.map.implementation.tmx.TmxTileMapLoaderProperties;
 import com.mantkowicz.light.map.implementation.tmx.TmxTiledMapLoader;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GameScreen implements Screen {
     private AssetManager assetManager;
@@ -37,6 +41,15 @@ public class GameScreen implements Screen {
         for (Tile tile : tiles) {
             stage.addActor(tile);
         }
+
+//        EventListener clickListener = new ClickListener() {
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                System.out.println(x + ", " + y);
+//            }
+//        };
+
+//        stage.addListener(clickListener);
     }
 
     @Override
