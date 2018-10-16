@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Board {
-    private List<Tile> tiles = new ArrayList<>();
+    public List<Tile> tiles = new ArrayList<>();
 
     public <T> List<Tile> loadTiles(TiledMapLoader<T> tiledMapLoader, T properties) {
         tiles = tiledMapLoader.getTiles(properties);
