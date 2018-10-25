@@ -14,8 +14,12 @@ import java.util.List;
 
 public abstract class Tile extends Group {
     private static final float TAN_30_DIV_6 = 0.289f;
+    private static int ID_SEQUENCE = 1;
+
+    private List<TileAttribute> tileAttributes;
+
     private Color backgroundColor;
-    protected Long id;
+    protected int id;
     protected List<Tile> neighbours;
     protected Array<Vector2> polygon;
     protected Image background;
@@ -42,8 +46,8 @@ public abstract class Tile extends Group {
         return Intersector.isPointInPolygon(this.polygon, point);
     }
 
-    public Tile(Long id, Texture background) {
-        this.id = id;
+    public Tile(Texture background) {
+        this.id = ID_SEQUENCE++;
         this.neighbours = new ArrayList<>();
 
         this.background = new Image(background);
@@ -77,22 +81,36 @@ public abstract class Tile extends Group {
         return background;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Tile)) return false;
 
         Tile tile = (Tile) o;
 
-        return getId().equals(tile.getId());
+        if (getId() != tile.getId()) return false;
+        if (tileAttributes != null ? !tileAttributes.equals(tile.tileAttributes) : tile.tileAttributes != null)
+            return false;
+        if (backgroundColor != null ? !backgroundColor.equals(tile.backgroundColor) : tile.backgroundColor != null)
+            return false;
+        if (getNeighbours() != null ? !getNeighbours().equals(tile.getNeighbours()) : tile.getNeighbours() != null)
+            return false;
+        if (polygon != null ? !polygon.equals(tile.polygon) : tile.polygon != null) return false;
+        return getBackground() != null ? getBackground().equals(tile.getBackground()) : tile.getBackground() == null;
     }
 
     @Override
     public int hashCode() {
-        return getId().hashCode();
+        int result = tileAttributes != null ? tileAttributes.hashCode() : 0;
+        result = 31 * result + (backgroundColor != null ? backgroundColor.hashCode() : 0);
+        result = 31 * result + getId();
+        result = 31 * result + (getNeighbours() != null ? getNeighbours().hashCode() : 0);
+        result = 31 * result + (polygon != null ? polygon.hashCode() : 0);
+        result = 31 * result + (getBackground() != null ? getBackground().hashCode() : 0);
+        return result;
     }
 }
