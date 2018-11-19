@@ -20,11 +20,9 @@ import java.util.Map;
 public class TmxTiledMapLoader implements TiledMapLoader<TmxTileMapLoaderProperties> {
     private AssetManager assetManager;
     private Map<Tuple<Integer, Integer>, Tile> tilesMap = new HashMap<>();
-    private long currentId;
 
     public TmxTiledMapLoader(AssetManager assetManager) {
         this.assetManager = assetManager;
-        this.currentId = 0L;
     }
 
     @Override
@@ -73,11 +71,11 @@ public class TmxTiledMapLoader implements TiledMapLoader<TmxTileMapLoaderPropert
     private void addNeighbour(Tile tile, Tuple<Integer, Integer> neighbourPosition) {
         if (tilesMap.containsKey(neighbourPosition)) {
             Tile neighbour = tilesMap.get(neighbourPosition);
-            if (tile.isAccessible() && neighbour.isAccessible()) {
+//            if (tile.isAccessible() && neighbour.isAccessible()) { //TODO: if tile does not contains neighbours it cannot check whether neighbour was touched
                 if (!tile.getNeighbours().contains(neighbour)) {
                     tile.addNeighbour(neighbour);
                 }
-            }
+//            }
         }
     }
 
@@ -96,7 +94,7 @@ public class TmxTiledMapLoader implements TiledMapLoader<TmxTileMapLoaderPropert
         if (cell != null) {
             int tileDefinitionId = cell.getTile().getId();
             Tile tile = createTile(tileSet, tileDefinitionId);
-            Vector2 position = new Vector2(x * tileWidth, (y - (x % 2) / 2f) * tileHeight);
+            Vector2 position = new Vector2(x * tileWidth,(y - (x % 2) / 2f) * tileHeight);
             position.add(new Vector2(50, 50));
             tile.setPosition(position.x, position.y);
             return tile;
@@ -119,6 +117,6 @@ public class TmxTiledMapLoader implements TiledMapLoader<TmxTileMapLoaderPropert
 
     private Tile createTile(TiledMapTileSet tileSet, int tileDefinitionId) {
         TileType type = TileType.valueOf(tileSet.getTile(tileDefinitionId).getProperties().get("tileClass", String.class));
-        return TileFactory.createTile(currentId++, assetManager, type);
+        return TileFactory.createTile(assetManager, type);
     }
 }
