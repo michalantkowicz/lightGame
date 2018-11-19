@@ -14,32 +14,28 @@ public class TileClickListener extends InputListener {
 
     @Override
     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        Vector2 point = new Vector2(x, y);
-        point = tile.localToStageCoordinates(point);
-        if (tile.doesContainPoint(point)) {
-            tile.mark();
-        } else {
-            for (Tile neighbour : tile.getNeighbours()) {
-                if (neighbour.doesContainPoint(point)) {
-                    neighbour.mark();
-                }
-            }
-        }
+        Tile touchedTile = resolveTile(x, y);
+        touchedTile.mark();
         return true;
     }
 
     @Override
     public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-        Vector2 point = new Vector2(x, y);
-        point = tile.localToStageCoordinates(point);
-        if (tile.doesContainPoint(point)) {
-            tile.unmark();
+        Tile touchedTile = resolveTile(x, y);
+        touchedTile.unmark();
+    }
+
+    private Tile resolveTile(float x, float y) {
+        Vector2 point = tile.localToStageCoordinates(new Vector2(x, y));
+        if(tile.doesContainPoint(point)) {
+            return tile;
         } else {
             for (Tile neighbour : tile.getNeighbours()) {
                 if (neighbour.doesContainPoint(point)) {
-                    neighbour.unmark();
+                    return neighbour;
                 }
             }
         }
+        return null;
     }
 }

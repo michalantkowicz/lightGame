@@ -22,7 +22,7 @@ public class Main extends Game {
 
     private void loadAssets() {
         List<String> textureNames = Arrays.asList("brown.png", "floor.png", "floor-tile.png",
-                "green.png", "pink.png", "red.png", "wall-tile.png");
+                "green.png", "pink.png", "red.png", "wall-tile.png", "player.png");
 
         for (String textureName : textureNames) {
             assetManager.load(textureName, Texture.class);

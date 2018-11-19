@@ -3,6 +3,8 @@ package com.mantkowicz.light.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -13,6 +15,7 @@ import com.mantkowicz.light.board.tile.Tile;
 import com.mantkowicz.light.map.TiledMapLoader;
 import com.mantkowicz.light.map.implementation.tmx.TmxTileMapLoaderProperties;
 import com.mantkowicz.light.map.implementation.tmx.TmxTiledMapLoader;
+import com.mantkowicz.light.player.Player;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,20 +39,18 @@ public class GameScreen implements Screen {
         List<Tile> tiles = board.loadTiles(tmxTiledMapLoader, properties);
 
         stage = new Stage(new ScreenViewport());
+//        ((OrthographicCamera)stage.getCamera()).zoom += 0.2f;
+
         Gdx.input.setInputProcessor(stage);
 
         for (Tile tile : tiles) {
             stage.addActor(tile);
         }
 
-//        EventListener clickListener = new ClickListener() {
-//            @Override
-//            public void clicked(InputEvent event, float x, float y) {
-//                System.out.println(x + ", " + y);
-//            }
-//        };
+        Player player = new Player(assetManager.get("player.png"));
+        player.setTile(tiles.get(0));
 
-//        stage.addListener(clickListener);
+        stage.addActor(player);
     }
 
     @Override
