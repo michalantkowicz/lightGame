@@ -51,7 +51,7 @@ public abstract class Tile extends Group {
         this.neighbours = new ArrayList<>();
 
         this.background = new Image(background);
-        this.backgroundColor = this.background.getColor();
+        this.backgroundColor = new Color(this.background.getColor());
 
         addActor(this.background);
         this.setSize(this.background.getWidth(), this.background.getHeight());
