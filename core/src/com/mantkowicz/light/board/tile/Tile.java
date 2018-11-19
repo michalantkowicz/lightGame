@@ -5,88 +5,66 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
+import com.mantkowicz.light.board.tile.listener.TileClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Tile extends Group {
     private static final float TAN_30_DIV_6 = 0.289f;
+    private static int ID_SEQUENCE = 1;
 
-    protected Long id;
+    private List<TileAttribute> tileAttributes;
+
+    private Color backgroundColor;
+    protected int id;
     protected List<Tile> neighbours;
-
-    public Array<Vector2> getPolygon() {
-        return polygon;
-    }
-
     protected Array<Vector2> polygon;
     protected Image background;
 
     @Override
     public void setPosition(float x, float y) {
         super.setPosition(x, y);
-
-        polygon = new Array<>();
-        polygon.add(new Vector2(getX() + (TAN_30_DIV_6 * getHeight()), getY()));
-        polygon.add(new Vector2(getX() + getWidth() - (TAN_30_DIV_6 * getHeight()), getY()));
-        polygon.add(new Vector2(getX() + getWidth(), getY() + (0.5f * getHeight())));
-        polygon.add(new Vector2(getX() + getWidth() - (TAN_30_DIV_6 * getHeight()), getY() + getHeight()));
-        polygon.add(new Vector2(getX() + (TAN_30_DIV_6 * getHeight()), getY() + getHeight()));
-        polygon.add(new Vector2(getX(), getY() + (0.5f * getHeight())));
+        initTilePolygon();
     }
 
-    public Tile(Long id, Texture background) {
-        this.id = id;
+    private void initTilePolygon() {
+        polygon = new Array<>();
+        float cornerOffset = TAN_30_DIV_6 * getHeight();
+        float halfOfHeight = 0.5f * getHeight();
+        polygon.add(new Vector2(getX() + cornerOffset, getY()));
+        polygon.add(new Vector2(getX() + getWidth() - cornerOffset, getY()));
+        polygon.add(new Vector2(getX() + getWidth(), getY() + halfOfHeight));
+        polygon.add(new Vector2(getX() + getWidth() - cornerOffset, getY() + getHeight()));
+        polygon.add(new Vector2(getX() + cornerOffset, getY() + getHeight()));
+        polygon.add(new Vector2(getX(), getY() + halfOfHeight));
+    }
+
+    public boolean doesContainPoint(Vector2 point) {
+        return Intersector.isPointInPolygon(this.polygon, point);
+    }
+
+    public Tile(Texture background) {
+        this.id = ID_SEQUENCE++;
         this.neighbours = new ArrayList<>();
 
         this.background = new Image(background);
-
-
-
+        this.backgroundColor = this.background.getColor();
 
         addActor(this.background);
-//        this.background.debug();
         this.setSize(this.background.getWidth(), this.background.getHeight());
-        this.debug();
 
-        this.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                Vector2 point = new Vector2(x, y);
-                point = localToStageCoordinates(point);
-                if(Intersector.isPointInPolygon(polygon, point)) {
-                    setBlue();
-                } else {
-                    if(neighbours.isEmpty()) System.out.println("Neighbours are empty!");
-                    for (Tile neighbour : neighbours) {
-                        if(Intersector.isPointInPolygon(neighbour.getPolygon(), point)) {
-                            neighbour.setBlue();
-                        }
-                    }
-                }
-                return true;
-//                return super.touchDown(event, x, y, pointer, button);
-            }
-        });
-
-//        this.addListener(new ClickListener(){
-//            @Override
-//            public void clicked(InputEvent event, float x, float y) {
-//                System.out.println("I'm clicked!");
-//            }
-//        });
+        this.addListener(new TileClickListener(this));
     }
 
-    public void setBlue() {
+    public void mark() {
         this.background.setColor(Color.BLUE);
     }
 
-    public void setBrown() {
-        this.background.setColor(Color.BROWN);
+    public void unmark() {
+        this.background.setColor(backgroundColor);
     }
 
     public abstract boolean isAccessible();
@@ -103,22 +81,36 @@ public abstract class Tile extends Group {
         return background;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Tile)) return false;
 
         Tile tile = (Tile) o;
 
-        return getId().equals(tile.getId());
+        if (getId() != tile.getId()) return false;
+        if (tileAttributes != null ? !tileAttributes.equals(tile.tileAttributes) : tile.tileAttributes != null)
+            return false;
+        if (backgroundColor != null ? !backgroundColor.equals(tile.backgroundColor) : tile.backgroundColor != null)
+            return false;
+        if (getNeighbours() != null ? !getNeighbours().equals(tile.getNeighbours()) : tile.getNeighbours() != null)
+            return false;
+        if (polygon != null ? !polygon.equals(tile.polygon) : tile.polygon != null) return false;
+        return getBackground() != null ? getBackground().equals(tile.getBackground()) : tile.getBackground() == null;
     }
 
     @Override
     public int hashCode() {
-        return getId().hashCode();
+        int result = tileAttributes != null ? tileAttributes.hashCode() : 0;
+        result = 31 * result + (backgroundColor != null ? backgroundColor.hashCode() : 0);
+        result = 31 * result + getId();
+        result = 31 * result + (getNeighbours() != null ? getNeighbours().hashCode() : 0);
+        result = 31 * result + (polygon != null ? polygon.hashCode() : 0);
+        result = 31 * result + (getBackground() != null ? getBackground().hashCode() : 0);
+        return result;
     }
 }
