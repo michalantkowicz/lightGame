@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
-import com.mantkowicz.light.board.tile.listener.TileClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +18,10 @@ public abstract class Tile extends Group {
     private List<TileAttribute> tileAttributes;
 
     private Color backgroundColor;
-    protected int id;
-    protected List<Tile> neighbours;
-    protected Array<Vector2> polygon;
-    protected Image background;
+    private int id;
+    private List<Tile> neighbours;
+    private Array<Vector2> polygon;
+    private Image background;
 
     @Override
     public void setPosition(float x, float y) {
@@ -55,8 +54,6 @@ public abstract class Tile extends Group {
 
         addActor(this.background);
         this.setSize(this.background.getWidth(), this.background.getHeight());
-
-        this.addListener(new TileClickListener(this));
     }
 
     public void mark() {
@@ -77,11 +74,11 @@ public abstract class Tile extends Group {
         this.neighbours.add(neighbour);
     }
 
-    public Image getBackground() {
+    private Image getBackground() {
         return background;
     }
 
-    public Integer getId() {
+    private Integer getId() {
         return id;
     }
 
@@ -92,7 +89,7 @@ public abstract class Tile extends Group {
 
         Tile tile = (Tile) o;
 
-        if (getId() != tile.getId()) return false;
+        if (!getId().equals(tile.getId())) return false;
         if (tileAttributes != null ? !tileAttributes.equals(tile.tileAttributes) : tile.tileAttributes != null)
             return false;
         if (backgroundColor != null ? !backgroundColor.equals(tile.backgroundColor) : tile.backgroundColor != null)
@@ -112,5 +109,14 @@ public abstract class Tile extends Group {
         result = 31 * result + (polygon != null ? polygon.hashCode() : 0);
         result = 31 * result + (getBackground() != null ? getBackground().hashCode() : 0);
         return result;
+    }
+
+    public boolean isNeighbour(Tile tile) {
+        for (Tile neighbour : neighbours) {
+            if (neighbour.equals(tile)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
