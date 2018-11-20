@@ -6,18 +6,23 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.mantkowicz.light.screen.GameScreen;
+import com.mantkowicz.light.service.event.GameEventService;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class Main extends Game {
     private AssetManager assetManager;
+    private GameEventService gameEventService;
 
     @Override
     public void create() {
+        gameEventService = new GameEventService();
+
         assetManager = new AssetManager();
         loadAssets();
-        setScreen(new GameScreen(assetManager));
+
+        setScreen(new GameScreen(assetManager, gameEventService));
     }
 
     private void loadAssets() {
