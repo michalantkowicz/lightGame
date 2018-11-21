@@ -32,7 +32,7 @@ public class TileClickListener extends InputListener {
         Tile touchedTile = resolveTile(x, y);
         if (touchedTile != null) {
             touchedTile.unmark();
-            gameEventService.addEvent(new GameEvent(TILE_TOUCHED, tile));
+            gameEventService.addEvent(new GameEvent(TILE_TOUCHED, touchedTile));
         }
     }
 

@@ -105,7 +105,6 @@ public abstract class Tile extends Group {
         int result = tileAttributes != null ? tileAttributes.hashCode() : 0;
         result = 31 * result + (backgroundColor != null ? backgroundColor.hashCode() : 0);
         result = 31 * result + getId();
-        result = 31 * result + (getNeighbours() != null ? getNeighbours().hashCode() : 0);
         result = 31 * result + (polygon != null ? polygon.hashCode() : 0);
         result = 31 * result + (getBackground() != null ? getBackground().hashCode() : 0);
         return result;
