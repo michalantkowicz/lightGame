@@ -38,7 +38,6 @@ public class BoardMovementPlugin extends Plugin {
             BoardPath path = boardService.getPath(player.getTile(), tile);
             SequenceAction sequence = Actions.sequence();
             List<Tile> pathNodes = path.getPath();
-            Collections.reverse(pathNodes);
             for(Tile pathNode : pathNodes) {
                 Vector2 position = new Vector2(pathNode.getX() + pathNode.getWidth() / 2f - player.getImage().getWidth() / 2f,
                         pathNode.getY() + pathNode.getHeight() / 2f - player.getImage().getHeight() / 2f);
