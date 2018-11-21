@@ -4,10 +4,7 @@ import com.mantkowicz.light.board.Board;
 import com.mantkowicz.light.board.path.BoardPath;
 import com.mantkowicz.light.board.tile.Tile;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class BoardService {
     private Board board;
@@ -17,30 +14,24 @@ public class BoardService {
     }
 
     public BoardPath getPath(Tile startTile, Tile endTile) {
-        HashMap<Tile, Integer> lengthMap = new HashMap<>();
-        for (Tile tile : board.getTiles()) {
-            if(tile.isAccessible()) {
-                lengthMap.put(tile, Integer.MAX_VALUE);
-            }
-        }
-
-        HashMap<Tile, Tile> prev = new HashMap<>();
-
-        lengthMap.put(startTile, 0);
-
+        List<Tile> result = new ArrayList<>();
+        Map<Tile, Tile> prev = new HashMap<>();
+        Map<Tile, Integer> lengthMap = getLengthMap(startTile);
         List<Tile> Q = new ArrayList<>(lengthMap.keySet());
 
         while (!Q.isEmpty()) {
-            Tile u = getNearest(lengthMap, Q);
-            for (Tile v : u.getNeighbours()) {
-                if (lengthMap.get(u) + 1 < lengthMap.get(v)) {
-                    lengthMap.put(v, lengthMap.get(u) + 1);
-                    prev.put(v, u);
+            Tile tile = getNearest(lengthMap, Q);
+            if(tile.isAccessible()) {
+                for (Tile neighbour : tile.getNeighbours()) {
+                    if(neighbour.isAccessible()) {
+                        if (lengthMap.get(tile) + 1 < lengthMap.get(neighbour)) {
+                            lengthMap.put(neighbour, lengthMap.get(tile) + 1);
+                            prev.put(neighbour, tile);
+                        }
+                    }
                 }
             }
         }
-
-        List<Tile> result = new ArrayList<>();
 
         if (lengthMap.get(endTile) < Integer.MAX_VALUE) {
             while (prev.get(endTile) != null) {
@@ -49,16 +40,26 @@ public class BoardService {
             }
         }
 
+        Collections.reverse(result);
         return new BoardPath(result);
     }
 
-    private Tile getNearest(Map<Tile, Integer> lengthMap, List<Tile> q) {
+    private Map<Tile, Integer> getLengthMap(Tile startTile) {
+        Map<Tile, Integer> lengthMap = new HashMap<>();
+        for (Tile tile : board.getTiles()) {
+            lengthMap.put(tile, Integer.MAX_VALUE);
+        }
+        lengthMap.put(startTile, 0);
+        return lengthMap;
+    }
+
+    private Tile getNearest(Map<Tile, Integer> lengthMap, List<Tile> Q) {
         int index = 0;
-        for (int i = 0; i < q.size(); i++) {
-            if (lengthMap.get(q.get(i)) < lengthMap.get(q.get(index))) {
+        for (int i = 0; i < Q.size(); i++) {
+            if (lengthMap.get(Q.get(i)) < lengthMap.get(Q.get(index))) {
                 index = i;
             }
         }
-        return q.remove(index);
+        return Q.remove(index);
     }
 }
