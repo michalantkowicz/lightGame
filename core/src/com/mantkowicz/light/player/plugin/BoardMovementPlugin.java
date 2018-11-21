@@ -47,7 +47,9 @@ public class BoardMovementPlugin extends Plugin {
             sequence.addAction(new Action() {
                 @Override
                 public boolean act(float delta) {
-                    player.setTile(tile);
+                    if(path.exists()) {
+                        player.setTile(tile);
+                    }
                     return true;
                 }
             });
