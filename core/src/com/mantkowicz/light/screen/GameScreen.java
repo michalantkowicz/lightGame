@@ -1,8 +1,14 @@
 package com.mantkowicz.light.screen;
 
+import box2dLight.PointLight;
+import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mantkowicz.light.board.Board;
@@ -20,12 +26,17 @@ import java.util.List;
 public class GameScreen implements Screen {
     private AssetManager assetManager;
     private GameEventService gameEventService;
+    private World world;
+    private Box2DDebugRenderer debugRenderer;
     private Stage stage;
     private Board board;
+    private RayHandler rayHandler;
 
-    public GameScreen(AssetManager assetManager, GameEventService gameEventService) {
+    public GameScreen(AssetManager assetManager, GameEventService gameEventService, World world, Box2DDebugRenderer debugRenderer) {
         this.assetManager = assetManager;
         this.gameEventService = gameEventService;
+        this.world = world;
+        this.debugRenderer = debugRenderer;
     }
 
     @Override
@@ -44,18 +55,44 @@ public class GameScreen implements Screen {
         for (Tile tile : tiles) {
             tile.addListener(new TileClickListener(tile, gameEventService));
             stage.addActor(tile);
+
+            if(!tile.isAccessible()) {
+                BodyDef wallBodyDef = new BodyDef();
+                Vector2 tilePosition = tile.getLeftBottom();
+                wallBodyDef.position.set(tile.stageToLocalCoordinates(tilePosition));
+                Body wallBody = world.createBody(wallBodyDef);
+
+                ChainShape hexShape = new ChainShape();
+                hexShape.createLoop(tile.getPolygonVertices());
+                wallBody.createFixture(hexShape, 0.0f);
+
+                hexShape.dispose();
+            }
         }
 
         Player player = new Player(assetManager.get("player.png"), gameEventService, new BoardService(board));
         player.setTile(tiles.get(0));
 
         stage.addActor(player);
+
+        rayHandler = new RayHandler(world);
+        Tile lightTile = tiles.get(10);
+        Vector2 lightPosition = new Vector2(lightTile.getX() + lightTile.getWidth() / 2f, lightTile.getY() + lightTile.getHeight() / 2f);
+        Color color = new Color(0.4f, 0.4f, 0.4f, 1f);
+        PointLight pointLight = new PointLight(rayHandler, 100, color, 150, lightPosition.x, lightPosition.y);
+        rayHandler.setAmbientLight(0.1f, 0.1f, 0.1f, 0.1f);
     }
 
     @Override
     public void render(float delta) {
+        world.step(1 / 60f, 6, 2);
         stage.act(delta);
         stage.draw();
+
+        rayHandler.setCombinedMatrix((OrthographicCamera) stage.getCamera());
+        rayHandler.updateAndRender();
+
+//        debugRenderer.render(world, stage.getCamera().combined);
     }
 
     @Override
@@ -81,5 +118,6 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
+        rayHandler.dispose();
     }
 }

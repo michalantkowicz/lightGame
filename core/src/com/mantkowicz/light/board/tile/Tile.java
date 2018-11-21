@@ -20,6 +20,15 @@ public abstract class Tile extends Group {
     private Color backgroundColor;
     private int id;
     private List<Tile> neighbours;
+
+    public Vector2[] getPolygonVertices() {
+        Vector2[] result = new Vector2[polygon.size];
+        for (int i = 0; i < polygon.size; i++) {
+            result[i] = polygon.get(i);
+        }
+        return result;
+    }
+
     private Array<Vector2> polygon;
     private Image background;
 
@@ -82,6 +91,10 @@ public abstract class Tile extends Group {
         return id;
     }
 
+    public Vector2 getCenter() {
+        return new Vector2(getX() + getWidth() / 2f, getY() + getHeight() / 2f);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -117,5 +130,9 @@ public abstract class Tile extends Group {
             }
         }
         return false;
+    }
+
+    public Vector2 getLeftBottom() {
+        return new Vector2(getX(), getY());
     }
 }

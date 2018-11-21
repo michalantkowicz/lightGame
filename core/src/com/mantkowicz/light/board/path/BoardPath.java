@@ -22,4 +22,8 @@ public class BoardPath {
     public boolean isEmpty() {
         return path == null || path.isEmpty();
     }
+
+    public boolean exists() {
+        return !(path == null || path.isEmpty());
+    }
 }
