@@ -6,6 +6,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mantkowicz.light.board.Board;
+import com.mantkowicz.light.board.service.BoardService;
 import com.mantkowicz.light.board.tile.Tile;
 import com.mantkowicz.light.board.tile.listener.TileClickListener;
 import com.mantkowicz.light.map.TiledMapLoader;
@@ -45,7 +46,7 @@ public class GameScreen implements Screen {
             stage.addActor(tile);
         }
 
-        Player player = new Player(assetManager.get("player.png"), gameEventService);
+        Player player = new Player(assetManager.get("player.png"), gameEventService, new BoardService(board));
         player.setTile(tiles.get(0));
 
         stage.addActor(player);
