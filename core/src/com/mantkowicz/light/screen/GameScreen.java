@@ -77,7 +77,7 @@ public class GameScreen implements Screen {
         stage.addActor(player);
 
         rayHandler = new RayHandler(world);
-        rayHandler.setAmbientLight(0.02f, 0.02f, 0.02f, 0.05f);
+        rayHandler.setAmbientLight(0.02f, 0.02f, 0.02f, 0.01f);
 
         TorchLight torchLight = new TorchLight(rayHandler);
         torchLight.setTile(tiles.get(10));
