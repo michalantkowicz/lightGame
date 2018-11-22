@@ -15,6 +15,7 @@ import com.mantkowicz.light.board.Board;
 import com.mantkowicz.light.board.service.BoardService;
 import com.mantkowicz.light.board.tile.Tile;
 import com.mantkowicz.light.board.tile.listener.TileClickListener;
+import com.mantkowicz.light.lights.TorchLight;
 import com.mantkowicz.light.map.TiledMapLoader;
 import com.mantkowicz.light.map.implementation.tmx.TmxTileMapLoaderProperties;
 import com.mantkowicz.light.map.implementation.tmx.TmxTiledMapLoader;
@@ -76,11 +77,10 @@ public class GameScreen implements Screen {
         stage.addActor(player);
 
         rayHandler = new RayHandler(world);
-        Tile lightTile = tiles.get(10);
-        Vector2 lightPosition = new Vector2(lightTile.getX() + lightTile.getWidth() / 2f, lightTile.getY() + lightTile.getHeight() / 2f);
-        Color color = new Color(0.4f, 0.4f, 0.4f, 1f);
-        PointLight pointLight = new PointLight(rayHandler, 100, color, 150, lightPosition.x, lightPosition.y);
-        rayHandler.setAmbientLight(0.1f, 0.1f, 0.1f, 0.1f);
+        rayHandler.setAmbientLight(0.02f, 0.02f, 0.02f, 0.01f);
+
+        TorchLight torchLight = new TorchLight(rayHandler);
+        torchLight.setTile(tiles.get(10));
     }
 
     @Override
