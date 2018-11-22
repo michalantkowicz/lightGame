@@ -20,6 +20,7 @@ import com.mantkowicz.light.map.TiledMapLoader;
 import com.mantkowicz.light.map.implementation.tmx.TmxTileMapLoaderProperties;
 import com.mantkowicz.light.map.implementation.tmx.TmxTiledMapLoader;
 import com.mantkowicz.light.player.Player;
+import com.mantkowicz.light.player.PlayerNotification;
 import com.mantkowicz.light.service.event.GameEventService;
 
 import java.util.List;
@@ -30,6 +31,7 @@ public class GameScreen implements Screen {
     private World world;
     private Box2DDebugRenderer debugRenderer;
     private Stage stage;
+    private Stage notificationStage;
     private Board board;
     private RayHandler rayHandler;
 
@@ -50,6 +52,7 @@ public class GameScreen implements Screen {
         List<Tile> tiles = board.loadTiles(tmxTiledMapLoader, properties);
 
         stage = new Stage(new ScreenViewport());
+        notificationStage = new Stage(new ScreenViewport());
 
         Gdx.input.setInputProcessor(stage);
 
@@ -71,16 +74,17 @@ public class GameScreen implements Screen {
             }
         }
 
-        Player player = new Player(assetManager.get("player.png"), gameEventService, new BoardService(board));
-        player.setTile(tiles.get(0));
-
-        stage.addActor(player);
 
         rayHandler = new RayHandler(world);
-        rayHandler.setAmbientLight(0.02f, 0.02f, 0.02f, 0.01f);
+        rayHandler.setAmbientLight(0.02f, 0.02f, 0.02f, 0.1f);
 
         TorchLight torchLight = new TorchLight(rayHandler);
         torchLight.setTile(tiles.get(10));
+        stage.addActor(torchLight);
+
+        Player player = new Player(assetManager.get("player.png"), gameEventService, new BoardService(board), rayHandler, notificationStage);
+        player.setTile(tiles.get(0));
+        stage.addActor(player);
     }
 
     @Override
@@ -91,6 +95,9 @@ public class GameScreen implements Screen {
 
         rayHandler.setCombinedMatrix((OrthographicCamera) stage.getCamera());
         rayHandler.updateAndRender();
+
+        notificationStage.act(delta);
+        notificationStage.draw();
 
 //        debugRenderer.render(world, stage.getCamera().combined);
     }
