@@ -4,8 +4,7 @@ import box2dLight.RayHandler;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
-import com.mantkowicz.light.player.Player;
-import com.mantkowicz.light.player.PlayerNotification;
+import com.mantkowicz.light.player.*;
 
 import static com.mantkowicz.light.player.NotificationType.WARN;
 
@@ -34,7 +33,8 @@ public class NotificationPlugin extends Plugin {
     }
 
     private PlayerNotification getDarknessShout() {
-        PlayerNotification playerNotification = new PlayerNotification(randomDarknessNotification(), WARN);
+        NotificationAnimation notificationAnimation = new EnlargeAndFadeOutAnimation();
+        PlayerNotification playerNotification = new PlayerNotification(randomDarknessNotification(), WARN, notificationAnimation);
         Vector2 notificationPosition = player.getCenter().add(notificationOffset).sub(playerNotification.getWidth() / 2f, 0);
         playerNotification.setPosition(notificationPosition.x, notificationPosition.y);
         return playerNotification;

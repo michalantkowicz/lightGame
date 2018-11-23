@@ -25,12 +25,13 @@ public class Player extends Group {
 
     public Player(Texture avatar, GameEventService gameEventService, BoardService boardService, RayHandler rayHandler, Stage notificationStage) {
         this.image = new Image(avatar);
+        setSize(image.getWidth(), image.getHeight());
         this.gameEventService = gameEventService;
         this.addActor(image);
 
         pluginsQueue = new ArrayList<>();
         pluginsQueue.add(new BoardMovementPlugin(this, gameEventService, boardService));
-        Vector2 notificationOffset = new Vector2(0, image.getHeight() / 2f + 10);
+        Vector2 notificationOffset = new Vector2(0, getHeight() / 2f + 10);
         pluginsQueue.add(new NotificationPlugin(this, notificationOffset, rayHandler, notificationStage));
     }
 
@@ -40,8 +41,8 @@ public class Player extends Group {
 
     public void setTile(Tile tile) {
         this.tile = tile;
-        this.setPosition(tile.getX() + tile.getWidth() / 2f - image.getWidth() / 2f,
-                tile.getY() + tile.getHeight() / 2f - image.getHeight() / 2f);
+        this.setPosition(tile.getX() + tile.getWidth() / 2f - getWidth() / 2f,
+                tile.getY() + tile.getHeight() / 2f - getHeight() / 2f);
     }
 
     @Override
@@ -52,11 +53,7 @@ public class Player extends Group {
         }
     }
 
-    public Image getImage() {
-        return image;
-    }
-
     public Vector2 getCenter() {
-        return new Vector2(getX() + image.getWidth() / 2f, getY() + image.getHeight() / 2f);
+        return new Vector2(getX() + getWidth() / 2f, getY() + getHeight() / 2f);
     }
 }
