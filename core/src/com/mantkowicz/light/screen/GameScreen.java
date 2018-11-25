@@ -41,7 +41,7 @@ public class GameScreen implements Screen {
     public void show() {
         board = new Board();
 
-        TmxTileMapLoaderProperties properties = new TmxTileMapLoaderProperties().setTileMapFileName("map2.tmx");
+        TmxTileMapLoaderProperties properties = new TmxTileMapLoaderProperties().setTileMapFileName("map.tmx");
         TiledMapLoader<TmxTileMapLoaderProperties> tmxTiledMapLoader = new TmxTiledMapLoader(assetManager);
 
         List<Tile> tiles = board.loadTiles(tmxTiledMapLoader, properties);

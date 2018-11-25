@@ -2,6 +2,7 @@ package com.mantkowicz.light.board.tile;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -11,6 +12,8 @@ import com.mantkowicz.light.board.tile.listener.TileClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public abstract class Tile extends Group {
     private static final float TAN_30_DIV_6 = 0.289f;
@@ -20,11 +23,13 @@ public abstract class Tile extends Group {
     private int id;
     private List<Tile> neighbours;
 
+    private MapProperties attributes;
+
     public void prepare(TileClickListener tileClickListener, GamePrepareConfiguration configuration) {
         addListener(tileClickListener);
     }
 
-    public Vector2[] getPolygonVertices() {
+    protected Vector2[] getPolygonVertices() {
         Vector2[] result = new Vector2[polygon.size];
         for (int i = 0; i < polygon.size; i++) {
             result[i] = polygon.get(i);
@@ -33,6 +38,7 @@ public abstract class Tile extends Group {
     }
 
     private Array<Vector2> polygon;
+
     private Image background;
 
     @Override
@@ -105,7 +111,7 @@ public abstract class Tile extends Group {
 
         Tile tile = (Tile) o;
 
-        if (getId() != tile.getId()) return false;
+        if (!Objects.equals(getId(), tile.getId())) return false;
         if (backgroundColor != null ? !backgroundColor.equals(tile.backgroundColor) : tile.backgroundColor != null)
             return false;
         if (polygon != null ? !polygon.equals(tile.polygon) : tile.polygon != null) return false;
@@ -130,7 +136,15 @@ public abstract class Tile extends Group {
         return false;
     }
 
-    public Vector2 getLeftBottom() {
+    protected Vector2 getLeftBottom() {
         return new Vector2(getX(), getY());
+    }
+
+    protected MapProperties getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(MapProperties attributes) {
+        this.attributes = attributes;
     }
 }
