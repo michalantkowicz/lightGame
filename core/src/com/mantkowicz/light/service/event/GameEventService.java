@@ -21,14 +21,16 @@ public class GameEventService {
         gameEventCountByType.increase(gameEvent.getGameEventType());
     }
 
-    public GameEvent getEvent(GameEventType gameEventType) {
+    public GameEvent getEvent(GameEventType gameEventType, boolean removeEventFromQueue) {
         Iterator<GameEvent> iterator = gameEventQueue.iterator();
         while (iterator.hasNext()) {
             GameEvent gameEventItem = iterator.next();
             GameEventType gameEventItemType = gameEventItem.getGameEventType();
             if (gameEventItemType.equals(gameEventType)) {
-                iterator.remove();
-                gameEventCountByType.decrease(gameEventItemType);
+                if(removeEventFromQueue) {
+                    iterator.remove();
+                    gameEventCountByType.decrease(gameEventItemType);
+                }
                 return gameEventItem;
             }
         }

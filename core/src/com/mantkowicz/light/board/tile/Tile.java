@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
@@ -12,7 +13,6 @@ import com.mantkowicz.light.board.tile.listener.TileClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 public abstract class Tile extends Group {
@@ -146,5 +146,15 @@ public abstract class Tile extends Group {
 
     public void setAttributes(MapProperties attributes) {
         this.attributes = attributes;
+    }
+
+    /**
+     * Calculates position that provided actor must have to be located at the center of the tile
+     *
+     * @param actor the actor that must be at the center of the tile
+     * @return position of centered actor
+     */
+    public Vector2 calculatePositionForCenteredActor(Actor actor) {
+        return getCenter().sub(actor.getWidth() / 2f, actor.getHeight() / 2f);
     }
 }

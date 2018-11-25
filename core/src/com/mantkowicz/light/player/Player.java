@@ -17,12 +17,16 @@ import com.mantkowicz.light.service.event.GameEventService;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mantkowicz.light.player.PlayerStatus.IDLE;
+
 public class Player extends Group {
     private Image image;
     private GameEventService gameEventService;
     private BoardService boardService;
     private Tile tile;
     private List<Plugin> pluginsQueue;
+    private PlayerStatus status;
+    private float speed = 0.25f; // how much time to move by one tile
 
     public Player(AssetManager assetManager, GameEventService gameEventService, BoardService boardService, RayHandler rayHandler, Stage notificationStage) {
         Texture avatar = assetManager.get("player.png");
@@ -30,6 +34,8 @@ public class Player extends Group {
         setSize(image.getWidth(), image.getHeight());
         this.gameEventService = gameEventService;
         this.addActor(image);
+
+        status = IDLE;
 
         pluginsQueue = new ArrayList<>();
         pluginsQueue.add(new BoardMovementPlugin(this, gameEventService, boardService));
@@ -57,5 +63,17 @@ public class Player extends Group {
 
     public Vector2 getCenter() {
         return new Vector2(getX() + getWidth() / 2f, getY() + getHeight() / 2f);
+    }
+
+    public PlayerStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(PlayerStatus status) {
+        this.status = status;
+    }
+
+    public float getSpeed() {
+        return speed;
     }
 }

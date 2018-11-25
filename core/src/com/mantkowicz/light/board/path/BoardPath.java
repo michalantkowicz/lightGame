@@ -11,7 +11,7 @@ public class BoardPath {
         this.path = path;
     }
 
-    public List<Tile> getPath() {
+    public List<Tile> getPathNodes() {
         return path;
     }
 
