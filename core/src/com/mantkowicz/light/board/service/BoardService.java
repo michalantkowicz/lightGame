@@ -21,9 +21,9 @@ public class BoardService {
 
         while (!Q.isEmpty()) {
             Tile tile = getNearest(lengthMap, Q);
-            if(tile.isAccessible()) {
+            if (tile.isAccessible()) {
                 for (Tile neighbour : tile.getNeighbours()) {
-                    if(neighbour.isAccessible()) {
+                    if (neighbour.isAccessible()) {
                         if (lengthMap.get(tile) + 1 < lengthMap.get(neighbour)) {
                             lengthMap.put(neighbour, lengthMap.get(tile) + 1);
                             prev.put(neighbour, tile);

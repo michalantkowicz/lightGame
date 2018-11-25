@@ -1,6 +1,7 @@
 package com.mantkowicz.light.player;
 
 import box2dLight.RayHandler;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -23,7 +24,8 @@ public class Player extends Group {
     private Tile tile;
     private List<Plugin> pluginsQueue;
 
-    public Player(Texture avatar, GameEventService gameEventService, BoardService boardService, RayHandler rayHandler, Stage notificationStage) {
+    public Player(AssetManager assetManager, GameEventService gameEventService, BoardService boardService, RayHandler rayHandler, Stage notificationStage) {
+        Texture avatar = assetManager.get("player.png");
         this.image = new Image(avatar);
         setSize(image.getWidth(), image.getHeight());
         this.gameEventService = gameEventService;

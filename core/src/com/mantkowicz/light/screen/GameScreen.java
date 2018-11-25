@@ -1,26 +1,21 @@
 package com.mantkowicz.light.screen;
 
-import box2dLight.PointLight;
 import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mantkowicz.light.board.Board;
 import com.mantkowicz.light.board.service.BoardService;
+import com.mantkowicz.light.board.tile.GamePrepareConfiguration;
 import com.mantkowicz.light.board.tile.Tile;
 import com.mantkowicz.light.board.tile.listener.TileClickListener;
-import com.mantkowicz.light.lights.TorchLight;
 import com.mantkowicz.light.map.TiledMapLoader;
 import com.mantkowicz.light.map.implementation.tmx.TmxTileMapLoaderProperties;
 import com.mantkowicz.light.map.implementation.tmx.TmxTiledMapLoader;
-import com.mantkowicz.light.player.Player;
-import com.mantkowicz.light.player.PlayerNotification;
 import com.mantkowicz.light.service.event.GameEventService;
 
 import java.util.List;
@@ -56,35 +51,26 @@ public class GameScreen implements Screen {
 
         Gdx.input.setInputProcessor(stage);
 
-        for (Tile tile : tiles) {
-            tile.addListener(new TileClickListener(tile, gameEventService));
-            stage.addActor(tile);
-
-            if(!tile.isAccessible()) {
-                BodyDef wallBodyDef = new BodyDef();
-                Vector2 tilePosition = tile.getLeftBottom();
-                wallBodyDef.position.set(tile.stageToLocalCoordinates(tilePosition));
-                Body wallBody = world.createBody(wallBodyDef);
-
-                ChainShape hexShape = new ChainShape();
-                hexShape.createLoop(tile.getPolygonVertices());
-                wallBody.createFixture(hexShape, 0.0f);
-
-                hexShape.dispose();
-            }
-        }
-
-
         rayHandler = new RayHandler(world);
         rayHandler.setAmbientLight(0.02f, 0.02f, 0.02f, 0.1f);
 
-        TorchLight torchLight = new TorchLight(rayHandler);
-        torchLight.setTile(tiles.get(10));
-        stage.addActor(torchLight);
+        BoardService boardService = new BoardService(board);
 
-        Player player = new Player(assetManager.get("player.png"), gameEventService, new BoardService(board), rayHandler, notificationStage);
-        player.setTile(tiles.get(0));
-        stage.addActor(player);
+        GamePrepareConfiguration configuration = new GamePrepareConfiguration(assetManager,
+                gameEventService,
+                boardService,
+                world,
+                rayHandler,
+                stage,
+                notificationStage);
+
+        for (Tile tile : tiles) {
+            stage.addActor(tile);
+            tile.toBack();
+
+            TileClickListener listener = new TileClickListener(tile, gameEventService);
+            tile.prepare(listener, configuration);
+        }
     }
 
     @Override

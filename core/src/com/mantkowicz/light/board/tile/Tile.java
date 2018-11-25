@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
+import com.mantkowicz.light.board.tile.listener.TileClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,11 +16,13 @@ public abstract class Tile extends Group {
     private static final float TAN_30_DIV_6 = 0.289f;
     private static int ID_SEQUENCE = 1;
 
-    private List<TileAttribute> tileAttributes;
-
     private Color backgroundColor;
     private int id;
     private List<Tile> neighbours;
+
+    public void prepare(TileClickListener tileClickListener, GamePrepareConfiguration configuration) {
+        addListener(tileClickListener);
+    }
 
     public Vector2[] getPolygonVertices() {
         Vector2[] result = new Vector2[polygon.size];
@@ -102,12 +105,8 @@ public abstract class Tile extends Group {
 
         Tile tile = (Tile) o;
 
-        if (!getId().equals(tile.getId())) return false;
-        if (tileAttributes != null ? !tileAttributes.equals(tile.tileAttributes) : tile.tileAttributes != null)
-            return false;
+        if (getId() != tile.getId()) return false;
         if (backgroundColor != null ? !backgroundColor.equals(tile.backgroundColor) : tile.backgroundColor != null)
-            return false;
-        if (getNeighbours() != null ? !getNeighbours().equals(tile.getNeighbours()) : tile.getNeighbours() != null)
             return false;
         if (polygon != null ? !polygon.equals(tile.polygon) : tile.polygon != null) return false;
         return getBackground() != null ? getBackground().equals(tile.getBackground()) : tile.getBackground() == null;
@@ -115,8 +114,7 @@ public abstract class Tile extends Group {
 
     @Override
     public int hashCode() {
-        int result = tileAttributes != null ? tileAttributes.hashCode() : 0;
-        result = 31 * result + (backgroundColor != null ? backgroundColor.hashCode() : 0);
+        int result = backgroundColor != null ? backgroundColor.hashCode() : 0;
         result = 31 * result + getId();
         result = 31 * result + (polygon != null ? polygon.hashCode() : 0);
         result = 31 * result + (getBackground() != null ? getBackground().hashCode() : 0);

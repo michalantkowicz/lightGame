@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mantkowicz.light.screen.GameScreen;
 import com.mantkowicz.light.service.event.GameEventService;
+import com.mantkowicz.light.service.resources.ResourcesService;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.Set;
 
 public class Main extends Game {
-    private AssetManager assetManager;
+    private ResourcesService resourcesService;
     private GameEventService gameEventService;
     private RayHandler rayHandler;
     private World world;
@@ -27,28 +28,15 @@ public class Main extends Game {
 
     @Override
     public void create() {
+        resourcesService = new ResourcesService();
         gameEventService = new GameEventService();
-
-        assetManager = new AssetManager();
-        loadAssets();
 
         Box2D.init();
         world = new World(new Vector2(0, 0), true);
         debugRenderer = new Box2DDebugRenderer();
         rayHandler = new RayHandler(world);
 
-        setScreen(new GameScreen(assetManager, gameEventService, world, debugRenderer));
-    }
-
-    private void loadAssets() {
-        List<String> textureNames = Arrays.asList("brown.png", "floor.png", "floor-tile.png",
-                "green.png", "pink.png", "red.png", "wall-tile.png", "player.png");
-
-        for (String textureName : textureNames) {
-            assetManager.load(textureName, Texture.class);
-        }
-
-        assetManager.finishLoading();
+        setScreen(new GameScreen(resourcesService.getAssetManager(), gameEventService, world, debugRenderer));
     }
 
     @Override
@@ -61,6 +49,6 @@ public class Main extends Game {
     @Override
     public void dispose() {
         world.dispose();
-        assetManager.dispose();
+        resourcesService.dispose();
     }
 }
