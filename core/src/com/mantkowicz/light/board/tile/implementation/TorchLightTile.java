@@ -28,9 +28,9 @@ public class TorchLightTile extends Tile {
     public void prepare(TileClickListener tileClickListener, GamePrepareConfiguration configuration) {
         super.prepare(tileClickListener, configuration);
         String lightTypeAttribute = getAttributes().get(LIGHT_TYPE.getValue(), String.class);
-        torchLight = LightFactory.createLight(configuration .getRayHandler(), LightType.valueOf(lightTypeAttribute));
+        torchLight = LightFactory.createLight(configuration.getRayHandler(), LightType.valueOf(lightTypeAttribute));
         torchLight.setTile(this);
-        if(getAttributes().containsKey(LIGHT_COLOR_HEX.getValue())) {
+        if (getAttributes().containsKey(LIGHT_COLOR_HEX.getValue())) {
             String lightColorAttribute = getAttributes().get(LIGHT_COLOR_HEX.getValue(), String.class);
             Color lightColor = Color.valueOf(lightColorAttribute);
             torchLight.setColor(lightColor);

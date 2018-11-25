@@ -3,9 +3,7 @@ package com.mantkowicz.light.game;
 import box2dLight.RayHandler;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -13,11 +11,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mantkowicz.light.screen.GameScreen;
 import com.mantkowicz.light.service.event.GameEventService;
 import com.mantkowicz.light.service.resources.ResourcesService;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 public class Main extends Game {
     private ResourcesService resourcesService;

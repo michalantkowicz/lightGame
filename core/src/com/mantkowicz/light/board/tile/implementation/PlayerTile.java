@@ -1,7 +1,6 @@
 package com.mantkowicz.light.board.tile.implementation;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.mantkowicz.light.board.service.BoardService;
 import com.mantkowicz.light.board.tile.GamePrepareConfiguration;
 import com.mantkowicz.light.board.tile.Tile;
 import com.mantkowicz.light.board.tile.listener.TileClickListener;
@@ -25,7 +24,8 @@ public class PlayerTile extends Tile {
                 configuration.getGameEventService(),
                 configuration.getBoardService(),
                 configuration.getRayHandler(),
-                configuration.getNotificationStage());
+                configuration.getNotificationStage()
+        );
         player.setTile(this);
         configuration.getStage().addActor(player);
     }

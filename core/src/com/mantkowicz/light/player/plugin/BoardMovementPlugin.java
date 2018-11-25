@@ -55,7 +55,7 @@ public class BoardMovementPlugin extends Plugin {
     }
 
     private void removePlayerActions(Player player) {
-        for(Action action : player.getActions()) {
+        for (Action action : player.getActions()) {
             player.removeAction(action);
         }
     }

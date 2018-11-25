@@ -1,9 +1,7 @@
 package com.mantkowicz.light.player;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class EnlargeAndFadeOutAnimation implements NotificationAnimation {
@@ -25,7 +23,7 @@ public class EnlargeAndFadeOutAnimation implements NotificationAnimation {
             @Override
             public boolean act(float delta) {
                 float currentScale = label.getFontScaleX();
-                if(shouldContinueAction(currentScale)) {
+                if (shouldContinueAction(currentScale)) {
                     label.setFontScale(currentScale + SCALE_STEP);
                     return false;
                 } else {

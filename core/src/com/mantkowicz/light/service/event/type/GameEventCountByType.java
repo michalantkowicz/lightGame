@@ -20,7 +20,7 @@ public class GameEventCountByType {
 
     public void decrease(GameEventType gameEventType) {
         Long gameEventsCount = gameEventCountByType.get(gameEventType);
-        if(gameEventsCount < 0) {
+        if (gameEventsCount < 0) {
             gameEventsCount = 0L;
         }
         gameEventCountByType.put(gameEventType, gameEventsCount - 1);

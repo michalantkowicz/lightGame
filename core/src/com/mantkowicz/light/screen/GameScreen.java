@@ -5,7 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mantkowicz.light.board.Board;
@@ -17,6 +18,7 @@ import com.mantkowicz.light.map.TiledMapLoader;
 import com.mantkowicz.light.map.implementation.tmx.TmxTileMapLoaderProperties;
 import com.mantkowicz.light.map.implementation.tmx.TmxTiledMapLoader;
 import com.mantkowicz.light.service.event.GameEventService;
+import com.mantkowicz.light.stage.NotificationStage;
 
 import java.util.List;
 
@@ -26,7 +28,7 @@ public class GameScreen implements Screen {
     private World world;
     private Box2DDebugRenderer debugRenderer;
     private Stage stage;
-    private Stage notificationStage;
+    private NotificationStage notificationStage;
     private Board board;
     private RayHandler rayHandler;
 
@@ -47,7 +49,7 @@ public class GameScreen implements Screen {
         List<Tile> tiles = board.loadTiles(tmxTiledMapLoader, properties);
 
         stage = new Stage(new ScreenViewport());
-        notificationStage = new Stage(new ScreenViewport());
+        notificationStage = new NotificationStage(new ScreenViewport());
 
         Gdx.input.setInputProcessor(stage);
 

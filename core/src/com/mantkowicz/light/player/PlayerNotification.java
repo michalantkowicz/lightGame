@@ -7,8 +7,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 
 public class PlayerNotification extends Label {
+    private NotificationType notificationType;
+
     public PlayerNotification(String text, NotificationType notificationType, NotificationAnimation notificationAnimation) {
         super(text, LabelStyleBuilder.build(notificationType));
+        this.notificationType = notificationType;
         addAction(notificationAnimation.getAction(this));
         setAlignment(Align.center);
     }
@@ -38,5 +41,9 @@ public class PlayerNotification extends Label {
 
     public Vector2 getCenter() {
         return new Vector2(getX() + getWidth() / 2f, getY() + getHeight() / 2f);
+    }
+
+    public NotificationType getNotificationType() {
+        return notificationType;
     }
 }

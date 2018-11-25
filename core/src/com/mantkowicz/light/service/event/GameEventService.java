@@ -27,7 +27,7 @@ public class GameEventService {
             GameEvent gameEventItem = iterator.next();
             GameEventType gameEventItemType = gameEventItem.getGameEventType();
             if (gameEventItemType.equals(gameEventType)) {
-                if(removeEventFromQueue) {
+                if (removeEventFromQueue) {
                     iterator.remove();
                     gameEventCountByType.decrease(gameEventItemType);
                 }

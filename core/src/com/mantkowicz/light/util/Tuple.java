@@ -1,7 +1,5 @@
 package com.mantkowicz.light.util;
 
-import java.util.Objects;
-
 public class Tuple<X, Y> {
     X x;
     Y y;
@@ -30,8 +28,8 @@ public class Tuple<X, Y> {
 
     @Override
     public boolean equals(Object thatObj) {
-        if(thatObj instanceof Tuple) {
-            Tuple<X, Y> that = (Tuple<X, Y>)thatObj;
+        if (thatObj instanceof Tuple) {
+            Tuple<X, Y> that = (Tuple<X, Y>) thatObj;
             return this.x.equals(that.x) && this.y.equals(that.y);
         }
         return super.equals(thatObj);
