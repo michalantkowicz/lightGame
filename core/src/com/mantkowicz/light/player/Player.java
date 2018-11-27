@@ -13,6 +13,7 @@ import com.mantkowicz.light.player.plugin.BoardMovementPlugin;
 import com.mantkowicz.light.player.plugin.NotificationPlugin;
 import com.mantkowicz.light.player.plugin.Plugin;
 import com.mantkowicz.light.service.event.GameEventService;
+import com.mantkowicz.light.service.phrase.PhraseService;
 import com.mantkowicz.light.stage.NotificationStage;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class Player extends Group {
     private float speed = 0.25f; // how much time to move by one tile
     private Long lastIdleChange;
 
-    public Player(AssetManager assetManager, GameEventService gameEventService, BoardService boardService, RayHandler rayHandler, NotificationStage notificationStage) {
+    public Player(AssetManager assetManager, GameEventService gameEventService, BoardService boardService, RayHandler rayHandler, NotificationStage notificationStage, PhraseService phraseService) {
         Texture avatar = assetManager.get("player.png");
         this.image = new Image(avatar);
         setSize(image.getWidth(), image.getHeight());
@@ -40,8 +41,8 @@ public class Player extends Group {
 
         pluginsQueue = new ArrayList<>();
         pluginsQueue.add(new BoardMovementPlugin(this, gameEventService, boardService));
-        Vector2 notificationOffset = new Vector2(0, getHeight() / 2f + 10);
-        pluginsQueue.add(new NotificationPlugin(this, notificationOffset, rayHandler, notificationStage));
+        Vector2 notificationOffset = new Vector2(0, getHeight() / 2f + 20);
+        pluginsQueue.add(new NotificationPlugin(this, notificationOffset, rayHandler, notificationStage, phraseService));
     }
 
     public Tile getTile() {

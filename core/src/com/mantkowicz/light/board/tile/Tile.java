@@ -24,6 +24,19 @@ public abstract class Tile extends Group {
     private List<Tile> neighbours;
 
     private MapProperties attributes;
+    private Array<Vector2> polygon;
+    private Image background;
+
+    public Tile(Texture background) {
+        this.id = ID_SEQUENCE++;
+        this.neighbours = new ArrayList<>();
+
+        this.background = new Image(background);
+        this.backgroundColor = new Color(this.background.getColor());
+
+        addActor(this.background);
+        this.setSize(this.background.getWidth(), this.background.getHeight());
+    }
 
     public void prepare(TileClickListener tileClickListener, GamePrepareConfiguration configuration) {
         addListener(tileClickListener);
@@ -36,10 +49,6 @@ public abstract class Tile extends Group {
         }
         return result;
     }
-
-    private Array<Vector2> polygon;
-
-    private Image background;
 
     @Override
     public void setPosition(float x, float y) {
@@ -61,17 +70,6 @@ public abstract class Tile extends Group {
 
     public boolean doesContainPoint(Vector2 point) {
         return Intersector.isPointInPolygon(this.polygon, point);
-    }
-
-    public Tile(Texture background) {
-        this.id = ID_SEQUENCE++;
-        this.neighbours = new ArrayList<>();
-
-        this.background = new Image(background);
-        this.backgroundColor = new Color(this.background.getColor());
-
-        addActor(this.background);
-        this.setSize(this.background.getWidth(), this.background.getHeight());
     }
 
     public void mark() {
@@ -111,7 +109,7 @@ public abstract class Tile extends Group {
 
         Tile tile = (Tile) o;
 
-        if (!Objects.equals(getId(), tile.getId())) return false;
+        if (!getId().equals(tile.getId())) return false;
         if (backgroundColor != null ? !backgroundColor.equals(tile.backgroundColor) : tile.backgroundColor != null)
             return false;
         if (polygon != null ? !polygon.equals(tile.polygon) : tile.polygon != null) return false;

@@ -1,8 +1,10 @@
-package com.mantkowicz.light.player;
+package com.mantkowicz.light.notification.animation;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.mantkowicz.light.notification.Notification;
 
 public class EnlargeAndFadeOutAnimation implements NotificationAnimation {
     private static final int SCALE = 5;
@@ -10,18 +12,19 @@ public class EnlargeAndFadeOutAnimation implements NotificationAnimation {
     private static final float DURATION = 2f;
 
     @Override
-    public Action getAction(PlayerNotification label) {
-        return Actions.parallel(getEnlargeAction(label, getCurrentTime()), Actions.fadeOut(DURATION));
+    public Action getAction(Notification notification) {
+        return Actions.parallel(getEnlargeAction(notification, getCurrentTime()), Actions.fadeOut(DURATION));
     }
 
     private long getCurrentTime() {
         return TimeUtils.millis();
     }
 
-    private Action getEnlargeAction(PlayerNotification label, long startTime) {
+    private Action getEnlargeAction(Notification notification, long startTime) {
         return new Action() {
             @Override
             public boolean act(float delta) {
+                Label label = notification.getLabel();
                 float currentScale = label.getFontScaleX();
                 if (shouldContinueAction(currentScale)) {
                     label.setFontScale(currentScale + SCALE_STEP);

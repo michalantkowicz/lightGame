@@ -18,6 +18,7 @@ import com.mantkowicz.light.map.TiledMapLoader;
 import com.mantkowicz.light.map.implementation.tmx.TmxTileMapLoaderProperties;
 import com.mantkowicz.light.map.implementation.tmx.TmxTiledMapLoader;
 import com.mantkowicz.light.service.event.GameEventService;
+import com.mantkowicz.light.service.phrase.PhraseService;
 import com.mantkowicz.light.stage.NotificationStage;
 
 import java.util.List;
@@ -57,6 +58,7 @@ public class GameScreen implements Screen {
         rayHandler.setAmbientLight(0.02f, 0.02f, 0.02f, 0.1f);
 
         BoardService boardService = new BoardService(board);
+        PhraseService phraseService = new PhraseService();
 
         GamePrepareConfiguration configuration = new GamePrepareConfiguration(assetManager,
                 gameEventService,
@@ -64,7 +66,8 @@ public class GameScreen implements Screen {
                 world,
                 rayHandler,
                 stage,
-                notificationStage);
+                notificationStage,
+                phraseService);
 
         for (Tile tile : tiles) {
             stage.addActor(tile);

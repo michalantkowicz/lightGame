@@ -24,8 +24,8 @@ public class PlayerTile extends Tile {
                 configuration.getGameEventService(),
                 configuration.getBoardService(),
                 configuration.getRayHandler(),
-                configuration.getNotificationStage()
-        );
+                configuration.getNotificationStage(),
+                configuration.getPhraseService());
         player.setTile(this);
         configuration.getStage().addActor(player);
     }

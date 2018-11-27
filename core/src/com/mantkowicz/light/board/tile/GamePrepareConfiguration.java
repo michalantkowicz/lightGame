@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mantkowicz.light.board.service.BoardService;
 import com.mantkowicz.light.service.event.GameEventService;
+import com.mantkowicz.light.service.phrase.PhraseService;
 import com.mantkowicz.light.stage.NotificationStage;
 
 public class GamePrepareConfiguration {
@@ -16,6 +17,7 @@ public class GamePrepareConfiguration {
     private RayHandler rayHandler;
     private Stage stage;
     private NotificationStage notificationStage;
+    private PhraseService phraseService;
 
     public GamePrepareConfiguration(AssetManager assetManager,
                                     GameEventService gameEventService,
@@ -23,7 +25,8 @@ public class GamePrepareConfiguration {
                                     World world,
                                     RayHandler rayHandler,
                                     Stage stage,
-                                    NotificationStage notificationStage) {
+                                    NotificationStage notificationStage,
+                                    PhraseService phraseService) {
         this.assetManager = assetManager;
         this.gameEventService = gameEventService;
         this.boardService = boardService;
@@ -31,6 +34,7 @@ public class GamePrepareConfiguration {
         this.rayHandler = rayHandler;
         this.stage = stage;
         this.notificationStage = notificationStage;
+        this.phraseService = phraseService;
     }
 
     public AssetManager getAssetManager() {
@@ -59,5 +63,9 @@ public class GamePrepareConfiguration {
 
     public NotificationStage getNotificationStage() {
         return notificationStage;
+    }
+
+    public PhraseService getPhraseService() {
+        return phraseService;
     }
 }

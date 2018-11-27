@@ -2,11 +2,15 @@ package com.mantkowicz.light.player.plugin;
 
 import box2dLight.RayHandler;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
-import com.mantkowicz.light.player.*;
+import com.mantkowicz.light.notification.Notification;
+import com.mantkowicz.light.notification.animation.EnlargeAndFadeOutAnimation;
+import com.mantkowicz.light.notification.factory.NotificationBuilder;
+import com.mantkowicz.light.player.Player;
+import com.mantkowicz.light.service.phrase.PhraseService;
 import com.mantkowicz.light.stage.NotificationStage;
 
-import static com.mantkowicz.light.player.NotificationType.WARN;
+import static com.mantkowicz.light.notification.NotificationType.PLAYER_NOTIFICATION;
+import static com.mantkowicz.light.service.phrase.PhraseGroup.DARKNESS_EXCLAMATION;
 
 public class NotificationPlugin extends Plugin {
     private static final int MILLIS_TO_EXCLAIM_AT_SHADOW = 2000;
@@ -15,32 +19,31 @@ public class NotificationPlugin extends Plugin {
     private Vector2 notificationOffset;
     private RayHandler rayHandler;
     private NotificationStage notificationStage;
-    private Array<String> darknessNotifications;
+    private PhraseService phraseService;
 
-    public NotificationPlugin(Player player, Vector2 notificationOffset, RayHandler rayHandler, NotificationStage notificationStage) {
+    public NotificationPlugin(Player player, Vector2 notificationOffset, RayHandler rayHandler, NotificationStage notificationStage, PhraseService phraseService) {
         this.player = player;
         this.notificationOffset = notificationOffset;
         this.rayHandler = rayHandler;
         this.notificationStage = notificationStage;
-
-        initExclamationAtShadowNotifications();
+        this.phraseService = phraseService;
     }
 
     @Override
     public void run() {
         if (shouldPlayerExclaimeAtShadow()) {
-            PlayerNotification exclamationAtShadow = getExclamationAtShadow();
-            notificationStage.addActor(exclamationAtShadow);
-            exclamationAtShadow.toFront();
+            Notification shadowNotification = getExclamationAtShadow();
+            notificationStage.addActor(shadowNotification);
+            shadowNotification.toFront();
         } else if (player.getIdleLength() < MILLIS_TO_EXCLAIM_AT_SHADOW) {
-            notificationStage.clear();
+            notificationStage.removeAllNotificationsOfType(PLAYER_NOTIFICATION);
         }
     }
 
     private boolean shouldPlayerExclaimeAtShadow() {
         return isPlayerAtShadow()
                 && player.getIdleLength() >= MILLIS_TO_EXCLAIM_AT_SHADOW
-                && !notificationStage.doesContainNotification(NotificationType.WARN);
+                && !notificationStage.doesContainNotification(PLAYER_NOTIFICATION);
     }
 
     /**
@@ -55,25 +58,13 @@ public class NotificationPlugin extends Plugin {
                 || rayHandler.pointAtShadow(player.getX(), player.getY() + player.getHeight());
     }
 
-    private PlayerNotification getExclamationAtShadow() {
-        NotificationAnimation notificationAnimation = new EnlargeAndFadeOutAnimation();
-        PlayerNotification playerNotification = new PlayerNotification(randomExclamationAtShadowNotification(), WARN, notificationAnimation);
-        Vector2 notificationPosition = player.getCenter().add(notificationOffset).sub(playerNotification.getWidth() / 2f, 0);
-        playerNotification.setPosition(notificationPosition.x, notificationPosition.y);
-        return playerNotification;
-    }
-
-    private String randomExclamationAtShadowNotification() {
-        darknessNotifications.shuffle();
-        return darknessNotifications.first();
-    }
-
-    public void initExclamationAtShadowNotifications() {
-        darknessNotifications = new Array<>();
-        darknessNotifications.add("dude I'm scared of darkness!");
-        darknessNotifications.add("please take me away from here...");
-        darknessNotifications.add("I can't stand this anymore!!!");
-        darknessNotifications.add("did you hear that...?");
-        darknessNotifications.add("I feel like I'm going crazy");
+    private Notification getExclamationAtShadow() {
+        String exclamationText = phraseService.getRandomPhrase(DARKNESS_EXCLAMATION);
+        Vector2 notificationCenter = player.getCenter().add(notificationOffset);
+        return new NotificationBuilder(exclamationText)
+                .notificationAnimation(new EnlargeAndFadeOutAnimation())
+                .notificationType(PLAYER_NOTIFICATION)
+                .centerAt(notificationCenter)
+                .build();
     }
 }
