@@ -1,11 +1,11 @@
-package com.mantkowicz.light.player.plugin;
+package com.mantkowicz.light.actor.plugin;
 
 import box2dLight.RayHandler;
 import com.badlogic.gdx.math.Vector2;
 import com.mantkowicz.light.notification.Notification;
 import com.mantkowicz.light.notification.animation.EnlargeAndFadeOutAnimation;
 import com.mantkowicz.light.notification.factory.NotificationBuilder;
-import com.mantkowicz.light.player.Player;
+import com.mantkowicz.light.actor.implementation.player.Player;
 import com.mantkowicz.light.service.phrase.PhraseService;
 import com.mantkowicz.light.stage.NotificationStage;
 

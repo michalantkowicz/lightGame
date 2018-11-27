@@ -10,10 +10,10 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import com.mantkowicz.light.board.tile.listener.TileClickListener;
+import com.mantkowicz.light.configuration.GamePrepareConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public abstract class Tile extends Group {
     private static final float TAN_30_DIV_6 = 0.289f;

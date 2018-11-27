@@ -1,4 +1,4 @@
-package com.mantkowicz.light.board.tile;
+package com.mantkowicz.light.configuration;
 
 import box2dLight.RayHandler;
 import com.badlogic.gdx.assets.AssetManager;

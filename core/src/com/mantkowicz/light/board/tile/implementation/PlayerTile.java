@@ -1,10 +1,10 @@
 package com.mantkowicz.light.board.tile.implementation;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.mantkowicz.light.board.tile.GamePrepareConfiguration;
+import com.mantkowicz.light.configuration.GamePrepareConfiguration;
 import com.mantkowicz.light.board.tile.Tile;
 import com.mantkowicz.light.board.tile.listener.TileClickListener;
-import com.mantkowicz.light.player.Player;
+import com.mantkowicz.light.actor.implementation.player.Player;
 
 public class PlayerTile extends Tile {
     public PlayerTile(AssetManager assetManager) {
@@ -20,13 +20,9 @@ public class PlayerTile extends Tile {
     public void prepare(TileClickListener tileClickListener, GamePrepareConfiguration configuration) {
         super.prepare(tileClickListener, configuration);
 
-        Player player = new Player(configuration.getAssetManager(),
-                configuration.getGameEventService(),
-                configuration.getBoardService(),
-                configuration.getRayHandler(),
-                configuration.getNotificationStage(),
-                configuration.getPhraseService());
+        Player player = new Player(configuration);
         player.setTile(this);
+
         configuration.getStage().addActor(player);
     }
 }

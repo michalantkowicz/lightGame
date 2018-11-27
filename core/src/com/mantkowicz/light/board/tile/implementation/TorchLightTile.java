@@ -2,7 +2,7 @@ package com.mantkowicz.light.board.tile.implementation;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
-import com.mantkowicz.light.board.tile.GamePrepareConfiguration;
+import com.mantkowicz.light.configuration.GamePrepareConfiguration;
 import com.mantkowicz.light.board.tile.Tile;
 import com.mantkowicz.light.board.tile.listener.TileClickListener;
 import com.mantkowicz.light.lights.GameLight;

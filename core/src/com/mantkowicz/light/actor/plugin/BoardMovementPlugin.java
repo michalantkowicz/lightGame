@@ -1,4 +1,4 @@
-package com.mantkowicz.light.player.plugin;
+package com.mantkowicz.light.actor.plugin;
 
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
@@ -8,23 +8,25 @@ import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.mantkowicz.light.board.path.BoardPath;
 import com.mantkowicz.light.board.service.BoardService;
 import com.mantkowicz.light.board.tile.Tile;
-import com.mantkowicz.light.player.Player;
+import com.mantkowicz.light.actor.implementation.player.Player;
 import com.mantkowicz.light.service.event.GameEvent;
 import com.mantkowicz.light.service.event.GameEventService;
 
-import static com.mantkowicz.light.player.PlayerStatus.IDLE;
-import static com.mantkowicz.light.player.PlayerStatus.MOVEMENT;
+import static com.mantkowicz.light.actor.implementation.player.PlayerStatus.IDLE;
+import static com.mantkowicz.light.actor.implementation.player.PlayerStatus.MOVEMENT;
 import static com.mantkowicz.light.service.event.type.GameEventType.TILE_TOUCHED;
 
 public class BoardMovementPlugin extends Plugin {
     private Player player;
     private GameEventService gameEventService;
     private BoardService boardService;
+    private float speed;
 
-    public BoardMovementPlugin(Player player, GameEventService gameEventService, BoardService boardService) {
+    public BoardMovementPlugin(Player player, GameEventService gameEventService, BoardService boardService, float speed) {
         this.player = player;
         this.gameEventService = gameEventService;
         this.boardService = boardService;
+        this.speed = speed;
     }
 
     @Override
@@ -44,7 +46,7 @@ public class BoardMovementPlugin extends Plugin {
             Vector2 position = pathNode.calculatePositionForCenteredActor(player);
             SequenceAction moveToTileAction = Actions.sequence(
                     getSetStatusMovementAction(player),
-                    Actions.moveTo(position.x, position.y, player.getSpeed(), Interpolation.sineOut),
+                    Actions.moveTo(position.x, position.y, speed, Interpolation.sineOut),
                     getSetTileAction(path, pathNode),
                     getSetStatusIdleAction(player)
             );
