@@ -8,8 +8,8 @@ import java.util.Iterator;
 import java.util.List;
 
 public class GameEventService {
-    private List<GameEvent> gameEventQueue;
-    private GameEventCountByType gameEventCountByType;
+    private final List<GameEvent> gameEventQueue;
+    private final GameEventCountByType gameEventCountByType;
 
     public GameEventService() {
         gameEventQueue = new ArrayList<>();

@@ -6,8 +6,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 
 public class Notification extends Group {
-    private NotificationType notificationType;
-    private Label label;
+    private final NotificationType notificationType;
+    private final Label label;
 
     public Notification(NotificationType notificationType, Label label) {
         this.notificationType = notificationType;

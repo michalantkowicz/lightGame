@@ -5,7 +5,7 @@ import com.mantkowicz.light.board.tile.Tile;
 import java.util.List;
 
 public class BoardPath {
-    List<Tile> path;
+    private List<Tile> path;
 
     public BoardPath(List<Tile> path) {
         this.path = path;

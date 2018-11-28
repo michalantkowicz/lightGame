@@ -11,9 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class GameActor extends Group {
-    private Image avatar;
     private Tile tile;
-    private List<Plugin> pluginsQueue;
+    private final List<Plugin> pluginsQueue;
 
     protected GameActor() {
         pluginsQueue = new ArrayList<>();
@@ -32,7 +31,7 @@ public abstract class GameActor extends Group {
     }
 
     protected void createAvatar(Texture texture) {
-        this.avatar = new Image(texture);
+        Image avatar = new Image(texture);
         this.addActor(avatar);
         setSize(avatar.getWidth(), avatar.getHeight());
     }

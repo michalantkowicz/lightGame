@@ -8,7 +8,7 @@ import java.util.Map;
 import static com.mantkowicz.light.service.phrase.PhraseGroup.DARKNESS_EXCLAMATION;
 
 public class PhraseService {
-    private Map<PhraseGroup, List<String>> phrases;
+    private final Map<PhraseGroup, List<String>> phrases;
 
     public PhraseService() {
         this.phrases = new HashMap<>();

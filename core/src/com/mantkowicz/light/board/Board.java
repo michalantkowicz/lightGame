@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
-    public List<Tile> tiles = new ArrayList<>();
+    private List<Tile> tiles = new ArrayList<>();
 
     public <T> List<Tile> loadTiles(TiledMapLoader<T> tiledMapLoader, T properties) {
-        tiles = tiledMapLoader.getTiles(properties);
+        tiles = tiledMapLoader.loadTiles(properties);
         return tiles;
     }
 

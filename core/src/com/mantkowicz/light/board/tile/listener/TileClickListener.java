@@ -10,8 +10,8 @@ import com.mantkowicz.light.service.event.GameEventService;
 import static com.mantkowicz.light.service.event.type.GameEventType.TILE_TOUCHED;
 
 public class TileClickListener extends InputListener {
-    private Tile tile;
-    private GameEventService gameEventService;
+    private final Tile tile;
+    private final GameEventService gameEventService;
 
     public TileClickListener(Tile tile, GameEventService gameEventService) {
         this.tile = tile;

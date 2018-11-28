@@ -3,9 +3,9 @@ package com.mantkowicz.light.actor.implementation.player;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mantkowicz.light.actor.GameActor;
-import com.mantkowicz.light.configuration.GamePrepareConfiguration;
-import com.mantkowicz.light.actor.plugin.BoardMovementPlugin;
-import com.mantkowicz.light.actor.plugin.NotificationPlugin;
+import com.mantkowicz.light.actor.plugin.implementation.BoardMovementPlugin;
+import com.mantkowicz.light.actor.plugin.implementation.NotificationPlugin;
+import com.mantkowicz.light.configuration.PlayerConfiguration;
 
 import static com.mantkowicz.light.actor.implementation.player.PlayerStatus.IDLE;
 
@@ -17,14 +17,14 @@ public class Player extends GameActor {
     private Long lastIdleChange;
 
 
-    public Player(GamePrepareConfiguration configuration) {
+    public Player(PlayerConfiguration configuration) {
         Texture avatarTexture = configuration.getAssetManager().get(AVATAR_RESOURCE_NAME, Texture.class);
         createAvatar(avatarTexture);
 
-        BoardMovementPlugin boardMovementPlugin = new BoardMovementPlugin(this, configuration.getGameEventService(), configuration.getBoardService(), SPEED);
+        BoardMovementPlugin boardMovementPlugin = new BoardMovementPlugin(this, SPEED, configuration);
         addPlugin(boardMovementPlugin);
 
-        NotificationPlugin notificationPlugin = new NotificationPlugin(this, getNotificationOffset(), configuration.getRayHandler(), configuration.getNotificationStage(), configuration.getPhraseService());
+        NotificationPlugin notificationPlugin = new NotificationPlugin(this, getNotificationOffset(), configuration);
         addPlugin(notificationPlugin);
 
         setStatus(IDLE);

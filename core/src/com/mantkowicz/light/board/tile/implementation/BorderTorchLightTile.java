@@ -9,7 +9,6 @@ import static com.mantkowicz.light.board.tile.TileAttribute.BORDER_LIGHT_POSITIO
 
 public class BorderTorchLightTile extends TorchLightTile {
     private static final float BORDER_OFFSET = 5f;
-    private int rotation;
 
     public BorderTorchLightTile(AssetManager assetManager) {
         super(assetManager);
@@ -19,7 +18,7 @@ public class BorderTorchLightTile extends TorchLightTile {
     public void prepare(TileClickListener tileClickListener, GamePrepareConfiguration configuration) {
         super.prepare(tileClickListener, configuration);
 
-        rotation = calculateRotation();
+        int rotation = calculateRotation();
 
         Vector2 lightPosition = new Vector2(torchLight.getX(), torchLight.getY());
         Vector2 newLightPosition = lightPosition.cpy().add(0, getHeight() / 2f - BORDER_OFFSET);

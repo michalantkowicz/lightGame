@@ -6,7 +6,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mantkowicz.light.screen.GameScreen;
 import com.mantkowicz.light.service.event.GameEventService;
@@ -14,22 +13,18 @@ import com.mantkowicz.light.service.resources.ResourcesService;
 
 public class Main extends Game {
     private ResourcesService resourcesService;
-    private GameEventService gameEventService;
-    private RayHandler rayHandler;
     private World world;
-    private Box2DDebugRenderer debugRenderer;
 
     @Override
     public void create() {
         resourcesService = new ResourcesService();
-        gameEventService = new GameEventService();
+        GameEventService gameEventService = new GameEventService();
 
         Box2D.init();
         world = new World(new Vector2(0, 0), true);
-        debugRenderer = new Box2DDebugRenderer();
-        rayHandler = new RayHandler(world);
+        RayHandler rayHandler = new RayHandler(world);
 
-        setScreen(new GameScreen(resourcesService.getAssetManager(), gameEventService, world, debugRenderer));
+        setScreen(new GameScreen(resourcesService.getAssetManager(), gameEventService, world));
     }
 
     @Override

@@ -1,8 +1,8 @@
 package com.mantkowicz.light.util;
 
 public class Tuple<X, Y> {
-    X x;
-    Y y;
+    private X x;
+    private Y y;
 
     public static <X, Y> Tuple<X, Y> of(X x, Y y) {
         return new Tuple<X, Y>().setX(x).setY(y);
@@ -12,7 +12,7 @@ public class Tuple<X, Y> {
         return x;
     }
 
-    public Tuple<X, Y> setX(X x) {
+    Tuple<X, Y> setX(X x) {
         this.x = x;
         return this;
     }
@@ -21,12 +21,13 @@ public class Tuple<X, Y> {
         return y;
     }
 
-    public Tuple<X, Y> setY(Y y) {
+    Tuple<X, Y> setY(Y y) {
         this.y = y;
         return this;
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public boolean equals(Object thatObj) {
         if (thatObj instanceof Tuple) {
             Tuple<X, Y> that = (Tuple<X, Y>) thatObj;

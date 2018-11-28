@@ -9,15 +9,15 @@ import com.mantkowicz.light.service.event.GameEventService;
 import com.mantkowicz.light.service.phrase.PhraseService;
 import com.mantkowicz.light.stage.NotificationStage;
 
-public class GamePrepareConfiguration {
-    private AssetManager assetManager;
-    private GameEventService gameEventService;
-    private BoardService boardService;
-    private World world;
-    private RayHandler rayHandler;
-    private Stage stage;
-    private NotificationStage notificationStage;
-    private PhraseService phraseService;
+public class GamePrepareConfiguration implements PlayerConfiguration {
+    private final AssetManager assetManager;
+    private final GameEventService gameEventService;
+    private final BoardService boardService;
+    private final World world;
+    private final RayHandler rayHandler;
+    private final Stage stage;
+    private final NotificationStage notificationStage;
+    private final PhraseService phraseService;
 
     public GamePrepareConfiguration(AssetManager assetManager,
                                     GameEventService gameEventService,
@@ -37,6 +37,7 @@ public class GamePrepareConfiguration {
         this.phraseService = phraseService;
     }
 
+    @Override
     public AssetManager getAssetManager() {
         return assetManager;
     }
@@ -45,6 +46,7 @@ public class GamePrepareConfiguration {
         return world;
     }
 
+    @Override
     public RayHandler getRayHandler() {
         return rayHandler;
     }
@@ -53,18 +55,22 @@ public class GamePrepareConfiguration {
         return stage;
     }
 
+    @Override
     public GameEventService getGameEventService() {
         return gameEventService;
     }
 
+    @Override
     public BoardService getBoardService() {
         return boardService;
     }
 
+    @Override
     public NotificationStage getNotificationStage() {
         return notificationStage;
     }
 
+    @Override
     public PhraseService getPhraseService() {
         return phraseService;
     }

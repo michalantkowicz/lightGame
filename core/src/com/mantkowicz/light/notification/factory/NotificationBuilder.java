@@ -13,7 +13,7 @@ public class NotificationBuilder {
     private NotificationStyle notificationStyle;
     private NotificationAnimation notificationAnimation;
     private Vector2 notificationCenter;
-    private String text;
+    private final String text;
 
     public NotificationBuilder(String text) {
         this.text = text;

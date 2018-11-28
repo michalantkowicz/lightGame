@@ -19,15 +19,15 @@ public abstract class Tile extends Group {
     private static final float TAN_30_DIV_6 = 0.289f;
     private static int ID_SEQUENCE = 1;
 
-    private Color backgroundColor;
-    private int id;
-    private List<Tile> neighbours;
+    private final Color backgroundColor;
+    private final int id;
+    private final List<Tile> neighbours;
 
     private MapProperties attributes;
     private Array<Vector2> polygon;
-    private Image background;
+    private final Image background;
 
-    public Tile(Texture background) {
+    protected Tile(Texture background) {
         this.id = ID_SEQUENCE++;
         this.neighbours = new ArrayList<>();
 

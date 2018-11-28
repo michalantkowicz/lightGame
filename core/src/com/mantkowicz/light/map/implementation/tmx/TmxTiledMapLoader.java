@@ -21,15 +21,15 @@ import java.util.Map;
 import static com.mantkowicz.light.board.tile.TileAttribute.TILE_CLASS;
 
 public class TmxTiledMapLoader implements TiledMapLoader<TmxTileMapLoaderProperties> {
-    private AssetManager assetManager;
-    private Map<Tuple<Integer, Integer>, Tile> tilesMap = new HashMap<>();
+    private final AssetManager assetManager;
+    private final Map<Tuple<Integer, Integer>, Tile> tilesMap = new HashMap<>();
 
     public TmxTiledMapLoader(AssetManager assetManager) {
         this.assetManager = assetManager;
     }
 
     @Override
-    public List<Tile> getTiles(TmxTileMapLoaderProperties properties) {
+    public List<Tile> loadTiles(TmxTileMapLoaderProperties properties) {
         TiledMap tiledMap = new TmxMapLoader().load(properties.getTileMapFileName());
 
         int layerWidth = getTileLayer(tiledMap).getWidth();

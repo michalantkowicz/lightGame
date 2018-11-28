@@ -6,7 +6,7 @@ public enum TileAttribute {
     LIGHT_COLOR_HEX("lightColorHex"),
     BORDER_LIGHT_POSITION("borderLightPosition");
 
-    private String value;
+    private final String value;
 
     TileAttribute(String value) {
         this.value = value;

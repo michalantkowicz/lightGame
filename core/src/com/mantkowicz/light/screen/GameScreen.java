@@ -5,15 +5,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mantkowicz.light.board.Board;
 import com.mantkowicz.light.board.service.BoardService;
-import com.mantkowicz.light.configuration.GamePrepareConfiguration;
 import com.mantkowicz.light.board.tile.Tile;
 import com.mantkowicz.light.board.tile.listener.TileClickListener;
+import com.mantkowicz.light.configuration.GamePrepareConfiguration;
 import com.mantkowicz.light.map.TiledMapLoader;
 import com.mantkowicz.light.map.implementation.tmx.TmxTileMapLoaderProperties;
 import com.mantkowicz.light.map.implementation.tmx.TmxTiledMapLoader;
@@ -24,50 +23,28 @@ import com.mantkowicz.light.stage.NotificationStage;
 import java.util.List;
 
 public class GameScreen implements Screen {
-    private AssetManager assetManager;
-    private GameEventService gameEventService;
-    private World world;
-    private Box2DDebugRenderer debugRenderer;
+    private final AssetManager assetManager;
+    private final GameEventService gameEventService;
+    private final World world;
     private Stage stage;
     private NotificationStage notificationStage;
-    private Board board;
+    private final Board board = new Board();
     private RayHandler rayHandler;
 
-    public GameScreen(AssetManager assetManager, GameEventService gameEventService, World world, Box2DDebugRenderer debugRenderer) {
+    public GameScreen(AssetManager assetManager, GameEventService gameEventService, World world) {
         this.assetManager = assetManager;
         this.gameEventService = gameEventService;
         this.world = world;
-        this.debugRenderer = debugRenderer;
     }
 
     @Override
     public void show() {
-        board = new Board();
+        stage = prepareStage();
+        notificationStage = prepareNotificationStage();
+        rayHandler = prepareLights();
+        GamePrepareConfiguration configuration = prepareConfiguration();
 
-        TmxTileMapLoaderProperties properties = new TmxTileMapLoaderProperties().setTileMapFileName("map.tmx");
-        TiledMapLoader<TmxTileMapLoaderProperties> tmxTiledMapLoader = new TmxTiledMapLoader(assetManager);
-
-        List<Tile> tiles = board.loadTiles(tmxTiledMapLoader, properties);
-
-        stage = new Stage(new ScreenViewport());
-        notificationStage = new NotificationStage(new ScreenViewport());
-
-        Gdx.input.setInputProcessor(stage);
-
-        rayHandler = new RayHandler(world);
-        rayHandler.setAmbientLight(0.02f, 0.02f, 0.02f, 0.1f);
-
-        BoardService boardService = new BoardService(board);
-        PhraseService phraseService = new PhraseService();
-
-        GamePrepareConfiguration configuration = new GamePrepareConfiguration(assetManager,
-                gameEventService,
-                boardService,
-                world,
-                rayHandler,
-                stage,
-                notificationStage,
-                phraseService);
+        List<Tile> tiles = loadTiles(board);
 
         for (Tile tile : tiles) {
             stage.addActor(tile);
@@ -76,6 +53,44 @@ public class GameScreen implements Screen {
             TileClickListener listener = new TileClickListener(tile, gameEventService);
             tile.prepare(listener, configuration);
         }
+    }
+
+    private Stage prepareStage() {
+        Stage stage = new Stage(new ScreenViewport());
+        Gdx.input.setInputProcessor(stage);
+
+        return stage;
+    }
+
+    private NotificationStage prepareNotificationStage() {
+        return new NotificationStage(new ScreenViewport());
+    }
+
+    private RayHandler prepareLights() {
+        RayHandler rayHandler = new RayHandler(world);
+        rayHandler.setAmbientLight(0.02f, 0.02f, 0.02f, 0.1f);
+        return rayHandler;
+    }
+
+    private List<Tile> loadTiles(Board board) {
+        TmxTileMapLoaderProperties properties = new TmxTileMapLoaderProperties().setTileMapFileName("map.tmx");
+        TiledMapLoader<TmxTileMapLoaderProperties> tmxTiledMapLoader = new TmxTiledMapLoader(assetManager);
+
+        return board.loadTiles(tmxTiledMapLoader, properties);
+    }
+
+    private GamePrepareConfiguration prepareConfiguration() {
+        BoardService boardService = new BoardService(board);
+        PhraseService phraseService = new PhraseService();
+
+        return new GamePrepareConfiguration(assetManager,
+                gameEventService,
+                boardService,
+                world,
+                rayHandler,
+                stage,
+                notificationStage,
+                phraseService);
     }
 
     @Override
@@ -89,8 +104,6 @@ public class GameScreen implements Screen {
 
         notificationStage.act(delta);
         notificationStage.draw();
-
-//        debugRenderer.render(world, stage.getCamera().combined);
     }
 
     @Override

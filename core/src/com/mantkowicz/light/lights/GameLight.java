@@ -6,11 +6,11 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.mantkowicz.light.board.tile.Tile;
 
 public abstract class GameLight extends Group {
+    private final LightType lightType;
     protected Light light;
-    private LightType lightType;
     private Tile tile;
 
-    public GameLight(LightType lightType) {
+    protected GameLight(LightType lightType) {
         this.lightType = lightType;
     }
 
@@ -41,5 +41,9 @@ public abstract class GameLight extends Group {
 
     public void setLightColor(Color color) {
         light.setColor(color);
+    }
+
+    public LightType getLightType() {
+        return lightType;
     }
 }

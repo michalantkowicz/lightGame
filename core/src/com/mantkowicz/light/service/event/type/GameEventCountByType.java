@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GameEventCountByType {
-    private Map<GameEventType, Long> gameEventCountByType;
+    private final Map<GameEventType, Long> gameEventCountByType;
 
     public GameEventCountByType() {
         gameEventCountByType = new HashMap<>();

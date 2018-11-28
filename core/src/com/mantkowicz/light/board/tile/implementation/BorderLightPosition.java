@@ -8,7 +8,7 @@ public enum BorderLightPosition {
     BOTTOM_RIGHT(-120),
     BOTTOM_LEFT(120);
 
-    private int value;
+    private final int value;
 
     BorderLightPosition(int value) {
         this.value = value;

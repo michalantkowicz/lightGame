@@ -7,7 +7,7 @@ import com.mantkowicz.light.board.tile.Tile;
 import java.util.*;
 
 public class BoardService {
-    private Board board;
+    private final Board board;
 
     public BoardService(Board board) {
         this.board = board;

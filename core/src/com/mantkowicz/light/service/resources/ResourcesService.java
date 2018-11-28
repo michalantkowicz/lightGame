@@ -10,8 +10,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ResourcesService {
-    private Skin skin;
-    private AssetManager assetManager;
+    private final Skin skin;
+    private final AssetManager assetManager;
 
     public ResourcesService() {
         assetManager = new AssetManager();

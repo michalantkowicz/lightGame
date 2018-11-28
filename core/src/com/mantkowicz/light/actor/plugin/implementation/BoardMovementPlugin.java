@@ -1,14 +1,16 @@
-package com.mantkowicz.light.actor.plugin;
+package com.mantkowicz.light.actor.plugin.implementation;
 
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
+import com.mantkowicz.light.actor.implementation.player.Player;
+import com.mantkowicz.light.actor.plugin.Plugin;
 import com.mantkowicz.light.board.path.BoardPath;
 import com.mantkowicz.light.board.service.BoardService;
 import com.mantkowicz.light.board.tile.Tile;
-import com.mantkowicz.light.actor.implementation.player.Player;
+import com.mantkowicz.light.configuration.BoardMovementPluginConfiguration;
 import com.mantkowicz.light.service.event.GameEvent;
 import com.mantkowicz.light.service.event.GameEventService;
 
@@ -17,15 +19,15 @@ import static com.mantkowicz.light.actor.implementation.player.PlayerStatus.MOVE
 import static com.mantkowicz.light.service.event.type.GameEventType.TILE_TOUCHED;
 
 public class BoardMovementPlugin extends Plugin {
-    private Player player;
-    private GameEventService gameEventService;
-    private BoardService boardService;
-    private float speed;
+    private final Player player;
+    private final GameEventService gameEventService;
+    private final BoardService boardService;
+    private final float speed;
 
-    public BoardMovementPlugin(Player player, GameEventService gameEventService, BoardService boardService, float speed) {
+    public BoardMovementPlugin(Player player, float speed, BoardMovementPluginConfiguration configuration) {
         this.player = player;
-        this.gameEventService = gameEventService;
-        this.boardService = boardService;
+        this.gameEventService = configuration.getGameEventService();
+        this.boardService = configuration.getBoardService();
         this.speed = speed;
     }
 
