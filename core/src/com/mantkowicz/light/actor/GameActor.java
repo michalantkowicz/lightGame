@@ -4,18 +4,31 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.mantkowicz.light.board.tile.Tile;
 import com.mantkowicz.light.actor.plugin.Plugin;
+import com.mantkowicz.light.board.service.BoardService;
+import com.mantkowicz.light.board.tile.Tile;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class GameActor extends Group {
-    private Tile tile;
-    private final List<Plugin> pluginsQueue;
+    private static long ID_COUNTER = 0;
 
-    protected GameActor() {
+    private final long id;
+    private final List<Plugin> pluginsQueue;
+    private final BoardService boardService;
+    private GameActorType gameActorType;
+    private Tile tile;
+
+    protected GameActor(GameActorType gameActorType, BoardService boardService) {
+        this.gameActorType = gameActorType;
+        this.id = ID_COUNTER++;
+        this.boardService = boardService;
         pluginsQueue = new ArrayList<>();
+    }
+
+    public GameActorType getGameActorType() {
+        return gameActorType;
     }
 
     @Override
@@ -41,7 +54,14 @@ public abstract class GameActor extends Group {
     }
 
     public void setTile(Tile tile) {
+        if (this.tile != null) {
+            boardService.unregisterGameActor(this.tile, this);
+        }
+
         this.tile = tile;
+
+        boardService.registerGameActor(tile, this);
+
         Vector2 position = tile.calculatePositionForCenteredActor(this);
         this.setPosition(position.x, position.y);
     }
@@ -52,5 +72,23 @@ public abstract class GameActor extends Group {
 
     public Vector2 getCenter() {
         return new Vector2(getX() + getWidth() / 2f, getY() + getHeight() / 2f);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GameActor gameActor = (GameActor) o;
+
+        if (id != gameActor.id) return false;
+        return getTile() != null ? getTile().equals(gameActor.getTile()) : gameActor.getTile() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (getTile() != null ? getTile().hashCode() : 0);
+        return result;
     }
 }

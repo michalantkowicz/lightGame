@@ -4,9 +4,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mantkowicz.light.actor.GameActor;
 import com.mantkowicz.light.actor.plugin.implementation.BoardMovementPlugin;
+import com.mantkowicz.light.actor.plugin.implementation.CollectPlugin;
 import com.mantkowicz.light.actor.plugin.implementation.NotificationPlugin;
 import com.mantkowicz.light.configuration.PlayerConfiguration;
 
+import static com.mantkowicz.light.actor.GameActorType.PLAYER;
 import static com.mantkowicz.light.actor.implementation.player.PlayerStatus.IDLE;
 
 public class Player extends GameActor {
@@ -16,8 +18,9 @@ public class Player extends GameActor {
     private PlayerStatus status;
     private Long lastIdleChange;
 
-
     public Player(PlayerConfiguration configuration) {
+        super(PLAYER, configuration.getBoardService());
+
         Texture avatarTexture = configuration.getAssetManager().get(AVATAR_RESOURCE_NAME, Texture.class);
         createAvatar(avatarTexture);
 
@@ -26,6 +29,9 @@ public class Player extends GameActor {
 
         NotificationPlugin notificationPlugin = new NotificationPlugin(this, getNotificationOffset(), configuration);
         addPlugin(notificationPlugin);
+
+        CollectPlugin collectPlugin = new CollectPlugin(this, configuration);
+        addPlugin(collectPlugin);
 
         setStatus(IDLE);
     }

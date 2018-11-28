@@ -6,10 +6,16 @@ import com.mantkowicz.light.service.event.type.GameEventType;
 public class GameEvent {
     private GameEventType gameEventType;
     private Tile tile;
+    private Object eventObject;
 
     public GameEvent(GameEventType gameEventType, Tile tile) {
+        this(gameEventType, tile, null);
+    }
+
+    public GameEvent(GameEventType gameEventType, Tile tile, Object eventObject) {
         this.gameEventType = gameEventType;
         this.tile = tile;
+        this.eventObject = eventObject;
     }
 
     GameEventType getGameEventType() {
@@ -26,5 +32,14 @@ public class GameEvent {
 
     public void setTile(Tile tile) {
         this.tile = tile;
+    }
+
+    public Object getEventObject() {
+        return eventObject;
+    }
+
+    public GameEvent setEventObject(Object eventObject) {
+        this.eventObject = eventObject;
+        return this;
     }
 }

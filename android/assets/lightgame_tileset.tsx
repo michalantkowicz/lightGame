@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset name="lightgame_tileset" tilewidth="74" tileheight="64" tilecount="14" columns="0">
+<tileset name="lightgame_tileset" tilewidth="74" tileheight="64" tilecount="15" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
   <properties>
@@ -105,5 +105,11 @@
    <property name="tileClass" value="TORCH_LIGHT"/>
   </properties>
   <image width="74" height="64" source="lightTile_violet.png"/>
+ </tile>
+ <tile id="14">
+  <properties>
+   <property name="tileClass" value="CHEST"/>
+  </properties>
+  <image width="74" height="64" source="chestTile.png"/>
  </tile>
 </tileset>

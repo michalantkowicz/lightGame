@@ -42,9 +42,11 @@ public class GameScreen implements Screen {
         stage = prepareStage();
         notificationStage = prepareNotificationStage();
         rayHandler = prepareLights();
-        GamePrepareConfiguration configuration = prepareConfiguration();
 
         List<Tile> tiles = loadTiles(board);
+
+        // Preparing configuration after loading tiles
+        GamePrepareConfiguration configuration = prepareConfiguration();
 
         for (Tile tile : tiles) {
             stage.addActor(tile);
@@ -80,7 +82,7 @@ public class GameScreen implements Screen {
     }
 
     private GamePrepareConfiguration prepareConfiguration() {
-        BoardService boardService = new BoardService(board);
+        BoardService boardService = new BoardService(gameEventService, board);
         PhraseService phraseService = new PhraseService();
 
         return new GamePrepareConfiguration(assetManager,
