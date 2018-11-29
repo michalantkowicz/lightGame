@@ -1,29 +1,28 @@
 package com.mantkowicz.light.actor.plugin.implementation;
 
-import com.mantkowicz.light.actor.implementation.collectable.Chest;
-import com.mantkowicz.light.actor.implementation.player.Player;
+import com.mantkowicz.light.actor.Collecting;
 import com.mantkowicz.light.actor.plugin.Plugin;
 import com.mantkowicz.light.configuration.CollectPluginConfiguration;
-import com.mantkowicz.light.service.event.GameEvent;
 import com.mantkowicz.light.service.event.GameEventService;
+import com.mantkowicz.light.service.event.implementation.CollectEvent;
 
-import static com.mantkowicz.light.actor.implementation.player.PlayerStatus.IDLE;
-import static com.mantkowicz.light.service.event.type.GameEventType.COLLISION;
+import static com.mantkowicz.light.service.event.GameEventType.COLLECT;
 
 public class CollectPlugin extends Plugin {
-    private final Player player;
+    private final Collecting collectingObject;
     private final GameEventService gameEventService;
 
-    public CollectPlugin(Player player, CollectPluginConfiguration configuration) {
-        this.player = player;
+    public CollectPlugin(Collecting collectingObject, CollectPluginConfiguration configuration) {
+        this.collectingObject = collectingObject;
         this.gameEventService = configuration.getGameEventService();
     }
 
     @Override
     public void run() {
-        if (gameEventService.containsEvent(COLLISION) && IDLE.equals(player.getStatus())) {
-            GameEvent gameEvent = gameEventService.getEvent(COLLISION, true);
-            System.out.println("Collision with chest: " + ((Chest) gameEvent.getEventObject()).getName());
+        if (gameEventService.containsEvent(COLLECT)) {
+            CollectEvent gameEvent = (CollectEvent) gameEventService.getEvent(COLLECT, true);
+            collectingObject.collect(gameEvent.getEventObject());
+            gameEvent.getEventObject().afterCollect();
         }
     }
 }

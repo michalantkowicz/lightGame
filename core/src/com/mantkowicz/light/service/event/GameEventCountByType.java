@@ -1,4 +1,4 @@
-package com.mantkowicz.light.service.event.type;
+package com.mantkowicz.light.service.event;
 
 import java.util.HashMap;
 import java.util.Map;

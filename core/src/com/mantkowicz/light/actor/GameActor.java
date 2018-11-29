@@ -75,6 +75,14 @@ public abstract class GameActor extends Group {
     }
 
     @Override
+    public boolean remove() {
+        if (this.tile != null) {
+            boardService.unregisterGameActor(this.tile, this);
+        }
+        return super.remove();
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

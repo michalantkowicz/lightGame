@@ -1,15 +1,14 @@
 package com.mantkowicz.light.board.service;
 
+import com.mantkowicz.light.actor.Collectible;
 import com.mantkowicz.light.actor.GameActor;
 import com.mantkowicz.light.board.Board;
 import com.mantkowicz.light.board.path.BoardPath;
 import com.mantkowicz.light.board.tile.Tile;
-import com.mantkowicz.light.service.event.GameEvent;
 import com.mantkowicz.light.service.event.GameEventService;
+import com.mantkowicz.light.service.event.implementation.CollectEvent;
 
 import java.util.*;
-
-import static com.mantkowicz.light.service.event.type.GameEventType.COLLISION;
 
 public class BoardService {
     private final Board board;
@@ -30,8 +29,8 @@ public class BoardService {
 
     private void checkCollisions(Tile tile, GameActor gameActor) {
         for (GameActor tileActor : gameActorsByTile.getGameActors(tile)) {
-            if (!tileActor.equals(gameActor)) {
-                gameEventService.addEvent(new GameEvent(COLLISION, tile, tileActor));
+            if (!tileActor.equals(gameActor) && tileActor instanceof Collectible) {
+                gameEventService.addEvent(new CollectEvent((Collectible) tileActor));
             }
         }
     }

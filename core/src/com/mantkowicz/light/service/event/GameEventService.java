@@ -1,8 +1,5 @@
 package com.mantkowicz.light.service.event;
 
-import com.mantkowicz.light.service.event.type.GameEventCountByType;
-import com.mantkowicz.light.service.event.type.GameEventType;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;

@@ -2,12 +2,13 @@ package com.mantkowicz.light.actor.implementation.collectable;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.mantkowicz.light.actor.Collectible;
 import com.mantkowicz.light.actor.GameActor;
 import com.mantkowicz.light.configuration.PlayerConfiguration;
 
 import static com.mantkowicz.light.actor.GameActorType.CHEST;
 
-public class Chest extends GameActor {
+public class Chest extends GameActor implements Collectible {
     private static final String AVATAR_RESOURCE_NAME = "chest.png";
 
     public Chest(PlayerConfiguration configuration) {
@@ -19,5 +20,11 @@ public class Chest extends GameActor {
         createAvatar(avatarTexture);
 
         setTouchable(Touchable.disabled);
+    }
+
+    @Override
+    public void afterCollect() {
+        System.out.println("I'm being collected!");
+        remove();
     }
 }

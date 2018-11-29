@@ -4,10 +4,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.mantkowicz.light.board.tile.Tile;
-import com.mantkowicz.light.service.event.GameEvent;
 import com.mantkowicz.light.service.event.GameEventService;
-
-import static com.mantkowicz.light.service.event.type.GameEventType.TILE_TOUCHED;
+import com.mantkowicz.light.service.event.implementation.TileTouchedEvent;
 
 public class TileClickListener extends InputListener {
     private final Tile tile;
@@ -32,7 +30,7 @@ public class TileClickListener extends InputListener {
         Tile touchedTile = resolveTile(x, y);
         if (touchedTile != null) {
             touchedTile.unmark();
-            gameEventService.addEvent(new GameEvent(TILE_TOUCHED, touchedTile));
+            gameEventService.addEvent(new TileTouchedEvent(touchedTile));
         }
     }
 
