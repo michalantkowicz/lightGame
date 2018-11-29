@@ -1,10 +1,10 @@
-package com.mantkowicz.light.actor.implementation.collectable;
+package com.mantkowicz.light.actor.implementation.collectible;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.mantkowicz.light.actor.Collectible;
+import com.mantkowicz.light.plugin.Collectible;
 import com.mantkowicz.light.actor.GameActor;
-import com.mantkowicz.light.configuration.PlayerConfiguration;
+import com.mantkowicz.light.configuration.api.PlayerConfiguration;
 
 import static com.mantkowicz.light.actor.GameActorType.CHEST;
 
@@ -16,10 +16,16 @@ public class Chest extends GameActor implements Collectible {
 
         setName("Nice Chest");
 
-        Texture avatarTexture = configuration.getAssetManager().get(AVATAR_RESOURCE_NAME, Texture.class);
+        Texture avatarTexture = configuration.getResourcesService().getAssetManager().get(AVATAR_RESOURCE_NAME, Texture.class);
         createAvatar(avatarTexture);
 
         setTouchable(Touchable.disabled);
+    }
+
+    @Override
+    public void beforeCollect() {
+        System.out.println("I'll be collect!");
+        remove();
     }
 
     @Override

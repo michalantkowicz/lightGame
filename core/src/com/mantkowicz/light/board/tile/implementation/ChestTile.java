@@ -1,7 +1,7 @@
 package com.mantkowicz.light.board.tile.implementation;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.mantkowicz.light.actor.implementation.collectable.Chest;
+import com.mantkowicz.light.actor.implementation.collectible.Chest;
 import com.mantkowicz.light.board.tile.Tile;
 import com.mantkowicz.light.board.tile.listener.TileClickListener;
 import com.mantkowicz.light.configuration.GamePrepareConfiguration;

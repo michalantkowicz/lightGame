@@ -2,13 +2,15 @@ package com.mantkowicz.light.actor.implementation.player;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.mantkowicz.light.actor.Collectible;
-import com.mantkowicz.light.actor.Collecting;
 import com.mantkowicz.light.actor.GameActor;
-import com.mantkowicz.light.actor.plugin.implementation.BoardMovementPlugin;
-import com.mantkowicz.light.actor.plugin.implementation.CollectPlugin;
-import com.mantkowicz.light.actor.plugin.implementation.NotificationPlugin;
-import com.mantkowicz.light.configuration.PlayerConfiguration;
+import com.mantkowicz.light.configuration.api.PlayerConfiguration;
+import com.mantkowicz.light.plugin.Collecting;
+import com.mantkowicz.light.plugin.PlayerCollectResolver;
+import com.mantkowicz.light.plugin.implementation.BoardMovementPlugin;
+import com.mantkowicz.light.plugin.implementation.CollectPlugin;
+import com.mantkowicz.light.plugin.implementation.NotificationPlugin;
+
+import java.util.List;
 
 import static com.mantkowicz.light.actor.GameActorType.PLAYER;
 import static com.mantkowicz.light.actor.implementation.player.PlayerStatus.IDLE;
@@ -23,7 +25,7 @@ public class Player extends GameActor implements Collecting {
     public Player(PlayerConfiguration configuration) {
         super(PLAYER, configuration.getBoardService());
 
-        Texture avatarTexture = configuration.getAssetManager().get(AVATAR_RESOURCE_NAME, Texture.class);
+        Texture avatarTexture = configuration.getResourcesService().getAssetManager().get(AVATAR_RESOURCE_NAME, Texture.class);
         createAvatar(avatarTexture);
 
         BoardMovementPlugin boardMovementPlugin = new BoardMovementPlugin(this, SPEED, configuration);
@@ -32,7 +34,8 @@ public class Player extends GameActor implements Collecting {
         NotificationPlugin notificationPlugin = new NotificationPlugin(this, getNotificationOffset(), configuration);
         addPlugin(notificationPlugin);
 
-        CollectPlugin collectPlugin = new CollectPlugin(this, configuration);
+        PlayerCollectResolver collectResolver = new PlayerCollectResolver(this, configuration);
+        CollectPlugin collectPlugin = new CollectPlugin(collectResolver, configuration);
         addPlugin(collectPlugin);
 
         setStatus(IDLE);
@@ -59,7 +62,11 @@ public class Player extends GameActor implements Collecting {
     }
 
     @Override
-    public void collect(Collectible collectible) {
-        System.out.println("I've collected " + collectible.getName());
+    public List getItems() {
+        return null;
+    }
+
+    @Override
+    public void setItems(List items) {
     }
 }

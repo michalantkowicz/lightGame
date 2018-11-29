@@ -1,6 +1,6 @@
 package com.mantkowicz.light.service.event.implementation;
 
-import com.mantkowicz.light.actor.Collectible;
+import com.mantkowicz.light.plugin.Collectible;
 import com.mantkowicz.light.service.event.GameEvent;
 
 import static com.mantkowicz.light.service.event.GameEventType.COLLECT;
