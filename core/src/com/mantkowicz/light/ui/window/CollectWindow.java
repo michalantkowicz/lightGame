@@ -1,30 +1,56 @@
 package com.mantkowicz.light.ui.window;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
-import com.mantkowicz.light.plugin.Collectible;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.mantkowicz.light.actor.Collectible;
+import com.mantkowicz.light.actor.Collecting;
+import com.mantkowicz.light.actor.Deposit;
+import com.mantkowicz.light.actor.Item;
 
-public class CollectWindow extends Window {
+public class CollectWindow extends Table {
+    private final int WIDTH = 400;
+    private final int HEIGHT = 400;
+    private final int PADDING = 40;
     private Collectible collectible;
+    private Collecting collecting;
 
-    public CollectWindow(Skin skin, Collectible collectible) {
-        super("Collect", skin);
+    public CollectWindow(Skin skin, Collecting collecting, Collectible collectible) {
         this.collectible = collectible;
-        addListener(new ActorGestureListener());
+        this.collecting = collecting;
+        initialize();
 
-        setSize(200, 200);
+        add(getContent(skin)).width(WIDTH - PADDING).height(HEIGHT - PADDING).expand().center();
 
-        Label nameLabel = new Label("Name:", skin);
-        TextField nameText = new TextField("", skin);
-        Label addressLabel = new Label("Address:", skin);
-        TextField addressText = new TextField("", skin);
+        debug();
+    }
+
+    private Table getContent(Skin skin) {
         Table table = new Table();
-        table.add(nameLabel);
-        table.add(nameText).width(100);
+
+        for (Item item : collectible.getItems()) {
+            table.add(new Image(item.getThumbnail())).expand();
+        }
+
         table.row();
-        table.add(addressLabel);
-        table.add(addressText).width(100);
-        this.add(table);
+
+        Deposit deposit = collecting.getDeposit();
+        for (int i = 0; i < deposit.getCapacity(); i++) {
+            table.add().expand();
+        }
+
+        table.row();
+
+        table.debug();
+        return table;
+}
+
+    private void initialize() {
+        setTouchable(Touchable.enabled);
+        setSize(WIDTH, HEIGHT);
+        setPosition(Gdx.graphics.getWidth() / 2f - getWidth() / 2f, Gdx.graphics.getHeight() / 2f - getHeight() / 2f);
+        addListener(new StopClickThroughClickListener());
     }
 }

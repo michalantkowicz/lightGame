@@ -14,7 +14,7 @@ import com.mantkowicz.light.stage.NotificationStage;
 import static com.mantkowicz.light.notification.NotificationType.PLAYER_NOTIFICATION;
 import static com.mantkowicz.light.service.phrase.PhraseGroup.DARKNESS_EXCLAMATION;
 
-public class NotificationPlugin extends Plugin {
+public class NotificationPlugin implements Plugin {
     private static final int MILLIS_TO_EXCLAIM_AT_SHADOW = 2000;
 
     private final Player player;

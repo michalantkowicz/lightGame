@@ -1,6 +1,6 @@
 package com.mantkowicz.light.board.service;
 
-import com.mantkowicz.light.plugin.Collectible;
+import com.mantkowicz.light.actor.Collectible;
 import com.mantkowicz.light.actor.GameActor;
 import com.mantkowicz.light.board.Board;
 import com.mantkowicz.light.board.path.BoardPath;

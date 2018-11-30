@@ -18,7 +18,7 @@ import static com.mantkowicz.light.actor.implementation.player.PlayerStatus.IDLE
 import static com.mantkowicz.light.actor.implementation.player.PlayerStatus.MOVEMENT;
 import static com.mantkowicz.light.service.event.GameEventType.TILE_TOUCHED;
 
-public class BoardMovementPlugin extends Plugin {
+public class BoardMovementPlugin implements Plugin {
     private final Player player;
     private final GameEventService gameEventService;
     private final BoardService boardService;
