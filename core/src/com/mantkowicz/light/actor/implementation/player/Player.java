@@ -5,6 +5,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.mantkowicz.light.actor.Collecting;
 import com.mantkowicz.light.actor.GameActor;
 import com.mantkowicz.light.actor.Inventory;
+import com.mantkowicz.light.command.Command;
 import com.mantkowicz.light.configuration.api.PlayerConfiguration;
 import com.mantkowicz.light.plugin.PlayerCollectResolver;
 import com.mantkowicz.light.plugin.implementation.BoardMovementPlugin;
@@ -12,9 +13,11 @@ import com.mantkowicz.light.plugin.implementation.CollectPlugin;
 import com.mantkowicz.light.plugin.implementation.NotificationPlugin;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.mantkowicz.light.actor.GameActorType.PLAYER;
 import static com.mantkowicz.light.actor.implementation.player.PlayerStatus.IDLE;
+import static com.mantkowicz.light.actor.implementation.player.PlayerStatus.MOVEMENT;
 
 public class Player extends GameActor implements Collecting {
     private static final String AVATAR_RESOURCE_NAME = "player.png";
@@ -22,12 +25,16 @@ public class Player extends GameActor implements Collecting {
 
     private PlayerStatus status;
     private Long lastIdleChange;
-    private Inventory inventory;
+    private final Inventory inventory;
+
+    private final List<Command> commands;
 
     public Player(PlayerConfiguration configuration) {
         super(PLAYER, configuration.getBoardService());
 
         inventory = new Inventory(3, new ArrayList<>());
+
+        commands = new ArrayList<>();
 
         Texture avatarTexture = configuration.getResourcesService().getAssetManager().get(AVATAR_RESOURCE_NAME, Texture.class);
         createAvatar(avatarTexture);
@@ -54,6 +61,9 @@ public class Player extends GameActor implements Collecting {
             lastIdleChange = TimeUtils.millis();
         } else {
             lastIdleChange = null;
+            if (MOVEMENT.equals(status)) {
+                executeCommandsOnMovement();
+            }
         }
         this.status = status;
     }
@@ -68,5 +78,18 @@ public class Player extends GameActor implements Collecting {
     @Override
     public Inventory getInventory() {
         return inventory;
+    }
+
+    public void addCommandToExecuteOnMovement(Command command) {
+        this.commands.add(command);
+    }
+
+    private void executeCommandsOnMovement() {
+        if (commands.size() > 0) {
+            for (Command command : commands) {
+                command.execute();
+            }
+            commands.clear();
+        }
     }
 }

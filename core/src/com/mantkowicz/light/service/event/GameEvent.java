@@ -1,10 +1,10 @@
 package com.mantkowicz.light.service.event;
 
 public abstract class GameEvent<T> {
-    private GameEventType gameEventType;
-    private T eventObject;
+    private final GameEventType gameEventType;
+    private final T eventObject;
 
-    public GameEvent(GameEventType gameEventType, T eventObject) {
+    protected GameEvent(GameEventType gameEventType, T eventObject) {
         this.gameEventType = gameEventType;
         this.eventObject = eventObject;
     }

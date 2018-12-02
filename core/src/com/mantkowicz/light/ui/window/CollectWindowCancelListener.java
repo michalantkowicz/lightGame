@@ -3,8 +3,8 @@ package com.mantkowicz.light.ui.window;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-public class CollectWindowCancelListener extends ClickListener {
-    private CollectWindow window;
+class CollectWindowCancelListener extends ClickListener {
+    private final CollectWindow window;
 
     public CollectWindowCancelListener(CollectWindow window) {
         this.window = window;

@@ -10,7 +10,7 @@ import com.mantkowicz.light.configuration.api.PlayerConfiguration;
 import static com.mantkowicz.light.actor.GameActorType.LIGHTER;
 
 public class Lighter extends GameActor implements Item, Collectible {
-    Texture thumbnail;
+    private final Texture thumbnail;
 
     public Lighter(PlayerConfiguration configuration) {
         super(LIGHTER, configuration.getBoardService());

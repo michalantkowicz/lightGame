@@ -14,7 +14,7 @@ import static com.mantkowicz.light.actor.GameActorType.CHEST;
 public class Chest extends GameActor implements Collectible {
     private static final String AVATAR_RESOURCE_NAME = "chest.png";
 
-    private Inventory inventory;
+    private final Inventory inventory;
 
     public Chest(PlayerConfiguration configuration) {
         super(CHEST, configuration.getBoardService());

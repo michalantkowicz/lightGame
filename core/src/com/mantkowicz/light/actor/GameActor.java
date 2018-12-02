@@ -17,7 +17,7 @@ public abstract class GameActor extends Group {
     private final long id;
     private final List<Plugin> pluginsQueue;
     private final BoardService boardService;
-    private GameActorType gameActorType;
+    private final GameActorType gameActorType;
     private Tile tile;
 
     protected GameActor(GameActorType gameActorType, BoardService boardService) {
@@ -66,7 +66,7 @@ public abstract class GameActor extends Group {
         this.setPosition(position.x, position.y);
     }
 
-    protected Vector2 getNotificationOffset() {
+    public Vector2 getNotificationOffset() {
         return new Vector2(0, getHeight() / 2f + 20);
     }
 

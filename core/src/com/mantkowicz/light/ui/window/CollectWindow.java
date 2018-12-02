@@ -29,11 +29,11 @@ public class CollectWindow extends Table {
     private final int HEIGHT = 400;
     private final int PADDING = 20;
     private final int PADDING_ITEM = 20;
-    private Collectible collectible;
-    private Collecting collecting;
-    private Skin skin;
-    private AssetManager assetManager;
-    private List<CollectItem> collectItems;
+    private final Collectible collectible;
+    private final Collecting collecting;
+    private final Skin skin;
+    private final AssetManager assetManager;
+    private final List<CollectItem> collectItems;
     private CollectItem chosenItem;
 
     public CollectWindow(CollectWindowConfiguration configuration, Collecting collecting, Collectible collectible) {

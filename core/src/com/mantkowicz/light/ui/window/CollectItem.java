@@ -12,12 +12,12 @@ import com.mantkowicz.light.actor.Item;
 import static com.mantkowicz.light.ui.window.CollectWindowItemState.UNCHOSEN;
 
 public class CollectItem extends Button {
-    private Drawable unchosenDownDrawable;
-    private Drawable unchosenUpDrawable;
-    private Drawable chosenUpDrawable;
-    private Drawable ableToPutDrawable;
+    private final Drawable unchosenDownDrawable;
+    private final Drawable unchosenUpDrawable;
+    private final Drawable chosenUpDrawable;
+    private final Drawable ableToPutDrawable;
 
-    private CollectItemType collectItemType;
+    private final CollectItemType collectItemType;
     private CollectWindowItemState state;
 
     private Item item;

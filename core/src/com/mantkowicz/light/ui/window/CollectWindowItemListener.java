@@ -6,10 +6,10 @@ import com.mantkowicz.light.actor.Item;
 
 import static com.mantkowicz.light.ui.window.CollectWindowItemState.*;
 
-public class CollectWindowItemListener extends ClickListener {
+class CollectWindowItemListener extends ClickListener {
     private static final CollectItem NO_ITEM = null;
-    private CollectWindow window;
-    private CollectItem collectItem;
+    private final CollectWindow window;
+    private final CollectItem collectItem;
 
     CollectWindowItemListener(CollectWindow window, CollectItem collectItem) {
         this.window = window;

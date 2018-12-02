@@ -3,7 +3,7 @@ package com.mantkowicz.light.service.event;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GameEventCountByType {
+class GameEventCountByType {
     private final Map<GameEventType, Long> gameEventCountByType;
 
     public GameEventCountByType() {

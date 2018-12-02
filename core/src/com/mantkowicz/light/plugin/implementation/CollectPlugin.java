@@ -10,7 +10,7 @@ import com.mantkowicz.light.service.event.implementation.CollectEvent;
 import static com.mantkowicz.light.service.event.GameEventType.COLLECT;
 
 public class CollectPlugin implements Plugin {
-    private CollectResolver collectResolver;
+    private final CollectResolver collectResolver;
     private final GameEventService gameEventService;
 
     public CollectPlugin(CollectResolver collectResolver, CollectPluginConfiguration configuration) {
