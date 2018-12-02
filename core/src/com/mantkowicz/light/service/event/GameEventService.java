@@ -1,8 +1,5 @@
 package com.mantkowicz.light.service.event;
 
-import com.mantkowicz.light.service.event.type.GameEventCountByType;
-import com.mantkowicz.light.service.event.type.GameEventType;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -21,17 +18,17 @@ public class GameEventService {
         gameEventCountByType.increase(gameEvent.getGameEventType());
     }
 
-    public GameEvent getEvent(GameEventType gameEventType, boolean removeEventFromQueue) {
+    public <T extends GameEvent> T getEvent(GameEventType gameEventType, Class<T> type, boolean removeEventFromQueue) {
         Iterator<GameEvent> iterator = gameEventQueue.iterator();
         while (iterator.hasNext()) {
             GameEvent gameEventItem = iterator.next();
             GameEventType gameEventItemType = gameEventItem.getGameEventType();
-            if (gameEventItemType.equals(gameEventType)) {
+            if (gameEventItemType.equals(gameEventType) && type.isInstance(gameEventItem)) {
                 if (removeEventFromQueue) {
                     iterator.remove();
                     gameEventCountByType.decrease(gameEventItemType);
                 }
-                return gameEventItem;
+                return (T)gameEventItem;
             }
         }
         throw new IllegalArgumentException("No such game event type");

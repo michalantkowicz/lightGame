@@ -18,6 +18,8 @@ public class TileFactory {
                 return new BorderTorchLightTile(assetManager);
             case PLAYER:
                 return new PlayerTile(assetManager);
+            case CHEST:
+                return new ChestTile(assetManager);
             default:
                 throw new IllegalArgumentException("There is no tile implementation for this tile type: " + tileType.name());
         }

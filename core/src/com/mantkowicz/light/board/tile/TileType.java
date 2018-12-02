@@ -5,5 +5,6 @@ public enum TileType {
     WALL,
     TORCH_LIGHT,
     BORDER_TORCH_LIGHT,
-    PLAYER
+    PLAYER,
+    CHEST
 }

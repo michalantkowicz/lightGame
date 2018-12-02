@@ -2,8 +2,8 @@ package com.mantkowicz.light.screen;
 
 import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -18,33 +18,44 @@ import com.mantkowicz.light.map.implementation.tmx.TmxTileMapLoaderProperties;
 import com.mantkowicz.light.map.implementation.tmx.TmxTiledMapLoader;
 import com.mantkowicz.light.service.event.GameEventService;
 import com.mantkowicz.light.service.phrase.PhraseService;
+import com.mantkowicz.light.service.resources.ResourcesService;
 import com.mantkowicz.light.stage.NotificationStage;
 
 import java.util.List;
 
 public class GameScreen implements Screen {
-    private final AssetManager assetManager;
+    private final ResourcesService resourcesService;
     private final GameEventService gameEventService;
     private final World world;
     private Stage stage;
+    private Stage uiStage;
     private NotificationStage notificationStage;
     private final Board board = new Board();
     private RayHandler rayHandler;
 
-    public GameScreen(AssetManager assetManager, GameEventService gameEventService, World world) {
-        this.assetManager = assetManager;
+    public GameScreen(ResourcesService resourcesService, GameEventService gameEventService, World world) {
+        this.resourcesService = resourcesService;
         this.gameEventService = gameEventService;
         this.world = world;
     }
 
     @Override
     public void show() {
-        stage = prepareStage();
-        notificationStage = prepareNotificationStage();
+        stage = new Stage(new ScreenViewport());
+        uiStage = new Stage(new ScreenViewport());
+        notificationStage = new NotificationStage(new ScreenViewport());
+
+        InputMultiplexer multiplexer = new InputMultiplexer();
+        multiplexer.addProcessor(uiStage);
+        multiplexer.addProcessor(stage);
+        Gdx.input.setInputProcessor(multiplexer);
+
         rayHandler = prepareLights();
-        GamePrepareConfiguration configuration = prepareConfiguration();
 
         List<Tile> tiles = loadTiles(board);
+
+        // Preparing configuration after loading tiles
+        GamePrepareConfiguration configuration = prepareConfiguration();
 
         for (Tile tile : tiles) {
             stage.addActor(tile);
@@ -55,17 +66,6 @@ public class GameScreen implements Screen {
         }
     }
 
-    private Stage prepareStage() {
-        Stage stage = new Stage(new ScreenViewport());
-        Gdx.input.setInputProcessor(stage);
-
-        return stage;
-    }
-
-    private NotificationStage prepareNotificationStage() {
-        return new NotificationStage(new ScreenViewport());
-    }
-
     private RayHandler prepareLights() {
         RayHandler rayHandler = new RayHandler(world);
         rayHandler.setAmbientLight(0.02f, 0.02f, 0.02f, 0.1f);
@@ -74,23 +74,24 @@ public class GameScreen implements Screen {
 
     private List<Tile> loadTiles(Board board) {
         TmxTileMapLoaderProperties properties = new TmxTileMapLoaderProperties().setTileMapFileName("map.tmx");
-        TiledMapLoader<TmxTileMapLoaderProperties> tmxTiledMapLoader = new TmxTiledMapLoader(assetManager);
+        TiledMapLoader<TmxTileMapLoaderProperties> tmxTiledMapLoader = new TmxTiledMapLoader(resourcesService.getAssetManager());
 
         return board.loadTiles(tmxTiledMapLoader, properties);
     }
 
     private GamePrepareConfiguration prepareConfiguration() {
-        BoardService boardService = new BoardService(board);
+        BoardService boardService = new BoardService(gameEventService, board);
         PhraseService phraseService = new PhraseService();
 
-        return new GamePrepareConfiguration(assetManager,
-                gameEventService,
+        return new GamePrepareConfiguration(gameEventService,
                 boardService,
                 world,
                 rayHandler,
                 stage,
                 notificationStage,
-                phraseService);
+                phraseService,
+                uiStage,
+                resourcesService);
     }
 
     @Override
@@ -104,6 +105,9 @@ public class GameScreen implements Screen {
 
         notificationStage.act(delta);
         notificationStage.draw();
+
+        uiStage.act(delta);
+        uiStage.draw();
     }
 
     @Override

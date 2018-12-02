@@ -24,7 +24,7 @@ public class Main extends Game {
         world = new World(new Vector2(0, 0), true);
         RayHandler rayHandler = new RayHandler(world);
 
-        setScreen(new GameScreen(resourcesService.getAssetManager(), gameEventService, world));
+        setScreen(new GameScreen(resourcesService, gameEventService, world));
     }
 
     @Override

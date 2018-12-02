@@ -1,30 +1,19 @@
 package com.mantkowicz.light.service.event;
 
-import com.mantkowicz.light.board.tile.Tile;
-import com.mantkowicz.light.service.event.type.GameEventType;
+public abstract class GameEvent<T> {
+    private final GameEventType gameEventType;
+    private final T eventObject;
 
-public class GameEvent {
-    private GameEventType gameEventType;
-    private Tile tile;
-
-    public GameEvent(GameEventType gameEventType, Tile tile) {
+    protected GameEvent(GameEventType gameEventType, T eventObject) {
         this.gameEventType = gameEventType;
-        this.tile = tile;
+        this.eventObject = eventObject;
     }
 
-    GameEventType getGameEventType() {
+    public GameEventType getGameEventType() {
         return gameEventType;
     }
 
-    public void setGameEventType(GameEventType gameEventType) {
-        this.gameEventType = gameEventType;
-    }
-
-    public Tile getTile() {
-        return tile;
-    }
-
-    public void setTile(Tile tile) {
-        this.tile = tile;
+    public T getEventObject() {
+        return eventObject;
     }
 }

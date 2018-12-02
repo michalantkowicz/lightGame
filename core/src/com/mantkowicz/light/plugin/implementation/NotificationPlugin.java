@@ -1,10 +1,10 @@
-package com.mantkowicz.light.actor.plugin.implementation;
+package com.mantkowicz.light.plugin.implementation;
 
 import box2dLight.RayHandler;
 import com.badlogic.gdx.math.Vector2;
 import com.mantkowicz.light.actor.implementation.player.Player;
-import com.mantkowicz.light.actor.plugin.Plugin;
-import com.mantkowicz.light.configuration.NotificationPluginConfiguration;
+import com.mantkowicz.light.plugin.Plugin;
+import com.mantkowicz.light.configuration.api.NotificationPluginConfiguration;
 import com.mantkowicz.light.notification.Notification;
 import com.mantkowicz.light.notification.animation.EnlargeAndFadeOutAnimation;
 import com.mantkowicz.light.notification.factory.NotificationBuilder;
@@ -14,7 +14,7 @@ import com.mantkowicz.light.stage.NotificationStage;
 import static com.mantkowicz.light.notification.NotificationType.PLAYER_NOTIFICATION;
 import static com.mantkowicz.light.service.phrase.PhraseGroup.DARKNESS_EXCLAMATION;
 
-public class NotificationPlugin extends Plugin {
+public class NotificationPlugin implements Plugin {
     private static final int MILLIS_TO_EXCLAIM_AT_SHADOW = 2000;
 
     private final Player player;

@@ -1,4 +1,4 @@
-package com.mantkowicz.light.configuration;
+package com.mantkowicz.light.configuration.api;
 
 import box2dLight.RayHandler;
 import com.mantkowicz.light.service.phrase.PhraseService;

@@ -1,16 +1,42 @@
 package com.mantkowicz.light.board.service;
 
+import com.mantkowicz.light.actor.Collectible;
+import com.mantkowicz.light.actor.GameActor;
 import com.mantkowicz.light.board.Board;
 import com.mantkowicz.light.board.path.BoardPath;
 import com.mantkowicz.light.board.tile.Tile;
+import com.mantkowicz.light.service.event.GameEventService;
+import com.mantkowicz.light.service.event.implementation.CollectEvent;
 
 import java.util.*;
 
 public class BoardService {
     private final Board board;
+    private final GameActorsByTile gameActorsByTile;
+    private final GameEventService gameEventService;
 
-    public BoardService(Board board) {
+    public BoardService(GameEventService gameEventService, Board board) {
+        this.gameEventService = gameEventService;
         this.board = board;
+
+        this.gameActorsByTile = new GameActorsByTile(board.getTiles());
+    }
+
+    public void registerGameActor(Tile tile, GameActor gameActor) {
+        gameActorsByTile.putGameActor(tile, gameActor);
+        checkCollisions(tile, gameActor);
+    }
+
+    private void checkCollisions(Tile tile, GameActor gameActor) {
+        for (GameActor tileActor : gameActorsByTile.getGameActors(tile)) {
+            if (!tileActor.equals(gameActor) && tileActor instanceof Collectible) {
+                gameEventService.addEvent(new CollectEvent((Collectible) tileActor));
+            }
+        }
+    }
+
+    public void unregisterGameActor(Tile tile, GameActor gameActor) {
+        gameActorsByTile.removeGameActor(tile, gameActor);
     }
 
     public BoardPath getPath(Tile startTile, Tile endTile) {
