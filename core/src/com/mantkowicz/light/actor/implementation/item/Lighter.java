@@ -3,11 +3,9 @@ package com.mantkowicz.light.actor.implementation.item;
 import com.badlogic.gdx.graphics.Texture;
 import com.mantkowicz.light.actor.Collectible;
 import com.mantkowicz.light.actor.GameActor;
+import com.mantkowicz.light.actor.Inventory;
 import com.mantkowicz.light.actor.Item;
 import com.mantkowicz.light.configuration.api.PlayerConfiguration;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static com.mantkowicz.light.actor.GameActorType.LIGHTER;
 
@@ -45,7 +43,7 @@ public class Lighter extends GameActor implements Item, Collectible {
     }
 
     @Override
-    public List<Item> getItems() {
-        return Arrays.asList(this);
+    public Inventory getInventory() {
+        return null;
     }
 }

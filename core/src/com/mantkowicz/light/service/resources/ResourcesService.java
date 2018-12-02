@@ -16,7 +16,9 @@ public class ResourcesService {
     public ResourcesService() {
         assetManager = new AssetManager();
 
-        List<String> textureNames = Arrays.asList("floor-tile.png", "wall-tile.png", "player.png", "chest.png", "lighter.png");
+        List<String> textureNames = Arrays.asList("floor-tile.png", "wall-tile.png", "player.png", "chest.png",
+                "lighter.png", "item_background.png", "table_background.png", "item_background_pressed.png", "item_background_able_to_put.png",
+                "item_background_chosen.png");
 
         for (String textureName : textureNames) {
             assetManager.load(textureName, Texture.class);

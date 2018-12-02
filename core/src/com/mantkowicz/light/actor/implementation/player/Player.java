@@ -3,8 +3,8 @@ package com.mantkowicz.light.actor.implementation.player;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mantkowicz.light.actor.Collecting;
-import com.mantkowicz.light.actor.Deposit;
 import com.mantkowicz.light.actor.GameActor;
+import com.mantkowicz.light.actor.Inventory;
 import com.mantkowicz.light.configuration.api.PlayerConfiguration;
 import com.mantkowicz.light.plugin.PlayerCollectResolver;
 import com.mantkowicz.light.plugin.implementation.BoardMovementPlugin;
@@ -22,12 +22,12 @@ public class Player extends GameActor implements Collecting {
 
     private PlayerStatus status;
     private Long lastIdleChange;
-    private Deposit deposit;
+    private Inventory inventory;
 
     public Player(PlayerConfiguration configuration) {
         super(PLAYER, configuration.getBoardService());
 
-        deposit = new Deposit(3, new ArrayList<>());
+        inventory = new Inventory(3, new ArrayList<>());
 
         Texture avatarTexture = configuration.getResourcesService().getAssetManager().get(AVATAR_RESOURCE_NAME, Texture.class);
         createAvatar(avatarTexture);
@@ -66,7 +66,7 @@ public class Player extends GameActor implements Collecting {
     }
 
     @Override
-    public Deposit getDeposit() {
-        return deposit;
+    public Inventory getInventory() {
+        return inventory;
     }
 }
