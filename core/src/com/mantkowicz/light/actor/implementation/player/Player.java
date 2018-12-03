@@ -2,39 +2,37 @@ package com.mantkowicz.light.actor.implementation.player;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.mantkowicz.light.actor.BoardGameActor;
 import com.mantkowicz.light.actor.Collecting;
-import com.mantkowicz.light.actor.GameActor;
 import com.mantkowicz.light.actor.Inventory;
-import com.mantkowicz.light.command.Command;
 import com.mantkowicz.light.configuration.api.PlayerConfiguration;
 import com.mantkowicz.light.plugin.PlayerCollectResolver;
 import com.mantkowicz.light.plugin.implementation.BoardMovementPlugin;
 import com.mantkowicz.light.plugin.implementation.CollectPlugin;
 import com.mantkowicz.light.plugin.implementation.NotificationPlugin;
+import com.mantkowicz.light.service.event.GameEventService;
+import com.mantkowicz.light.service.event.implementation.PlayerMoveEvent;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static com.mantkowicz.light.actor.GameActorType.PLAYER;
 import static com.mantkowicz.light.actor.implementation.player.PlayerStatus.IDLE;
 import static com.mantkowicz.light.actor.implementation.player.PlayerStatus.MOVEMENT;
 
-public class Player extends GameActor implements Collecting {
+public class Player extends BoardGameActor implements Collecting {
     private static final String AVATAR_RESOURCE_NAME = "player.png";
     private static final float SPEED = 0.20f;
 
+    private GameEventService gameEventService;
     private PlayerStatus status;
     private Long lastIdleChange;
     private final Inventory inventory;
 
-    private final List<Command> commands;
-
     public Player(PlayerConfiguration configuration) {
         super(PLAYER, configuration.getBoardService());
 
+        gameEventService = configuration.getGameEventService();
         inventory = new Inventory(3, new ArrayList<>());
-
-        commands = new ArrayList<>();
 
         Texture avatarTexture = configuration.getResourcesService().getAssetManager().get(AVATAR_RESOURCE_NAME, Texture.class);
         createAvatar(avatarTexture);
@@ -42,7 +40,7 @@ public class Player extends GameActor implements Collecting {
         BoardMovementPlugin boardMovementPlugin = new BoardMovementPlugin(this, SPEED, configuration);
         addPlugin(boardMovementPlugin);
 
-        NotificationPlugin notificationPlugin = new NotificationPlugin(this, getNotificationOffset(), configuration);
+        NotificationPlugin notificationPlugin = new NotificationPlugin(this, configuration);
         addPlugin(notificationPlugin);
 
         PlayerCollectResolver collectResolver = new PlayerCollectResolver(this, configuration);
@@ -61,9 +59,9 @@ public class Player extends GameActor implements Collecting {
             lastIdleChange = TimeUtils.millis();
         } else {
             lastIdleChange = null;
-            if (MOVEMENT.equals(status)) {
-                executeCommandsOnMovement();
-            }
+        }
+        if (MOVEMENT.equals(status) && IDLE.equals(getStatus())) {
+            gameEventService.addEvent(new PlayerMoveEvent(this, 1));
         }
         this.status = status;
     }
@@ -78,18 +76,5 @@ public class Player extends GameActor implements Collecting {
     @Override
     public Inventory getInventory() {
         return inventory;
-    }
-
-    public void addCommandToExecuteOnMovement(Command command) {
-        this.commands.add(command);
-    }
-
-    private void executeCommandsOnMovement() {
-        if (commands.size() > 0) {
-            for (Command command : commands) {
-                command.execute();
-            }
-            commands.clear();
-        }
     }
 }

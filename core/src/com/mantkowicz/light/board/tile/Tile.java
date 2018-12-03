@@ -16,7 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Tile extends Group {
+    private static final int NOTIFICATION_OFFSET = 5;
     private static final float TAN_30_DIV_6 = 0.289f;
+
     private static int ID_SEQUENCE = 1;
 
     private final Color backgroundColor;
@@ -154,5 +156,12 @@ public abstract class Tile extends Group {
      */
     public Vector2 calculatePositionForCenteredActor(Actor actor) {
         return getCenter().sub(actor.getWidth() / 2f, actor.getHeight() / 2f);
+    }
+
+    /**
+     * @return center position for notification for this tile
+     */
+    public Vector2 getNotificationCenterPosition() {
+        return getCenter().cpy().add(0, getHeight() / 2f + NOTIFICATION_OFFSET);
     }
 }
