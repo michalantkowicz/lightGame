@@ -3,11 +3,11 @@ package com.mantkowicz.light.plugin.implementation;
 import box2dLight.RayHandler;
 import com.badlogic.gdx.math.Vector2;
 import com.mantkowicz.light.actor.implementation.player.Player;
-import com.mantkowicz.light.plugin.Plugin;
 import com.mantkowicz.light.configuration.api.NotificationPluginConfiguration;
 import com.mantkowicz.light.notification.Notification;
 import com.mantkowicz.light.notification.animation.EnlargeAndFadeOutAnimation;
 import com.mantkowicz.light.notification.factory.NotificationBuilder;
+import com.mantkowicz.light.plugin.Plugin;
 import com.mantkowicz.light.service.phrase.PhraseService;
 import com.mantkowicz.light.stage.NotificationStage;
 
@@ -18,14 +18,12 @@ public class NotificationPlugin implements Plugin {
     private static final int MILLIS_TO_EXCLAIM_AT_SHADOW = 2000;
 
     private final Player player;
-    private final Vector2 notificationOffset;
     private final RayHandler rayHandler;
     private final NotificationStage notificationStage;
     private final PhraseService phraseService;
 
-    public NotificationPlugin(Player player, Vector2 notificationOffset, NotificationPluginConfiguration configuration) {
+    public NotificationPlugin(Player player, NotificationPluginConfiguration configuration) {
         this.player = player;
-        this.notificationOffset = notificationOffset;
         this.rayHandler = configuration.getRayHandler();
         this.notificationStage = configuration.getNotificationStage();
         this.phraseService = configuration.getPhraseService();
@@ -62,7 +60,7 @@ public class NotificationPlugin implements Plugin {
 
     private Notification getExclamationAtShadow() {
         String exclamationText = phraseService.getRandomPhrase(DARKNESS_EXCLAMATION);
-        Vector2 notificationCenter = player.getCenter().add(notificationOffset);
+        Vector2 notificationCenter = player.getTile().getNotificationCenterPosition();
         return new NotificationBuilder(exclamationText)
                 .notificationAnimation(new EnlargeAndFadeOutAnimation())
                 .notificationType(PLAYER_NOTIFICATION)

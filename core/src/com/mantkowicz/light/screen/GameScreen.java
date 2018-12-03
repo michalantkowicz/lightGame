@@ -108,6 +108,8 @@ public class GameScreen implements Screen {
 
         uiStage.act(delta);
         uiStage.draw();
+
+        gameEventService.updateEventsLifesAndClean();
     }
 
     @Override

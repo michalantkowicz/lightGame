@@ -2,8 +2,8 @@ package com.mantkowicz.light.actor.implementation.collectible;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.mantkowicz.light.actor.BoardGameActor;
 import com.mantkowicz.light.actor.Collectible;
-import com.mantkowicz.light.actor.GameActor;
 import com.mantkowicz.light.actor.Inventory;
 import com.mantkowicz.light.configuration.api.PlayerConfiguration;
 
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import static com.mantkowicz.light.actor.GameActorType.CHEST;
 
-public class Chest extends GameActor implements Collectible {
+public class Chest extends BoardGameActor implements Collectible {
     private static final String AVATAR_RESOURCE_NAME = "chest.png";
 
     private final Inventory inventory;
