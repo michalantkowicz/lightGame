@@ -14,7 +14,7 @@ import static com.mantkowicz.light.lights.action.blinking.BlinkingSpeed.NORMAL;
 
 public class TorchLight extends GameLight {
     private static final int RAYS = 50;
-    private static final int DISTANCE = 120;
+    private static final int DISTANCE = 240;
     private static final Color COLOR = new Color(0.4f, 0.4f, 0.4f, 1f);
 
     public TorchLight(RayHandler rayHandler) {

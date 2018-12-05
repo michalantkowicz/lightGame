@@ -4,10 +4,12 @@ import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mantkowicz.light.board.Board;
 import com.mantkowicz.light.board.service.BoardService;
 import com.mantkowicz.light.board.tile.Tile;
@@ -23,12 +25,15 @@ import com.mantkowicz.light.stage.NotificationStage;
 
 import java.util.List;
 
+import static com.mantkowicz.light.game.Main.SCREEN_HEIGHT;
+import static com.mantkowicz.light.game.Main.SCREEN_WIDTH;
+
 public class GameScreen implements Screen {
     private final ResourcesService resourcesService;
     private final GameEventService gameEventService;
     private final World world;
     private Stage stage;
-    private Stage uiStage;
+    public static Stage uiStage;
     private NotificationStage notificationStage;
     private final Board board = new Board();
     private RayHandler rayHandler;
@@ -41,9 +46,10 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-        stage = new Stage(new ScreenViewport());
-        uiStage = new Stage(new ScreenViewport());
-        notificationStage = new NotificationStage(new ScreenViewport());
+        Viewport viewport = new ExtendViewport(SCREEN_WIDTH, SCREEN_HEIGHT);
+        stage = new Stage(viewport);
+        uiStage = new Stage(viewport);
+        notificationStage = new NotificationStage(viewport);
 
         InputMultiplexer multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(uiStage);
@@ -82,6 +88,7 @@ public class GameScreen implements Screen {
     private GamePrepareConfiguration prepareConfiguration() {
         BoardService boardService = new BoardService(gameEventService, board);
         PhraseService phraseService = new PhraseService();
+        Camera camera = stage.getCamera();
 
         return new GamePrepareConfiguration(gameEventService,
                 boardService,
@@ -91,7 +98,8 @@ public class GameScreen implements Screen {
                 notificationStage,
                 phraseService,
                 uiStage,
-                resourcesService);
+                resourcesService,
+                camera);
     }
 
     @Override

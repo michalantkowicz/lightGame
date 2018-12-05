@@ -12,6 +12,8 @@ import com.mantkowicz.light.service.event.GameEventService;
 import com.mantkowicz.light.service.resources.ResourcesService;
 
 public class Main extends Game {
+    public static final float SCREEN_WIDTH = 800f, SCREEN_HEIGHT = 1280f;
+
     private ResourcesService resourcesService;
     private World world;
 

@@ -30,7 +30,7 @@ public class NotificationPlugin implements Plugin {
     }
 
     @Override
-    public void run() {
+    public void run(float delta) {
         if (shouldPlayerExclaimAtShadow()) {
             Notification shadowNotification = getExclamationAtShadow();
             notificationStage.addActor(shadowNotification);

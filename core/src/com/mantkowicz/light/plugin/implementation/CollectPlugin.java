@@ -19,7 +19,7 @@ public class CollectPlugin implements Plugin {
     }
 
     @Override
-    public void run() {
+    public void run(float delta) {
         if (gameEventService.containsEvent(COLLECT)) {
             CollectEvent gameEvent = gameEventService.getEvent(COLLECT, CollectEvent.class, true);
             Collectible collectible = gameEvent.getEventObject();

@@ -14,8 +14,8 @@ import com.mantkowicz.light.configuration.api.BoardMovementPluginConfiguration;
 import com.mantkowicz.light.service.event.GameEventService;
 import com.mantkowicz.light.service.event.implementation.TileTouchedEvent;
 
-import static com.mantkowicz.light.actor.implementation.player.PlayerStatus.IDLE;
-import static com.mantkowicz.light.actor.implementation.player.PlayerStatus.MOVEMENT;
+import static com.mantkowicz.light.actor.implementation.player.Status.IDLE;
+import static com.mantkowicz.light.actor.implementation.player.Status.MOVEMENT;
 import static com.mantkowicz.light.service.event.GameEventType.TILE_TOUCHED;
 
 public class BoardMovementPlugin implements Plugin {
@@ -32,7 +32,7 @@ public class BoardMovementPlugin implements Plugin {
     }
 
     @Override
-    public void run() {
+    public void run(float delta) {
         if (gameEventService.containsEvent(TILE_TOUCHED) && IDLE.equals(player.getStatus())) {
             TileTouchedEvent gameEvent = gameEventService.getEvent(TILE_TOUCHED, TileTouchedEvent.class, true);
             player.addAction(getMoveByPathAction(gameEvent));

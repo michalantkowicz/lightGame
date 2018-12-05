@@ -18,6 +18,7 @@ public class GameEventService {
         gameEventCountByType.increase(gameEvent.getGameEventType());
     }
 
+    @SuppressWarnings("unchecked")
     public <T extends GameEvent> T getEvent(GameEventType gameEventType, Class<T> type, boolean removeEventFromQueue) {
         Iterator<GameEvent> iterator = gameEventQueue.iterator();
         while (iterator.hasNext()) {

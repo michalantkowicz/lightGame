@@ -23,7 +23,7 @@ public class RemoveOnPlayerMovePlugin implements Plugin {
     }
 
     @Override
-    public void run() {
+    public void run(float delta) {
         if (gameEventService.containsEvent(PLAYER_MOVE)) {
             if (actor != null) {
                 actor.setTouchable(Touchable.disabled);

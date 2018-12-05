@@ -96,7 +96,6 @@ public class TmxTiledMapLoader implements TiledMapLoader<TmxTileMapLoaderPropert
             int tileDefinitionId = cell.getTile().getId();
             Tile tile = createTile(tileSet, tileDefinitionId);
             Vector2 position = new Vector2(x * tileWidth, (y - (x % 2) / 2f) * tileHeight);
-            position.add(new Vector2(50, 50));
             tile.setPosition(position.x, position.y);
             return tile;
         }

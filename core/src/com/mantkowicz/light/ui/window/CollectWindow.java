@@ -1,6 +1,5 @@
 package com.mantkowicz.light.ui.window;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -126,7 +125,7 @@ public class CollectWindow extends Table {
     private void initialize() {
         setTouchable(Touchable.enabled);
         setSize(WIDTH, HEIGHT);
-        setPosition(Gdx.graphics.getWidth() / 2f - getWidth() / 2f, Gdx.graphics.getHeight() / 2f - getHeight() / 2f);
+
         addListener(new StopClickThroughClickListener());
 
         TextureRegionDrawable textureRegionDrawable = new TextureRegionDrawable(new TextureRegion(assetManager.get("table_background.png", Texture.class)));

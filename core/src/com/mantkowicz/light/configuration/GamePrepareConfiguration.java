@@ -1,7 +1,7 @@
 package com.mantkowicz.light.configuration;
 
 import box2dLight.RayHandler;
-import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mantkowicz.light.board.service.BoardService;
@@ -21,6 +21,7 @@ public class GamePrepareConfiguration implements PlayerConfiguration {
     private final PhraseService phraseService;
     private final Stage uiStage;
     private final ResourcesService resourcesService;
+    private final Camera camera;
 
     public GamePrepareConfiguration(GameEventService gameEventService,
                                     BoardService boardService,
@@ -30,7 +31,8 @@ public class GamePrepareConfiguration implements PlayerConfiguration {
                                     NotificationStage notificationStage,
                                     PhraseService phraseService,
                                     Stage uiStage,
-                                    ResourcesService resourcesService) {
+                                    ResourcesService resourcesService,
+                                    Camera camera) {
         this.gameEventService = gameEventService;
         this.boardService = boardService;
         this.world = world;
@@ -40,6 +42,7 @@ public class GamePrepareConfiguration implements PlayerConfiguration {
         this.phraseService = phraseService;
         this.uiStage = uiStage;
         this.resourcesService = resourcesService;
+        this.camera = camera;
     }
 
     public World getWorld() {
@@ -82,5 +85,10 @@ public class GamePrepareConfiguration implements PlayerConfiguration {
 
     public ResourcesService getResourcesService() {
         return resourcesService;
+    }
+
+    @Override
+    public Camera getCamera() {
+        return camera;
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.6" orientation="hexagonal" renderorder="left-down" width="9" height="8" tilewidth="74" tileheight="64" infinite="0" hexsidelength="36" staggeraxis="x" staggerindex="odd" nextobjectid="3">
+<map version="1.0" tiledversion="1.1.6" orientation="hexagonal" renderorder="left-down" width="9" height="8" tilewidth="148" tileheight="128" infinite="0" hexsidelength="72" staggeraxis="x" staggerindex="odd" nextobjectid="3">
  <tileset firstgid="1" source="lightgame_tileset.tsx"/>
  <layer name="Warstwa Kafelków 1" width="9" height="8">
   <data encoding="csv">

@@ -30,5 +30,8 @@ public interface PlayerConfiguration extends BoardMovementPluginConfiguration, N
 
     @Override
     Stage getUiStage();
+
+    @Override
+    Stage getStage();
 }
 

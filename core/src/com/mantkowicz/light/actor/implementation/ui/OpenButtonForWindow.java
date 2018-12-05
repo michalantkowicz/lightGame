@@ -1,6 +1,7 @@
 package com.mantkowicz.light.actor.implementation.ui;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mantkowicz.light.actor.Collectible;
 import com.mantkowicz.light.actor.GameActor;
@@ -16,7 +17,7 @@ public class OpenButtonForWindow extends GameActor {
         super(OPEN_BUTTON);
 
         TextButton openButton = getOpenButton(configuration, collectible);
-        openButton.addListener(new OpenCollectWindowButtonListener(collectWindow, configuration.getUiStage()));
+        openButton.addListener(new OpenCollectWindowButtonListener(collectWindow, configuration.getCamera(), configuration.getUiStage()));
         addActor(openButton);
 
         RemoveOnPlayerMovePlugin removeOnPlayerMovePlugin = new RemoveOnPlayerMovePlugin(configuration.getGameEventService(), this);

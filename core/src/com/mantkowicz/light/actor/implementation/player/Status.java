@@ -1,5 +1,5 @@
 package com.mantkowicz.light.actor.implementation.player;
 
-public enum PlayerStatus {
+public enum Status {
     IDLE, MOVEMENT
 }
