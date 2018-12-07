@@ -1,28 +1,25 @@
 package com.mantkowicz.light.plugin.implementation;
 
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.mantkowicz.light.actor.GameActor;
 import com.mantkowicz.light.actor.implementation.CameraActor;
 import com.mantkowicz.light.configuration.api.CameraTrackingPluginConfiguration;
 import com.mantkowicz.light.plugin.Plugin;
 
 public class CameraTrackingPlugin implements Plugin {
-    private static final float DISTANCE_LEFT_RIGHT = 300;
-    private static final float DISTANCE_TOP_BOTTOM = 800;
-    private static final float MOVEMENT_TIME = .75f;
+    private static final float DISTANCE_LEFT_RIGHT = 400;
+    private static final float DISTANCE_TOP_BOTTOM = 400;
 
     private GameActor actor;
     private CameraActor cameraActor;
     private boolean centeredAtStart = false;
+    Vector2 interval = new Vector2();
 
     public CameraTrackingPlugin(GameActor actor, CameraTrackingPluginConfiguration configuration) {
         this.actor = actor;
 
         this.cameraActor = new CameraActor(configuration.getCamera());
-//        cameraActor.setDebug(DISTANCE_LEFT_RIGHT, DISTANCE_TOP_BOTTOM);
+        cameraActor.setDebug(DISTANCE_LEFT_RIGHT, DISTANCE_TOP_BOTTOM);
         configuration.getStage().addActor(cameraActor);
     }
 
@@ -34,9 +31,13 @@ public class CameraTrackingPlugin implements Plugin {
         }
 
         if (shouldCameraMove()) {
-            Vector2 actorCenterPosition = actor.getCenter();
-            MoveToAction action = Actions.moveTo(actorCenterPosition.x, actorCenterPosition.y, MOVEMENT_TIME, Interpolation.pow2);
-            cameraActor.addAction(action);
+            interval = actor.getCenter().sub(cameraActor.getCenter()).scl(0.02f);
+            cameraActor.moveBy(interval.x, interval.y);
+        } else {
+            if(interval.len2() > 1f) {
+                cameraActor.moveBy(interval.x, interval.y);
+                interval = interval.scl(0.96f);
+            }
         }
     }
 
@@ -46,10 +47,9 @@ public class CameraTrackingPlugin implements Plugin {
         float horizontalInterval = DISTANCE_LEFT_RIGHT / 2f;
         float verticalInterval = DISTANCE_TOP_BOTTOM / 2f;
 
-        return (cameraActor.getActions().size == 0) &&
-                (actorCenter.x < cameraCenter.x - horizontalInterval ||
-                        actorCenter.x > cameraCenter.x + horizontalInterval ||
-                        actorCenter.y < cameraCenter.y - verticalInterval ||
-                        actorCenter.y > cameraCenter.y + verticalInterval);
+        return (actorCenter.x < cameraCenter.x - horizontalInterval ||
+                actorCenter.x > cameraCenter.x + horizontalInterval ||
+                actorCenter.y < cameraCenter.y - verticalInterval ||
+                actorCenter.y > cameraCenter.y + verticalInterval);
     }
 }
