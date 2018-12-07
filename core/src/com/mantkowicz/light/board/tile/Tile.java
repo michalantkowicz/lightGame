@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import com.mantkowicz.light.board.tile.listener.TileClickListener;
@@ -28,6 +29,8 @@ public abstract class Tile extends Group {
     private MapProperties attributes;
     private Array<Vector2> polygon;
     private final Image background;
+
+    private boolean marked = false;
 
     protected Tile(Texture background) {
         this.id = ID_SEQUENCE++;
@@ -75,11 +78,18 @@ public abstract class Tile extends Group {
     }
 
     public void mark() {
-        this.background.setColor(Color.BLUE);
+        marked = true;
+        this.background.addAction(Actions.sequence(Actions.delay(0.06f), Actions.color(Color.BLUE)));
     }
 
     public void unmark() {
+        marked = false;
+        this.background.clearActions();
         this.background.setColor(backgroundColor);
+    }
+
+    public boolean isMarked() {
+        return marked;
     }
 
     public abstract boolean isAccessible();

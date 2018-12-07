@@ -1,6 +1,5 @@
 package com.mantkowicz.light.plugin.implementation;
 
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -11,33 +10,46 @@ import com.mantkowicz.light.configuration.api.CameraTrackingPluginConfiguration;
 import com.mantkowicz.light.plugin.Plugin;
 
 public class CameraTrackingPlugin implements Plugin {
-    private static final float DISTANCE = 200;
-    private static final float DISTANCE2 = DISTANCE * DISTANCE;
-    private static final float MOVEMENT_TIME = 1.5f;
+    private static final float DISTANCE_LEFT_RIGHT = 300;
+    private static final float DISTANCE_TOP_BOTTOM = 800;
+    private static final float MOVEMENT_TIME = .75f;
 
     private GameActor actor;
-    private Camera camera;
     private CameraActor cameraActor;
+    private boolean centeredAtStart = false;
 
     public CameraTrackingPlugin(GameActor actor, CameraTrackingPluginConfiguration configuration) {
         this.actor = actor;
-        this.camera = configuration.getCamera();
 
         this.cameraActor = new CameraActor(configuration.getCamera());
+//        cameraActor.setDebug(DISTANCE_LEFT_RIGHT, DISTANCE_TOP_BOTTOM);
         configuration.getStage().addActor(cameraActor);
     }
 
     @Override
     public void run(float delta) {
+        if (!centeredAtStart) {
+            cameraActor.setPosition(actor.getX(), actor.getY());
+            centeredAtStart = true;
+        }
+
         if (shouldCameraMove()) {
-            cameraActor.clearActions();
             Vector2 actorCenterPosition = actor.getCenter();
-            MoveToAction action = Actions.moveTo(actorCenterPosition.x, actorCenterPosition.y, MOVEMENT_TIME, Interpolation.sineOut);
+            MoveToAction action = Actions.moveTo(actorCenterPosition.x, actorCenterPosition.y, MOVEMENT_TIME, Interpolation.pow2);
             cameraActor.addAction(action);
         }
     }
 
     private boolean shouldCameraMove() {
-        return actor.getCenter().dst2(camera.position.x, camera.position.y) > DISTANCE2;
+        Vector2 actorCenter = actor.getCenter();
+        Vector2 cameraCenter = cameraActor.getCenter();
+        float horizontalInterval = DISTANCE_LEFT_RIGHT / 2f;
+        float verticalInterval = DISTANCE_TOP_BOTTOM / 2f;
+
+        return (cameraActor.getActions().size == 0) &&
+                (actorCenter.x < cameraCenter.x - horizontalInterval ||
+                        actorCenter.x > cameraCenter.x + horizontalInterval ||
+                        actorCenter.y < cameraCenter.y - verticalInterval ||
+                        actorCenter.y > cameraCenter.y + verticalInterval);
     }
 }
