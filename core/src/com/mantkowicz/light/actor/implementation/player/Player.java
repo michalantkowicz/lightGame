@@ -51,6 +51,7 @@ public class Player extends BoardGameActor implements Collecting {
         addPlugin(cameraTrackingPlugin);
 
         setStatus(IDLE);
+        addListener(new PlayerClickListener(this, configuration.getGameEventService()));
     }
 
     @Override

@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.mantkowicz.light.actor.GameActor;
 import com.mantkowicz.light.plugin.Plugin;
 import com.mantkowicz.light.service.event.GameEventService;
-import com.mantkowicz.light.service.event.implementation.PlayerMoveEvent;
 
 import static com.mantkowicz.light.service.event.GameEventType.PLAYER_MOVE;
 
