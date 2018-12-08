@@ -1,17 +1,18 @@
 package com.mantkowicz.light.board.tile.listener;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mantkowicz.light.board.tile.Tile;
 import com.mantkowicz.light.service.event.GameEventService;
 import com.mantkowicz.light.service.event.implementation.TileTouchedEvent;
 
-public class TileClickListener extends InputListener {
+public class AccessibleTileClickListener extends ClickListener {
     private final Tile tile;
     private final GameEventService gameEventService;
 
-    public TileClickListener(Tile tile, GameEventService gameEventService) {
+    public AccessibleTileClickListener(Tile tile, GameEventService gameEventService) {
         this.tile = tile;
         this.gameEventService = gameEventService;
     }
@@ -31,6 +32,13 @@ public class TileClickListener extends InputListener {
         if (touchedTile != null && touchedTile.isMarked()) {
             touchedTile.unmark();
             gameEventService.addEvent(new TileTouchedEvent(touchedTile));
+        }
+    }
+
+    @Override
+    public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+        if (tile.isMarked()) {
+            tile.unmark();
         }
     }
 

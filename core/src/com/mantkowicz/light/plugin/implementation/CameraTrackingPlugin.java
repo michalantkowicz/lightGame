@@ -7,8 +7,8 @@ import com.mantkowicz.light.configuration.api.CameraTrackingPluginConfiguration;
 import com.mantkowicz.light.plugin.Plugin;
 
 public class CameraTrackingPlugin implements Plugin {
-    private static final float DISTANCE_LEFT_RIGHT = 400;
-    private static final float DISTANCE_TOP_BOTTOM = 400;
+    private static final float DISTANCE_LEFT_RIGHT = 450;
+    private static final float DISTANCE_TOP_BOTTOM = 450;
 
     private GameActor actor;
     private CameraActor cameraActor;
@@ -25,24 +25,25 @@ public class CameraTrackingPlugin implements Plugin {
 
     @Override
     public void run(float delta) {
-        if (!centeredAtStart) {
+        if (!centeredAtStart) { // TODO: move to another plugin that will remove itself after once run
             cameraActor.setPosition(actor.getX(), actor.getY());
             centeredAtStart = true;
         }
 
-        if (shouldCameraMove()) {
-            interval = actor.getCenter().sub(cameraActor.getCenter()).scl(0.02f);
+        Vector2 actorCenter = actor.getCenter();
+
+        if (shouldCameraMove(actorCenter)) {
+            interval = actorCenter.sub(cameraActor.getCenter()).scl(0.02f);
             cameraActor.moveBy(interval.x, interval.y);
         } else {
-            if(interval.len2() > 1f) {
+            if (interval.len2() > 1f) {
                 cameraActor.moveBy(interval.x, interval.y);
                 interval = interval.scl(0.96f);
             }
         }
     }
 
-    private boolean shouldCameraMove() {
-        Vector2 actorCenter = actor.getCenter();
+    private boolean shouldCameraMove(Vector2 actorCenter) {
         Vector2 cameraCenter = cameraActor.getCenter();
         float horizontalInterval = DISTANCE_LEFT_RIGHT / 2f;
         float verticalInterval = DISTANCE_TOP_BOTTOM / 2f;

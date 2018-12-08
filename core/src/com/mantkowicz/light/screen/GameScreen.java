@@ -13,7 +13,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mantkowicz.light.board.Board;
 import com.mantkowicz.light.board.service.BoardService;
 import com.mantkowicz.light.board.tile.Tile;
-import com.mantkowicz.light.board.tile.listener.TileClickListener;
 import com.mantkowicz.light.configuration.GamePrepareConfiguration;
 import com.mantkowicz.light.map.TiledMapLoader;
 import com.mantkowicz.light.map.implementation.tmx.TmxTileMapLoaderProperties;
@@ -67,8 +66,7 @@ public class GameScreen implements Screen {
             stage.addActor(tile);
             tile.toBack();
 
-            TileClickListener listener = new TileClickListener(tile, gameEventService);
-            tile.prepare(listener, configuration);
+            tile.prepare(configuration);
         }
     }
 

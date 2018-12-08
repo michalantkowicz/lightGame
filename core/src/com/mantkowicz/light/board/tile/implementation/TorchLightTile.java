@@ -2,9 +2,8 @@ package com.mantkowicz.light.board.tile.implementation;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
+import com.mantkowicz.light.board.tile.AccessibleTile;
 import com.mantkowicz.light.configuration.GamePrepareConfiguration;
-import com.mantkowicz.light.board.tile.Tile;
-import com.mantkowicz.light.board.tile.listener.TileClickListener;
 import com.mantkowicz.light.lights.GameLight;
 import com.mantkowicz.light.lights.LightType;
 import com.mantkowicz.light.lights.factory.LightFactory;
@@ -12,7 +11,7 @@ import com.mantkowicz.light.lights.factory.LightFactory;
 import static com.mantkowicz.light.board.tile.TileAttribute.LIGHT_COLOR_HEX;
 import static com.mantkowicz.light.board.tile.TileAttribute.LIGHT_TYPE;
 
-public class TorchLightTile extends Tile {
+public class TorchLightTile extends AccessibleTile {
     GameLight torchLight;
 
     public TorchLightTile(AssetManager assetManager) {
@@ -20,13 +19,8 @@ public class TorchLightTile extends Tile {
     }
 
     @Override
-    public boolean isAccessible() {
-        return true;
-    }
-
-    @Override
-    public void prepare(TileClickListener tileClickListener, GamePrepareConfiguration configuration) {
-        super.prepare(tileClickListener, configuration);
+    public void prepare(GamePrepareConfiguration configuration) {
+        super.prepare(configuration);
         String lightTypeAttribute = getAttributes().get(LIGHT_TYPE.getValue(), String.class);
         torchLight = LightFactory.createLight(configuration.getRayHandler(), LightType.valueOf(lightTypeAttribute));
         torchLight.setTile(this);

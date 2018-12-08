@@ -3,7 +3,6 @@ package com.mantkowicz.light.board.tile.implementation;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.math.Vector2;
 import com.mantkowicz.light.configuration.GamePrepareConfiguration;
-import com.mantkowicz.light.board.tile.listener.TileClickListener;
 
 import static com.mantkowicz.light.board.tile.TileAttribute.BORDER_LIGHT_POSITION;
 
@@ -15,8 +14,8 @@ public class BorderTorchLightTile extends TorchLightTile {
     }
 
     @Override
-    public void prepare(TileClickListener tileClickListener, GamePrepareConfiguration configuration) {
-        super.prepare(tileClickListener, configuration);
+    public void prepare(GamePrepareConfiguration configuration) {
+        super.prepare(configuration);
 
         int rotation = calculateRotation();
 

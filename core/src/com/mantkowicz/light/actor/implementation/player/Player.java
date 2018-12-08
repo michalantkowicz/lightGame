@@ -1,8 +1,6 @@
 package com.mantkowicz.light.actor.implementation.player;
 
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mantkowicz.light.actor.BoardGameActor;
 import com.mantkowicz.light.actor.Collecting;
@@ -12,7 +10,7 @@ import com.mantkowicz.light.plugin.PlayerCollectResolver;
 import com.mantkowicz.light.plugin.implementation.BoardMovementPlugin;
 import com.mantkowicz.light.plugin.implementation.CameraTrackingPlugin;
 import com.mantkowicz.light.plugin.implementation.CollectPlugin;
-import com.mantkowicz.light.plugin.implementation.NotificationPlugin;
+import com.mantkowicz.light.plugin.implementation.PlayerNotificationPlugin;
 import com.mantkowicz.light.service.event.GameEventService;
 import com.mantkowicz.light.service.event.implementation.PlayerMoveEvent;
 
@@ -42,8 +40,8 @@ public class Player extends BoardGameActor implements Collecting {
         BoardMovementPlugin boardMovementPlugin = new BoardMovementPlugin(this, SPEED, configuration);
         addPlugin(boardMovementPlugin);
 
-        NotificationPlugin notificationPlugin = new NotificationPlugin(this, configuration);
-        addPlugin(notificationPlugin);
+        PlayerNotificationPlugin playerNotificationPlugin = new PlayerNotificationPlugin(this, configuration);
+        addPlugin(playerNotificationPlugin);
 
         PlayerCollectResolver collectResolver = new PlayerCollectResolver(this, configuration);
         CollectPlugin collectPlugin = new CollectPlugin(collectResolver, configuration);
