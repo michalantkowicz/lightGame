@@ -1,8 +1,12 @@
 package com.mantkowicz.light.actor.implementation;
 
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.mantkowicz.light.actor.GameActor;
 
 import static com.mantkowicz.light.actor.GameActorType.CAMERA_ACTOR;
@@ -36,5 +40,16 @@ public class CameraActor extends GameActor {
         debugActor.setPosition(debugActor.getX() - debugActor.getWidth() / 2f, debugActor.getY() - debugActor.getHeight() / 2f);
         debugActor.setTouchable(Touchable.disabled);
         debugActor.debug();
+    }
+
+    public void centerAt(Vector2 target) {
+        if (isNotCentering()) {
+            MoveToAction moveToTargetAction = Actions.moveTo(target.x, target.y, 1f, Interpolation.pow2Out);
+            addAction(moveToTargetAction);
+        }
+    }
+
+    public boolean isNotCentering() {
+        return getActions().size == 0;
     }
 }

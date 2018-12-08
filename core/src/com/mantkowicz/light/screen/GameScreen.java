@@ -14,18 +14,23 @@ import com.mantkowicz.light.board.Board;
 import com.mantkowicz.light.board.service.BoardService;
 import com.mantkowicz.light.board.tile.Tile;
 import com.mantkowicz.light.configuration.GamePrepareConfiguration;
+import com.mantkowicz.light.feature.Feature;
+import com.mantkowicz.light.feature.implementation.CameraTrackingFeature;
 import com.mantkowicz.light.map.TiledMapLoader;
 import com.mantkowicz.light.map.implementation.tmx.TmxTileMapLoaderProperties;
 import com.mantkowicz.light.map.implementation.tmx.TmxTiledMapLoader;
 import com.mantkowicz.light.service.event.GameEventService;
+import com.mantkowicz.light.service.event.implementation.PlayerCreatedEvent;
 import com.mantkowicz.light.service.phrase.PhraseService;
 import com.mantkowicz.light.service.resources.ResourcesService;
 import com.mantkowicz.light.stage.NotificationStage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.mantkowicz.light.game.Main.SCREEN_HEIGHT;
 import static com.mantkowicz.light.game.Main.SCREEN_WIDTH;
+import static com.mantkowicz.light.service.event.GameEventType.PLAYER_CREATED;
 
 public class GameScreen implements Screen {
     private final ResourcesService resourcesService;
@@ -36,6 +41,7 @@ public class GameScreen implements Screen {
     private NotificationStage notificationStage;
     private final Board board = new Board();
     private RayHandler rayHandler;
+    private List<Feature> features = new ArrayList<>();
 
     public GameScreen(ResourcesService resourcesService, GameEventService gameEventService, World world) {
         this.resourcesService = resourcesService;
@@ -67,6 +73,12 @@ public class GameScreen implements Screen {
             tile.toBack();
 
             tile.prepare(configuration);
+        }
+
+        if (gameEventService.containsEvent(PLAYER_CREATED)) {
+            PlayerCreatedEvent gameEvent = gameEventService.getEvent(PLAYER_CREATED, PlayerCreatedEvent.class, true);
+            CameraTrackingFeature cameraTrackingFeature = new CameraTrackingFeature(gameEvent.getEventObject(), configuration);
+            addFeature(cameraTrackingFeature);
         }
     }
 
@@ -115,7 +127,15 @@ public class GameScreen implements Screen {
         uiStage.act(delta);
         uiStage.draw();
 
+        for (Feature feature : features) {
+            feature.run(delta);
+        }
+
         gameEventService.updateEventsLifesAndClean();
+    }
+
+    protected void addFeature(Feature feature) {
+        features.add(feature);
     }
 
     @Override

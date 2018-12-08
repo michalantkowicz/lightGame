@@ -8,7 +8,6 @@ import com.mantkowicz.light.actor.Inventory;
 import com.mantkowicz.light.configuration.api.PlayerConfiguration;
 import com.mantkowicz.light.plugin.PlayerCollectResolver;
 import com.mantkowicz.light.plugin.implementation.BoardMovementPlugin;
-import com.mantkowicz.light.plugin.implementation.CameraTrackingPlugin;
 import com.mantkowicz.light.plugin.implementation.CollectPlugin;
 import com.mantkowicz.light.plugin.implementation.PlayerNotificationPlugin;
 import com.mantkowicz.light.service.event.GameEventService;
@@ -46,9 +45,6 @@ public class Player extends BoardGameActor implements Collecting {
         PlayerCollectResolver collectResolver = new PlayerCollectResolver(this, configuration);
         CollectPlugin collectPlugin = new CollectPlugin(collectResolver, configuration);
         addPlugin(collectPlugin);
-
-        CameraTrackingPlugin cameraTrackingPlugin = new CameraTrackingPlugin(this, configuration);
-        addPlugin(cameraTrackingPlugin);
 
         setStatus(IDLE);
         addListener(new PlayerClickListener(this, configuration.getGameEventService()));

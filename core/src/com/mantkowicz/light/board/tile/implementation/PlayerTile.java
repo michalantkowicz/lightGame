@@ -4,6 +4,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.mantkowicz.light.actor.implementation.player.Player;
 import com.mantkowicz.light.board.tile.AccessibleTile;
 import com.mantkowicz.light.configuration.GamePrepareConfiguration;
+import com.mantkowicz.light.service.event.implementation.PlayerCreatedEvent;
 
 public class PlayerTile extends AccessibleTile {
     public PlayerTile(AssetManager assetManager) {
@@ -18,5 +19,7 @@ public class PlayerTile extends AccessibleTile {
         player.setTile(this);
 
         configuration.getStage().addActor(player);
+
+        configuration.getGameEventService().addEvent(new PlayerCreatedEvent(player));
     }
 }
