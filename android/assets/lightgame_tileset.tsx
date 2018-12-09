@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset name="lightgame_tileset" tilewidth="74" tileheight="64" tilecount="15" columns="0">
+<tileset name="lightgame_tileset" tilewidth="148" tileheight="128" tilecount="16" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
   <properties>
    <property name="tileClass" value="FLOOR"/>
   </properties>
-  <image width="74" height="64" source="floor-tile.png"/>
+  <image width="148" height="128" source="floor-tile.png"/>
  </tile>
  <tile id="1">
   <properties>
    <property name="tileClass" value="WALL"/>
   </properties>
-  <image width="74" height="64" source="wall-tile.png"/>
+  <image width="148" height="128" source="wall-tile.png"/>
  </tile>
  <tile id="2">
   <properties>
    <property name="lightType" value="TORCH"/>
    <property name="tileClass" value="TORCH_LIGHT"/>
   </properties>
-  <image width="74" height="64" source="lightTile.png"/>
+  <image width="148" height="128" source="lightTile.png"/>
  </tile>
  <tile id="3">
   <properties>
    <property name="tileClass" value="PLAYER"/>
   </properties>
-  <image width="74" height="64" source="playerTile.png"/>
+  <image width="148" height="128" source="playerTile.png"/>
  </tile>
  <tile id="4">
   <properties>
@@ -32,7 +32,7 @@
    <property name="lightType" value="TORCH"/>
    <property name="tileClass" value="BORDER_TORCH_LIGHT"/>
   </properties>
-  <image width="74" height="64" source="lightTile_bottom.png"/>
+  <image width="148" height="128" source="lightTile_bottom.png"/>
  </tile>
  <tile id="5">
   <properties>
@@ -40,7 +40,7 @@
    <property name="lightType" value="TORCH"/>
    <property name="tileClass" value="BORDER_TORCH_LIGHT"/>
   </properties>
-  <image width="74" height="64" source="lightTile_bottomLeft.png"/>
+  <image width="148" height="128" source="lightTile_bottomLeft.png"/>
  </tile>
  <tile id="6">
   <properties>
@@ -48,7 +48,7 @@
    <property name="lightType" value="TORCH"/>
    <property name="tileClass" value="BORDER_TORCH_LIGHT"/>
   </properties>
-  <image width="74" height="64" source="lightTile_bottomRight.png"/>
+  <image width="148" height="128" source="lightTile_bottomRight.png"/>
  </tile>
  <tile id="7">
   <properties>
@@ -56,7 +56,7 @@
    <property name="lightType" value="TORCH"/>
    <property name="tileClass" value="BORDER_TORCH_LIGHT"/>
   </properties>
-  <image width="74" height="64" source="lightTile_top.png"/>
+  <image width="148" height="128" source="lightTile_top.png"/>
  </tile>
  <tile id="8">
   <properties>
@@ -64,7 +64,7 @@
    <property name="lightType" value="TORCH"/>
    <property name="tileClass" value="BORDER_TORCH_LIGHT"/>
   </properties>
-  <image width="74" height="64" source="lightTile_topLeft.png"/>
+  <image width="148" height="128" source="lightTile_topLeft.png"/>
  </tile>
  <tile id="9">
   <properties>
@@ -72,7 +72,7 @@
    <property name="lightType" value="TORCH"/>
    <property name="tileClass" value="BORDER_TORCH_LIGHT"/>
   </properties>
-  <image width="74" height="64" source="lightTile_topRight.png"/>
+  <image width="148" height="128" source="lightTile_topRight.png"/>
  </tile>
  <tile id="10">
   <properties>
@@ -80,7 +80,7 @@
    <property name="lightType" value="TORCH"/>
    <property name="tileClass" value="TORCH_LIGHT"/>
   </properties>
-  <image width="74" height="64" source="lightTile_green.png"/>
+  <image width="148" height="128" source="lightTile_green.png"/>
  </tile>
  <tile id="11">
   <properties>
@@ -88,7 +88,7 @@
    <property name="lightType" value="TORCH"/>
    <property name="tileClass" value="TORCH_LIGHT"/>
   </properties>
-  <image width="74" height="64" source="lightTile_blue.png"/>
+  <image width="148" height="128" source="lightTile_blue.png"/>
  </tile>
  <tile id="12">
   <properties>
@@ -96,7 +96,7 @@
    <property name="lightType" value="TORCH"/>
    <property name="tileClass" value="TORCH_LIGHT"/>
   </properties>
-  <image width="74" height="64" source="lightTile_red.png"/>
+  <image width="148" height="128" source="lightTile_red.png"/>
  </tile>
  <tile id="13">
   <properties>
@@ -104,12 +104,18 @@
    <property name="lightType" value="TORCH"/>
    <property name="tileClass" value="TORCH_LIGHT"/>
   </properties>
-  <image width="74" height="64" source="lightTile_violet.png"/>
+  <image width="148" height="128" source="lightTile_violet.png"/>
  </tile>
  <tile id="14">
   <properties>
    <property name="tileClass" value="CHEST"/>
   </properties>
-  <image width="74" height="64" source="chestTile.png"/>
+  <image width="148" height="128" source="chestTile.png"/>
+ </tile>
+ <tile id="15">
+  <properties>
+   <property name="tileClass" value="DOG"/>
+  </properties>
+  <image width="148" height="128" source="dogTile.png"/>
  </tile>
 </tileset>

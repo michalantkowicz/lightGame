@@ -20,6 +20,8 @@ public class TileFactory {
                 return new PlayerTile(assetManager);
             case CHEST:
                 return new ChestTile(assetManager);
+            case DOG:
+                return new DogTile(assetManager);
             default:
                 throw new IllegalArgumentException("There is no tile implementation for this tile type: " + tileType.name());
         }
