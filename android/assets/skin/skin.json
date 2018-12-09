@@ -1,0 +1,51 @@
+{
+	com.badlogic.gdx.graphics.g2d.BitmapFont: { 
+	    default-font: { file: default.fnt },
+		big-font: { file: default_big.fnt }
+	},
+	com.badlogic.gdx.graphics.Color: {
+		green: {
+			a: 1,
+			b: 0,
+			g: 1,
+			r: 0
+		},
+		white: {
+			a: 1,
+			b: 1,
+			g: 1,
+			r: 1
+		},
+		red: {
+			a: 1,
+			b: 0,
+			g: 0,
+			r: 1
+		},
+		black: {
+			a: 1,
+			b: 0,
+			g: 0,
+			r: 0
+		},
+	},
+	com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable: {
+        textButtonDownDrawable: { region: textButtonDown, minWidth: 256, minHeight: 128 },
+		textButtonDrawable: { region: textButton, minWidth: 256, minHeight: 128 },
+		textButtonOkDownDrawable: { region: textButtonOkDown, minWidth: 256, minHeight: 128 },
+		textButtonOkDrawable: { region: textButtonOk, minWidth: 256, minHeight: 128 },
+		textButtonNoDownDrawable: { region: textButtonNoDown, minWidth: 256, minHeight: 128 },
+		textButtonNoDrawable: { region: textButtonNo, minWidth: 256, minHeight: 128 }
+    },
+	com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+		collect: {
+			down: collectButtonDown,
+			up: collectButton
+		}
+	},
+	com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+		default: { down: textButtonDownDrawable, up: textButtonDrawable, font: default-font, fontColor: white },
+		ok: { down: textButtonOkDownDrawable, up: textButtonOkDrawable, font: big-font, fontColor: white },
+		no: { down: textButtonNoDownDrawable, up: textButtonNoDrawable, font: big-font, fontColor: white }
+	},
+}
