@@ -25,7 +25,7 @@ public class CameraTrackingFeature implements Feature {
 
         this.cameraActor = new CameraActor(configuration.getCamera());
         cameraActor.setPosition(actor.getCenter());
-        cameraActor.setDebug(DISTANCE_LEFT_RIGHT, DISTANCE_TOP_BOTTOM);
+//        cameraActor.setDebug(DISTANCE_LEFT_RIGHT, DISTANCE_TOP_BOTTOM);
         configuration.getStage().addActor(cameraActor);
     }
 

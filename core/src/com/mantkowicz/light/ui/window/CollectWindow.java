@@ -24,8 +24,8 @@ import static com.mantkowicz.light.ui.window.CollectWindowItemState.ABLE_TO_PUT;
 import static com.mantkowicz.light.ui.window.CollectWindowItemState.UNCHOSEN;
 
 public class CollectWindow extends Table {
-    private final int WIDTH = 400;
-    private final int HEIGHT = 400;
+    private final int WIDTH = 600;
+    private final int HEIGHT = 600;
     private final int PADDING = 20;
     private final int PADDING_ITEM = 20;
     private final Collectible collectible;
@@ -68,9 +68,9 @@ public class CollectWindow extends Table {
         Table inventoryTable = getInventoryTable();
         Table buttonsTable = getButtonsTable();
 
-        table.add(collectibleTable).height(contentHeight * 0.4f).row();
-        table.add(inventoryTable).height(contentHeight * 0.4f).row();
-        table.add(buttonsTable).height(contentHeight * 0.2f).row();
+        table.add(collectibleTable).height(contentHeight * 0.3f).row();
+        table.add(inventoryTable).height(contentHeight * 0.3f).row();
+        table.add(buttonsTable).height(contentHeight * 0.4f).row();
 
         return table;
     }
