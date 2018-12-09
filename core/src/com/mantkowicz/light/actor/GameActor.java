@@ -81,4 +81,12 @@ public abstract class GameActor extends Group {
         result = 31 * result + (getGameActorType() != null ? getGameActorType().hashCode() : 0);
         return result;
     }
+
+    public void setPosition(Vector2 position) {
+        super.setPosition(position.x, position.y);
+    }
+
+    public void moveBy(Vector2 interval) {
+        super.moveBy(interval.x, interval.y);
+    }
 }

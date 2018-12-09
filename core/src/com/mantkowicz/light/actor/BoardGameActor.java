@@ -3,6 +3,9 @@ package com.mantkowicz.light.actor;
 import com.badlogic.gdx.math.Vector2;
 import com.mantkowicz.light.board.service.BoardService;
 import com.mantkowicz.light.board.tile.Tile;
+import com.mantkowicz.light.board.tile.TilePoint;
+
+import static com.mantkowicz.light.board.tile.TilePoint.CENTER;
 
 public abstract class BoardGameActor extends GameActor {
     private final BoardService boardService;
@@ -26,7 +29,7 @@ public abstract class BoardGameActor extends GameActor {
 
         boardService.registerGameActor(tile, this);
 
-        Vector2 position = tile.calculatePositionForCenteredActor(this);
+        Vector2 position = tile.calculatePositionForActorAt(this, CENTER);
         this.setPosition(position.x, position.y);
     }
 

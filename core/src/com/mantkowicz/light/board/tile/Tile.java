@@ -15,6 +15,8 @@ import com.mantkowicz.light.configuration.GamePrepareConfiguration;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mantkowicz.light.board.tile.TilePoint.*;
+
 public abstract class Tile extends Group {
     private static final int NOTIFICATION_OFFSET = 5;
     private static final float TAN_30_DIV_6 = 0.289f;
@@ -60,14 +62,16 @@ public abstract class Tile extends Group {
 
     private void initTilePolygon() {
         polygon = new Array<>();
-        float cornerOffset = TAN_30_DIV_6 * getHeight();
-        float halfOfHeight = 0.5f * getHeight();
-        polygon.add(new Vector2(getX() + cornerOffset, getY()));
-        polygon.add(new Vector2(getX() + getWidth() - cornerOffset, getY()));
-        polygon.add(new Vector2(getX() + getWidth(), getY() + halfOfHeight));
-        polygon.add(new Vector2(getX() + getWidth() - cornerOffset, getY() + getHeight()));
-        polygon.add(new Vector2(getX() + cornerOffset, getY() + getHeight()));
-        polygon.add(new Vector2(getX(), getY() + halfOfHeight));
+        polygon.add(getTilePointPosition(LEFT_BOTTOM_CORNER));
+        polygon.add(getTilePointPosition(RIGHT_BOTTOM_CORNER));
+        polygon.add(getTilePointPosition(RIGHT_CORNER));
+        polygon.add(getTilePointPosition(RIGHT_TOP_CORNER));
+        polygon.add(getTilePointPosition(LEFT_TOP_CORNER));
+        polygon.add(getTilePointPosition(LEFT_CORNER));
+    }
+
+    private float getCornerOffset() {
+        return TAN_30_DIV_6 * getHeight();
     }
 
     public boolean doesContainPoint(Vector2 point) {
@@ -156,13 +160,13 @@ public abstract class Tile extends Group {
     }
 
     /**
-     * Calculates position that provided actor must have to be located at the center of the tile
+     * Calculates position that provided actor must have to be located at the point of the tile
      *
-     * @param actor the actor that must be at the center of the tile
-     * @return position of centered actor
+     * @param actor the actor that must be located at the point of the tile
+     * @return position of positioned actor
      */
-    public Vector2 calculatePositionForCenteredActor(Actor actor) {
-        return getCenter().sub(actor.getWidth() / 2f, actor.getHeight() / 2f);
+    public Vector2 calculatePositionForActorAt(Actor actor, TilePoint tilePoint) {
+        return getTilePointPosition(tilePoint).sub(actor.getWidth() / 2f, actor.getHeight() / 2f);
     }
 
     /**
@@ -170,5 +174,32 @@ public abstract class Tile extends Group {
      */
     public Vector2 getNotificationCenterPosition() {
         return getCenter().cpy().add(0, getHeight() / 2f + NOTIFICATION_OFFSET);
+    }
+
+    private Vector2 getTilePointPosition(TilePoint tilePoint) {
+        Vector2 result = getCenter();
+        switch (tilePoint) {
+            case RIGHT_TOP_CORNER:
+                result = new Vector2(getX() + getWidth() - getCornerOffset(), getY() + getHeight());
+                break;
+            case RIGHT_CORNER:
+                result = new Vector2(getX() + getWidth(), getY() + getHeight() / 2f);
+                break;
+            case RIGHT_BOTTOM_CORNER:
+                result = new Vector2(getX() + getWidth() - getCornerOffset(), getY());
+                break;
+            case LEFT_BOTTOM_CORNER:
+                result = new Vector2(getX() + getCornerOffset(), getY());
+                break;
+            case LEFT_CORNER:
+                result = new Vector2(getX(), getY() + getHeight() / 2f);
+                break;
+            case LEFT_TOP_CORNER:
+                result = new Vector2(getX() + getCornerOffset(), getY() + getHeight());
+                break;
+            case CENTER:
+                break;
+        }
+        return result;
     }
 }

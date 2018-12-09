@@ -77,8 +77,8 @@ public class CollectWindow extends Table {
 
     private Table getButtonsTable() {
         Table buttonsTable = new Table();
-        TextButton cancelButton = new TextButton("CANCEL", skin);
-        TextButton okButton = new TextButton("OK", skin);
+        TextButton cancelButton = new TextButton("CANCEL", skin, "no");
+        TextButton okButton = new TextButton("OK", skin, "ok");
 
         cancelButton.addListener(new CollectWindowCancelListener(this));
         okButton.addListener(new CollectWindowOkListener(this));

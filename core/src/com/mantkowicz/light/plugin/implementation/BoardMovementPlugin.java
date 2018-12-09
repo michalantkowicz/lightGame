@@ -6,16 +6,17 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.mantkowicz.light.actor.implementation.player.Player;
-import com.mantkowicz.light.plugin.Plugin;
 import com.mantkowicz.light.board.path.BoardPath;
 import com.mantkowicz.light.board.service.BoardService;
 import com.mantkowicz.light.board.tile.Tile;
 import com.mantkowicz.light.configuration.api.BoardMovementPluginConfiguration;
+import com.mantkowicz.light.plugin.Plugin;
 import com.mantkowicz.light.service.event.GameEventService;
 import com.mantkowicz.light.service.event.implementation.TileTouchedEvent;
 
 import static com.mantkowicz.light.actor.implementation.player.Status.IDLE;
 import static com.mantkowicz.light.actor.implementation.player.Status.MOVEMENT;
+import static com.mantkowicz.light.board.tile.TilePoint.CENTER;
 import static com.mantkowicz.light.service.event.GameEventType.TILE_TOUCHED;
 
 public class BoardMovementPlugin implements Plugin {
@@ -45,7 +46,7 @@ public class BoardMovementPlugin implements Plugin {
         BoardPath path = boardService.getPath(player.getTile(), gameEvent.getEventObject());
 
         for (Tile pathNode : path.getPathNodes()) {
-            Vector2 position = pathNode.calculatePositionForCenteredActor(player);
+            Vector2 position = pathNode.calculatePositionForActorAt(player, CENTER);
             SequenceAction moveToTileAction = Actions.sequence(
                     getSetStatusMovementAction(player),
                     Actions.moveTo(position.x, position.y, speed, Interpolation.sineOut),

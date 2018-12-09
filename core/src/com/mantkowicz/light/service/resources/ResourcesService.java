@@ -29,10 +29,10 @@ public class ResourcesService {
             assetManager.load(textureName, Texture.class, textureParameter);
         }
 
-        assetManager.load("ui/uiskin.atlas", TextureAtlas.class);
+        assetManager.load("skin/skin.atlas", TextureAtlas.class);
         assetManager.finishLoading();
 
-        skin = new Skin(Gdx.files.internal("ui/uiskin.json"), assetManager.get("ui/uiskin.atlas", TextureAtlas.class));
+        skin = new Skin(Gdx.files.internal("skin/skin.json"), assetManager.get("skin/skin.atlas", TextureAtlas.class));
     }
 
     public Skin getSkin() {
