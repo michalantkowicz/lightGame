@@ -1,16 +1,16 @@
 package com.mantkowicz.light.board.tile.implementation;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.math.Vector2;
 import com.mantkowicz.light.configuration.GamePrepareConfiguration;
+import com.mantkowicz.light.service.resources.ResourcesService;
 
 import static com.mantkowicz.light.board.tile.TileAttribute.BORDER_LIGHT_POSITION;
 
 public class BorderTorchLightTile extends TorchLightTile {
     private static final float BORDER_OFFSET = 5f;
 
-    public BorderTorchLightTile(AssetManager assetManager) {
-        super(assetManager);
+    public BorderTorchLightTile(ResourcesService resourcesService) {
+        super(resourcesService);
     }
 
     @Override

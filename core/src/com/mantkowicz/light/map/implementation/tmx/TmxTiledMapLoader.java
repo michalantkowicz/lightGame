@@ -1,6 +1,5 @@
 package com.mantkowicz.light.map.implementation.tmx;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -11,6 +10,7 @@ import com.mantkowicz.light.board.tile.Tile;
 import com.mantkowicz.light.board.tile.TileType;
 import com.mantkowicz.light.board.tile.factory.TileFactory;
 import com.mantkowicz.light.map.TiledMapLoader;
+import com.mantkowicz.light.service.resources.ResourcesService;
 import com.mantkowicz.light.util.Tuple;
 
 import java.util.ArrayList;
@@ -21,11 +21,11 @@ import java.util.Map;
 import static com.mantkowicz.light.board.tile.TileAttribute.TILE_CLASS;
 
 public class TmxTiledMapLoader implements TiledMapLoader<TmxTileMapLoaderProperties> {
-    private final AssetManager assetManager;
+    private final ResourcesService resourcesService;
     private final Map<Tuple<Integer, Integer>, Tile> tilesMap = new HashMap<>();
 
-    public TmxTiledMapLoader(AssetManager assetManager) {
-        this.assetManager = assetManager;
+    public TmxTiledMapLoader(ResourcesService resourcesService) {
+        this.resourcesService = resourcesService;
     }
 
     @Override
@@ -118,7 +118,7 @@ public class TmxTiledMapLoader implements TiledMapLoader<TmxTileMapLoaderPropert
     private Tile createTile(TiledMapTileSet tileSet, int tileDefinitionId) {
         MapProperties propertiesMap = tileSet.getTile(tileDefinitionId).getProperties();
         TileType type = TileType.valueOf(propertiesMap.get(TILE_CLASS.getValue(), String.class));
-        Tile tile = TileFactory.createTile(assetManager, type);
+        Tile tile = TileFactory.createTile(resourcesService, type);
         tile.setAttributes(propertiesMap);
         return tile;
     }

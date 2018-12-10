@@ -90,7 +90,7 @@ public class GameScreen implements Screen {
 
     private List<Tile> loadTiles(Board board) {
         TmxTileMapLoaderProperties properties = new TmxTileMapLoaderProperties().setTileMapFileName("map.tmx");
-        TiledMapLoader<TmxTileMapLoaderProperties> tmxTiledMapLoader = new TmxTiledMapLoader(resourcesService.getAssetManager());
+        TiledMapLoader<TmxTileMapLoaderProperties> tmxTiledMapLoader = new TmxTiledMapLoader(resourcesService);
 
         return board.loadTiles(tmxTiledMapLoader, properties);
     }

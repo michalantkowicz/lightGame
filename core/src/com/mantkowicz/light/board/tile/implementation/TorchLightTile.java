@@ -1,12 +1,12 @@
 package com.mantkowicz.light.board.tile.implementation;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.mantkowicz.light.board.tile.AccessibleTile;
 import com.mantkowicz.light.configuration.GamePrepareConfiguration;
 import com.mantkowicz.light.lights.GameLight;
 import com.mantkowicz.light.lights.LightType;
 import com.mantkowicz.light.lights.factory.LightFactory;
+import com.mantkowicz.light.service.resources.ResourcesService;
 
 import static com.mantkowicz.light.board.tile.TileAttribute.LIGHT_COLOR_HEX;
 import static com.mantkowicz.light.board.tile.TileAttribute.LIGHT_TYPE;
@@ -14,8 +14,8 @@ import static com.mantkowicz.light.board.tile.TileAttribute.LIGHT_TYPE;
 public class TorchLightTile extends AccessibleTile {
     GameLight torchLight;
 
-    public TorchLightTile(AssetManager assetManager) {
-        super(assetManager.get("floor-tile.png"));
+    public TorchLightTile(ResourcesService resourcesService) {
+        super(resourcesService, "floor-tile.png");
     }
 
     @Override

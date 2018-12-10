@@ -31,6 +31,13 @@ default_big
   orig: 512, 128
   offset: 0, 0
   index: -1
+targetMarker
+  rotate: false
+  xy: 896, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
 textButton
   rotate: false
   xy: 0, 128

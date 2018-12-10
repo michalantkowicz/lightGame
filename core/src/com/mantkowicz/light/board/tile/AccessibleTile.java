@@ -1,13 +1,13 @@
 package com.mantkowicz.light.board.tile;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.mantkowicz.light.board.tile.listener.AccessibleTileClickListener;
 import com.mantkowicz.light.configuration.GamePrepareConfiguration;
+import com.mantkowicz.light.service.resources.ResourcesService;
 
 public abstract class AccessibleTile extends Tile {
 
-    protected AccessibleTile(Texture background) {
-        super(background);
+    public AccessibleTile(ResourcesService resourcesService, String backgroundTextureName) {
+        super(resourcesService, backgroundTextureName);
     }
 
     @Override

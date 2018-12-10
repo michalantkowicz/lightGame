@@ -1,16 +1,16 @@
 package com.mantkowicz.light.board.tile.implementation;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.mantkowicz.light.board.tile.NoPathTile;
 import com.mantkowicz.light.configuration.GamePrepareConfiguration;
+import com.mantkowicz.light.service.resources.ResourcesService;
 
 public class WallTile extends NoPathTile {
-    public WallTile(AssetManager assetManager) {
-        super(assetManager.get("wall-tile.png"));
+    public WallTile(ResourcesService resourcesService) {
+        super(resourcesService, "wall-tile.png");
     }
 
     @Override

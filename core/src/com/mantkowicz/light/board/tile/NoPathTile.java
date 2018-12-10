@@ -1,13 +1,13 @@
 package com.mantkowicz.light.board.tile;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.mantkowicz.light.board.tile.listener.NoPathTileClickListener;
 import com.mantkowicz.light.configuration.GamePrepareConfiguration;
+import com.mantkowicz.light.service.resources.ResourcesService;
 
 public abstract class NoPathTile extends Tile {
 
-    public NoPathTile(Texture background) {
-        super(background);
+    public NoPathTile(ResourcesService resourcesService, String backgroundTextureName) {
+        super(resourcesService, backgroundTextureName);
     }
 
     @Override

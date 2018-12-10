@@ -1,18 +1,18 @@
 package com.mantkowicz.light.board.tile.implementation;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.mantkowicz.light.actor.Item;
 import com.mantkowicz.light.actor.implementation.collectible.Chest;
 import com.mantkowicz.light.actor.implementation.item.Lighter;
 import com.mantkowicz.light.board.tile.AccessibleTile;
 import com.mantkowicz.light.configuration.GamePrepareConfiguration;
+import com.mantkowicz.light.service.resources.ResourcesService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChestTile extends AccessibleTile {
-    public ChestTile(AssetManager assetManager) {
-        super(assetManager.get("floor-tile.png"));
+    public ChestTile(ResourcesService resourcesService) {
+        super(resourcesService, "floor-tile.png");
     }
 
     @Override

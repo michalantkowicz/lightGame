@@ -7,10 +7,11 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import com.mantkowicz.light.configuration.GamePrepareConfiguration;
+import com.mantkowicz.light.service.resources.ResourcesService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,7 @@ import static com.mantkowicz.light.board.tile.TilePoint.*;
 public abstract class Tile extends Group {
     private static final int NOTIFICATION_OFFSET = 5;
     private static final float TAN_30_DIV_6 = 0.289f;
+    private static Image targetMarkerImage = null; //TODO refactor this
 
     private static int ID_SEQUENCE = 1;
 
@@ -33,15 +35,21 @@ public abstract class Tile extends Group {
 
     private boolean marked = false;
 
-    protected Tile(Texture background) {
+    protected Tile(ResourcesService resourcesService, String backgroundTextureName) {
         this.id = ID_SEQUENCE++;
         this.neighbours = new ArrayList<>();
 
-        this.background = new Image(background);
+        Texture backgroundTexture = resourcesService.getAssetManager().get(backgroundTextureName, Texture.class);
+        this.background = new Image(backgroundTexture);
         this.backgroundColor = new Color(this.background.getColor());
 
         addActor(this.background);
         this.setSize(this.background.getWidth(), this.background.getHeight());
+
+        if (targetMarkerImage == null) {
+            targetMarkerImage = new Image(resourcesService.getAtlasRegion("targetMarker"));
+            targetMarkerImage.setTouchable(Touchable.disabled);
+        }
     }
 
     public abstract void prepare(GamePrepareConfiguration configuration);
@@ -80,13 +88,12 @@ public abstract class Tile extends Group {
 
     public void mark() {
         marked = true;
-        this.background.addAction(Actions.sequence(Actions.delay(0.06f), Actions.color(Color.BLUE)));
+        addActor(targetMarkerImage);
+        targetMarkerImage.setPosition((getWidth() - targetMarkerImage.getWidth()) / 2f, (getHeight() - targetMarkerImage.getHeight()) / 2f);
     }
 
     public void unmark() {
         marked = false;
-        this.background.clearActions();
-        this.background.setColor(backgroundColor);
     }
 
     public boolean isMarked() {
@@ -136,15 +143,6 @@ public abstract class Tile extends Group {
         result = 31 * result + (polygon != null ? polygon.hashCode() : 0);
         result = 31 * result + (getBackground() != null ? getBackground().hashCode() : 0);
         return result;
-    }
-
-    public boolean isNeighbour(Tile tile) {
-        for (Tile neighbour : neighbours) {
-            if (neighbour.equals(tile)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     protected Vector2 getLeftBottom() {
