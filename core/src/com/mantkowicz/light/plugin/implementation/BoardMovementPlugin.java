@@ -45,6 +45,8 @@ public class BoardMovementPlugin implements Plugin {
         SequenceAction sequence = Actions.sequence();
         BoardPath path = boardService.getPath(player.getTile(), gameEvent.getEventObject());
 
+        markLastNode(path);
+
         for (Tile pathNode : path.getPathNodes()) {
             Vector2 position = pathNode.calculatePositionForActorAt(player, CENTER);
             SequenceAction moveToTileAction = Actions.sequence(
@@ -55,6 +57,7 @@ public class BoardMovementPlugin implements Plugin {
             );
             sequence.addAction(moveToTileAction);
         }
+        sequence.addAction(getHideLastNodeAction(path));
 
         return sequence;
     }
@@ -95,5 +98,25 @@ public class BoardMovementPlugin implements Plugin {
                 return true;
             }
         };
+    }
+
+    private Action getHideLastNodeAction(BoardPath path) {
+        Tile lastNode = path.getLastNode();
+        return new Action() {
+            @Override
+            public boolean act(float delta) {
+                if (lastNode != null) {
+                    lastNode.hideTargetMarker();
+                }
+                return true;
+            }
+        };
+    }
+
+    private void markLastNode(BoardPath path) {
+        Tile lastNode = path.getLastNode();
+        if(lastNode != null) {
+            lastNode.showTargetMarker();
+        }
     }
 }

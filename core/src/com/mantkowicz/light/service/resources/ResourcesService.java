@@ -6,16 +6,22 @@ import com.badlogic.gdx.assets.loaders.TextureLoader;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 
 import java.util.Arrays;
 import java.util.List;
 
+import static com.badlogic.gdx.scenes.scene2d.actions.RepeatAction.FOREVER;
+
 public class ResourcesService {
     private final Skin skin;
     private final AssetManager assetManager;
     private final Array<TextureAtlas> atlases = new Array<>();
+    private Image targetMarkerImage;
 
     public ResourcesService() {
         assetManager = new AssetManager();
@@ -37,6 +43,8 @@ public class ResourcesService {
 
         assetManager.getAll(TextureAtlas.class, atlases);
         skin = new Skin(Gdx.files.internal("skin/skin.json"), assetManager.get("skin/skin.atlas", TextureAtlas.class));
+
+        createTargetMarkerImage();
     }
 
     public AtlasRegion getAtlasRegion(String regionName) {
@@ -66,5 +74,28 @@ public class ResourcesService {
     public void dispose() {
         assetManager.dispose();
         skin.dispose();
+    }
+
+    private void createTargetMarkerImage() {
+        this.targetMarkerImage = new Image(getAtlasRegion("targetMarker"));
+        targetMarkerImage.addAction(
+                Actions.repeat(FOREVER,
+                        Actions.sequence(
+                                Actions.parallel(
+                                        Actions.alpha(.5f, .4f),
+                                        Actions.moveBy(0, 3, .4f)
+                                ),
+                                Actions.parallel(
+                                        Actions.alpha(1f, .4f),
+                                        Actions.moveBy(0, -3, .4f)
+                                )
+                        )
+                )
+        );
+        targetMarkerImage.setTouchable(Touchable.disabled);
+    }
+
+    public Image getTargetMarkerImage() {
+        return this.targetMarkerImage;
     }
 }

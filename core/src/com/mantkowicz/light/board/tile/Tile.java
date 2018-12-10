@@ -1,13 +1,11 @@
 package com.mantkowicz.light.board.tile;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import com.mantkowicz.light.configuration.GamePrepareConfiguration;
@@ -21,17 +19,16 @@ import static com.mantkowicz.light.board.tile.TilePoint.*;
 public abstract class Tile extends Group {
     private static final int NOTIFICATION_OFFSET = 5;
     private static final float TAN_30_DIV_6 = 0.289f;
-    private static Image targetMarkerImage = null; //TODO refactor this
 
     private static int ID_SEQUENCE = 1;
 
-    private final Color backgroundColor;
     private final int id;
     private final List<Tile> neighbours;
 
     private MapProperties attributes;
     private Array<Vector2> polygon;
     private final Image background;
+    private Image targetMarkerImage;
 
     private boolean marked = false;
 
@@ -41,15 +38,11 @@ public abstract class Tile extends Group {
 
         Texture backgroundTexture = resourcesService.getAssetManager().get(backgroundTextureName, Texture.class);
         this.background = new Image(backgroundTexture);
-        this.backgroundColor = new Color(this.background.getColor());
+
+        this.targetMarkerImage = resourcesService.getTargetMarkerImage();
 
         addActor(this.background);
         this.setSize(this.background.getWidth(), this.background.getHeight());
-
-        if (targetMarkerImage == null) {
-            targetMarkerImage = new Image(resourcesService.getAtlasRegion("targetMarker"));
-            targetMarkerImage.setTouchable(Touchable.disabled);
-        }
     }
 
     public abstract void prepare(GamePrepareConfiguration configuration);
@@ -88,12 +81,19 @@ public abstract class Tile extends Group {
 
     public void mark() {
         marked = true;
-        addActor(targetMarkerImage);
-        targetMarkerImage.setPosition((getWidth() - targetMarkerImage.getWidth()) / 2f, (getHeight() - targetMarkerImage.getHeight()) / 2f);
     }
 
     public void unmark() {
         marked = false;
+    }
+
+    public void showTargetMarker() {
+        addActor(targetMarkerImage);
+        targetMarkerImage.setPosition((getWidth() - targetMarkerImage.getWidth()) / 2f, (getHeight() - targetMarkerImage.getHeight()) / 2f);
+    }
+
+    public void hideTargetMarker() {
+        targetMarkerImage.remove();
     }
 
     public boolean isMarked() {
@@ -120,29 +120,6 @@ public abstract class Tile extends Group {
 
     public Vector2 getCenter() {
         return new Vector2(getX() + getWidth() / 2f, getY() + getHeight() / 2f);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Tile)) return false;
-
-        Tile tile = (Tile) o;
-
-        if (!getId().equals(tile.getId())) return false;
-        if (backgroundColor != null ? !backgroundColor.equals(tile.backgroundColor) : tile.backgroundColor != null)
-            return false;
-        if (polygon != null ? !polygon.equals(tile.polygon) : tile.polygon != null) return false;
-        return getBackground() != null ? getBackground().equals(tile.getBackground()) : tile.getBackground() == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = backgroundColor != null ? backgroundColor.hashCode() : 0;
-        result = 31 * result + getId();
-        result = 31 * result + (polygon != null ? polygon.hashCode() : 0);
-        result = 31 * result + (getBackground() != null ? getBackground().hashCode() : 0);
-        return result;
     }
 
     protected Vector2 getLeftBottom() {
@@ -198,6 +175,34 @@ public abstract class Tile extends Group {
             case CENTER:
                 break;
         }
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Tile tile = (Tile) o;
+
+        if (!getId().equals(tile.getId())) return false;
+        if (isMarked() != tile.isMarked()) return false;
+        if (getAttributes() != null ? !getAttributes().equals(tile.getAttributes()) : tile.getAttributes() != null)
+            return false;
+        if (polygon != null ? !polygon.equals(tile.polygon) : tile.polygon != null) return false;
+        if (getBackground() != null ? !getBackground().equals(tile.getBackground()) : tile.getBackground() != null)
+            return false;
+        return targetMarkerImage != null ? targetMarkerImage.equals(tile.targetMarkerImage) : tile.targetMarkerImage == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId();
+        result = 31 * result + (getAttributes() != null ? getAttributes().hashCode() : 0);
+        result = 31 * result + (polygon != null ? polygon.hashCode() : 0);
+        result = 31 * result + (getBackground() != null ? getBackground().hashCode() : 0);
+        result = 31 * result + (targetMarkerImage != null ? targetMarkerImage.hashCode() : 0);
+        result = 31 * result + (isMarked() ? 1 : 0);
         return result;
     }
 }

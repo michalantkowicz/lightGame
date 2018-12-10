@@ -26,4 +26,11 @@ public class BoardPath {
     public boolean exists() {
         return !(path == null || path.isEmpty());
     }
+
+    public Tile getLastNode() {
+        if (path != null && !path.isEmpty()) {
+            return path.get(path.size() - 1);
+        }
+        return null;
+    }
 }
