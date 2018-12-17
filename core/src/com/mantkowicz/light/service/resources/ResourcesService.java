@@ -6,9 +6,9 @@ import com.badlogic.gdx.assets.loaders.TextureLoader;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 
@@ -16,12 +16,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.RepeatAction.FOREVER;
+import static com.badlogic.gdx.utils.Align.center;
 
 public class ResourcesService {
     private final Skin skin;
     private final AssetManager assetManager;
     private final Array<TextureAtlas> atlases = new Array<>();
-    private Image targetMarkerImage;
+    private TargetMarkerImage targetMarkerImage;
 
     public ResourcesService() {
         assetManager = new AssetManager();
@@ -77,25 +78,26 @@ public class ResourcesService {
     }
 
     private void createTargetMarkerImage() {
-        this.targetMarkerImage = new Image(getAtlasRegion("targetMarker"));
+        targetMarkerImage = new TargetMarkerImage(getAtlasRegion("targetMarker"));
+        targetMarkerImage.setOrigin(center);
+        targetMarkerImage.setSize(targetMarkerImage.getWidth() * .8f, targetMarkerImage.getHeight() * .8f);
         targetMarkerImage.addAction(
-                Actions.repeat(FOREVER,
-                        Actions.sequence(
-                                Actions.parallel(
-                                        Actions.alpha(.5f, .4f),
-                                        Actions.moveBy(0, 3, .4f)
-                                ),
-                                Actions.parallel(
-                                        Actions.alpha(1f, .4f),
-                                        Actions.moveBy(0, -3, .4f)
+                Actions.sequence(
+                        Actions.scaleTo(1.5f, 1.5f, .5f, Interpolation.pow2),
+                        Actions.repeat(
+                                FOREVER,
+                                Actions.sequence(
+                                        Actions.scaleTo(1f, 1f, .4f, Interpolation.pow2),
+                                        Actions.scaleTo(1.2f, 1.2f, .3f, Interpolation.pow2)
                                 )
                         )
                 )
         );
+
         targetMarkerImage.setTouchable(Touchable.disabled);
     }
 
-    public Image getTargetMarkerImage() {
+    public TargetMarkerImage getTargetMarkerImage() {
         return this.targetMarkerImage;
     }
 }

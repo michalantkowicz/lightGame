@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import com.mantkowicz.light.configuration.GamePrepareConfiguration;
 import com.mantkowicz.light.service.resources.ResourcesService;
+import com.mantkowicz.light.service.resources.TargetMarkerImage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ public abstract class Tile extends Group {
     private MapProperties attributes;
     private Array<Vector2> polygon;
     private final Image background;
-    private Image targetMarkerImage;
+    private TargetMarkerImage targetMarkerImage;
 
     private boolean marked = false;
 
@@ -88,6 +89,7 @@ public abstract class Tile extends Group {
     }
 
     public void showTargetMarker() {
+        targetMarkerImage.resetAction();
         addActor(targetMarkerImage);
         targetMarkerImage.setPosition((getWidth() - targetMarkerImage.getWidth()) / 2f, (getHeight() - targetMarkerImage.getHeight()) / 2f);
     }

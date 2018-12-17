@@ -98,7 +98,8 @@ public class GameScreen implements Screen {
     private GamePrepareConfiguration prepareConfiguration() {
         BoardService boardService = new BoardService(gameEventService, board);
         PhraseService phraseService = new PhraseService();
-        Camera camera = stage.getCamera();
+        OrthographicCamera camera = (OrthographicCamera) stage.getCamera();
+        camera.zoom += .2f;
 
         return new GamePrepareConfiguration(gameEventService,
                 boardService,
