@@ -4,7 +4,6 @@ import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -23,6 +22,7 @@ import com.mantkowicz.light.service.event.GameEventService;
 import com.mantkowicz.light.service.event.implementation.PlayerCreatedEvent;
 import com.mantkowicz.light.service.phrase.PhraseService;
 import com.mantkowicz.light.service.resources.ResourcesService;
+import com.mantkowicz.light.stage.MenuStage;
 import com.mantkowicz.light.stage.NotificationStage;
 
 import java.util.ArrayList;
@@ -37,7 +37,8 @@ public class GameScreen implements Screen {
     private final GameEventService gameEventService;
     private final World world;
     private Stage stage;
-    public static Stage uiStage;
+    private MenuStage menuStage;
+    private Stage uiStage;
     private NotificationStage notificationStage;
     private final Board board = new Board();
     private RayHandler rayHandler;
@@ -52,7 +53,9 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         Viewport viewport = new ExtendViewport(SCREEN_WIDTH, SCREEN_HEIGHT);
+        Viewport menuViewport = new ExtendViewport(SCREEN_WIDTH, SCREEN_HEIGHT);
         stage = new Stage(viewport);
+        menuStage = new MenuStage(resourcesService, menuViewport);
         uiStage = new Stage(viewport);
         notificationStage = new NotificationStage(viewport);
 
@@ -107,6 +110,7 @@ public class GameScreen implements Screen {
                 rayHandler,
                 stage,
                 notificationStage,
+                menuStage,
                 phraseService,
                 uiStage,
                 resourcesService,
@@ -124,6 +128,9 @@ public class GameScreen implements Screen {
 
         notificationStage.act(delta);
         notificationStage.draw();
+
+        menuStage.act(delta);
+        menuStage.draw();
 
         uiStage.act(delta);
         uiStage.draw();

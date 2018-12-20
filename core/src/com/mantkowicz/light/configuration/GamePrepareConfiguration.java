@@ -9,6 +9,7 @@ import com.mantkowicz.light.configuration.api.PlayerConfiguration;
 import com.mantkowicz.light.service.event.GameEventService;
 import com.mantkowicz.light.service.phrase.PhraseService;
 import com.mantkowicz.light.service.resources.ResourcesService;
+import com.mantkowicz.light.stage.MenuStage;
 import com.mantkowicz.light.stage.NotificationStage;
 
 public class GamePrepareConfiguration implements PlayerConfiguration {
@@ -18,8 +19,9 @@ public class GamePrepareConfiguration implements PlayerConfiguration {
     private final RayHandler rayHandler;
     private final Stage stage;
     private final NotificationStage notificationStage;
-    private final PhraseService phraseService;
+    private final MenuStage menuStage;
     private final Stage uiStage;
+    private final PhraseService phraseService;
     private final ResourcesService resourcesService;
     private final Camera camera;
 
@@ -29,6 +31,7 @@ public class GamePrepareConfiguration implements PlayerConfiguration {
                                     RayHandler rayHandler,
                                     Stage stage,
                                     NotificationStage notificationStage,
+                                    MenuStage menuStage,
                                     PhraseService phraseService,
                                     Stage uiStage,
                                     ResourcesService resourcesService,
@@ -39,6 +42,7 @@ public class GamePrepareConfiguration implements PlayerConfiguration {
         this.rayHandler = rayHandler;
         this.stage = stage;
         this.notificationStage = notificationStage;
+        this.menuStage = menuStage;
         this.phraseService = phraseService;
         this.uiStage = uiStage;
         this.resourcesService = resourcesService;
@@ -56,6 +60,10 @@ public class GamePrepareConfiguration implements PlayerConfiguration {
 
     public Stage getStage() {
         return stage;
+    }
+
+    public MenuStage getMenuStage() {
+        return menuStage;
     }
 
     @Override

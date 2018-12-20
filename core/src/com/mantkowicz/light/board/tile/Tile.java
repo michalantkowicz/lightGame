@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import com.mantkowicz.light.configuration.GamePrepareConfiguration;
 import com.mantkowicz.light.service.resources.ResourcesService;
-import com.mantkowicz.light.service.resources.TargetMarkerImage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +28,6 @@ public abstract class Tile extends Group {
     private MapProperties attributes;
     private Array<Vector2> polygon;
     private final Image background;
-    private TargetMarkerImage targetMarkerImage;
 
     private boolean marked = false;
 
@@ -39,8 +37,6 @@ public abstract class Tile extends Group {
 
         Texture backgroundTexture = resourcesService.getAssetManager().get(backgroundTextureName, Texture.class);
         this.background = new Image(backgroundTexture);
-
-        this.targetMarkerImage = resourcesService.getTargetMarkerImage();
 
         addActor(this.background);
         this.setSize(this.background.getWidth(), this.background.getHeight());
@@ -88,16 +84,6 @@ public abstract class Tile extends Group {
         marked = false;
     }
 
-    public void showTargetMarker() {
-        targetMarkerImage.resetAction();
-        addActor(targetMarkerImage);
-        targetMarkerImage.setPosition((getWidth() - targetMarkerImage.getWidth()) / 2f, (getHeight() - targetMarkerImage.getHeight()) / 2f);
-    }
-
-    public void hideTargetMarker() {
-        targetMarkerImage.remove();
-    }
-
     public boolean isMarked() {
         return marked;
     }
@@ -116,7 +102,7 @@ public abstract class Tile extends Group {
         return background;
     }
 
-    private Integer getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -187,24 +173,14 @@ public abstract class Tile extends Group {
 
         Tile tile = (Tile) o;
 
-        if (!getId().equals(tile.getId())) return false;
-        if (isMarked() != tile.isMarked()) return false;
-        if (getAttributes() != null ? !getAttributes().equals(tile.getAttributes()) : tile.getAttributes() != null)
-            return false;
-        if (polygon != null ? !polygon.equals(tile.polygon) : tile.polygon != null) return false;
-        if (getBackground() != null ? !getBackground().equals(tile.getBackground()) : tile.getBackground() != null)
-            return false;
-        return targetMarkerImage != null ? targetMarkerImage.equals(tile.targetMarkerImage) : tile.targetMarkerImage == null;
+        if (id != tile.id) return false;
+        return polygon != null ? polygon.equals(tile.polygon) : tile.polygon == null;
     }
 
     @Override
     public int hashCode() {
-        int result = getId();
-        result = 31 * result + (getAttributes() != null ? getAttributes().hashCode() : 0);
+        int result = id;
         result = 31 * result + (polygon != null ? polygon.hashCode() : 0);
-        result = 31 * result + (getBackground() != null ? getBackground().hashCode() : 0);
-        result = 31 * result + (targetMarkerImage != null ? targetMarkerImage.hashCode() : 0);
-        result = 31 * result + (isMarked() ? 1 : 0);
         return result;
     }
 }

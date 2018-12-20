@@ -33,6 +33,13 @@ public class BoardService {
                 gameEventService.addEvent(new CollectEvent((Collectible) tileActor));
             }
         }
+        for(Tile neighbour : tile.getNeighbours()) {
+            for (GameActor tileActor : gameActorsByTile.getGameActors(neighbour)) {
+                if (!tileActor.equals(gameActor) && tileActor instanceof Collectible && ((Collectible) tileActor).isDistant()) {
+                    gameEventService.addEvent(new CollectEvent((Collectible) tileActor));
+                }
+            }
+        }
     }
 
     public void unregisterGameActor(Tile tile, GameActor gameActor) {

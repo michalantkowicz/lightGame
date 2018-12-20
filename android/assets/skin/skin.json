@@ -41,6 +41,14 @@
 		collect: {
 			down: collectButtonDown,
 			up: collectButton
+		},
+		mail: {
+			down: mailButtonDown,
+			up: mailButton
+		},
+		settings: {
+			down: settingsButtonDown,
+			up: settingsButton
 		}
 	},
 	com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {

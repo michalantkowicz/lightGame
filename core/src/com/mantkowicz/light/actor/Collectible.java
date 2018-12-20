@@ -3,6 +3,11 @@ package com.mantkowicz.light.actor;
 import com.mantkowicz.light.board.tile.Tile;
 
 public interface Collectible {
+    /**
+     * Defines whether the collectible should collide with neighbour tiles
+     */
+    boolean isDistant();
+
     void beforeCollect();
 
     void afterCollect();

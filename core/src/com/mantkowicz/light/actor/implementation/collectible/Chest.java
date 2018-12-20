@@ -29,6 +29,11 @@ public class Chest extends BoardGameActor implements Collectible {
     }
 
     @Override
+    public boolean isDistant() {
+        return false;
+    }
+
+    @Override
     public void beforeCollect() {
         System.out.println("I'll be collect!");
         remove();

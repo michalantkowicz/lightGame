@@ -33,6 +33,11 @@ public class Lighter extends BoardGameActor implements Item, Collectible {
     }
 
     @Override
+    public boolean isDistant() {
+        return false;
+    }
+
+    @Override
     public void beforeCollect() {
 
     }
