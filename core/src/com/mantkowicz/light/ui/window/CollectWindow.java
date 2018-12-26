@@ -23,7 +23,7 @@ import static com.mantkowicz.light.ui.window.CollectItemType.COLLECTING_ITEM;
 import static com.mantkowicz.light.ui.window.CollectWindowItemState.ABLE_TO_PUT;
 import static com.mantkowicz.light.ui.window.CollectWindowItemState.UNCHOSEN;
 
-public class CollectWindow extends Table {
+public class CollectWindow extends Group {
     private final int WIDTH = 600;
     private final int HEIGHT = 600;
     private final int PADDING = 20;
@@ -34,6 +34,7 @@ public class CollectWindow extends Table {
     private final AssetManager assetManager;
     private final List<CollectItem> collectItems;
     private CollectItem chosenItem;
+    private Table mainTable;
 
     public CollectWindow(CollectWindowConfiguration configuration, Collecting collecting, Collectible collectible) {
         this.collectible = collectible;
@@ -42,9 +43,29 @@ public class CollectWindow extends Table {
         this.assetManager = configuration.getResourcesService().getAssetManager();
         this.collectItems = new ArrayList<>();
 
-        initialize();
+        Table backgroundTable = new Table();
+        backgroundTable.setSize(configuration.getUiStage().getWidth() * 2, configuration.getUiStage().getHeight() * 2);
+        backgroundTable.setTouchable(Touchable.enabled);
+        backgroundTable.addListener(new StopClickThroughClickListener());
+        TextureRegionDrawable backgroundDrawable = new TextureRegionDrawable(new TextureRegion(assetManager.get("black.png", Texture.class)));
+        backgroundTable.setBackground(backgroundDrawable);
+        backgroundTable.setPosition(-backgroundTable.getWidth() / 2f, -backgroundTable.getHeight() / 2f);
+        backgroundTable.debug();
+        addActor(backgroundTable);
 
-        add(getContent(HEIGHT - 2 * PADDING)).pad(PADDING).expand().center();
+        mainTable = new Table();
+        mainTable.setTouchable(Touchable.enabled);
+        mainTable.setSize(WIDTH, HEIGHT);
+
+        mainTable.addListener(new StopClickThroughClickListener());
+
+        TextureRegionDrawable textureRegionDrawable = new TextureRegionDrawable(new TextureRegion(assetManager.get("table_background.png", Texture.class)));
+        mainTable.setBackground(textureRegionDrawable);
+
+        mainTable.add(getContent(HEIGHT - 2 * PADDING)).pad(PADDING).expand().center();
+
+        mainTable.setPosition(-mainTable.getWidth() / 2f, -mainTable.getHeight() / 2f);
+        addActor(mainTable);
     }
 
     public void onItemChosen() {
@@ -120,16 +141,6 @@ public class CollectWindow extends Table {
 
     private void setItemPadding(Cell cell) {
         cell.padRight(PADDING_ITEM / 2f).padLeft(PADDING_ITEM / 2f).padTop(PADDING_ITEM).padBottom(PADDING_ITEM);
-    }
-
-    private void initialize() {
-        setTouchable(Touchable.enabled);
-        setSize(WIDTH, HEIGHT);
-
-        addListener(new StopClickThroughClickListener());
-
-        TextureRegionDrawable textureRegionDrawable = new TextureRegionDrawable(new TextureRegion(assetManager.get("table_background.png", Texture.class)));
-        setBackground(textureRegionDrawable);
     }
 
     public boolean isAnyItemChosen() {

@@ -2,8 +2,9 @@ package com.mantkowicz.light.plugin;
 
 import com.mantkowicz.light.actor.Collectible;
 import com.mantkowicz.light.actor.implementation.player.Player;
-import com.mantkowicz.light.actor.implementation.ui.OpenButtonForWindow;
 import com.mantkowicz.light.configuration.api.PlayerCollectResolverConfiguration;
+import com.mantkowicz.light.plugin.implementation.RemoveOnPlayerMovePlugin;
+import com.mantkowicz.light.ui.button.ActionButton;
 import com.mantkowicz.light.ui.window.CollectWindow;
 
 public class PlayerCollectResolver implements CollectResolver {
@@ -19,7 +20,13 @@ public class PlayerCollectResolver implements CollectResolver {
     public void resolveCollect(Collectible collectible) {
         CollectWindow collectWindow = new CollectWindow(configuration, player, collectible);
 
-        OpenButtonForWindow openButtonForWindow = new OpenButtonForWindow(configuration, collectible, collectWindow);
-        configuration.getUiStage().addActor(openButtonForWindow);
+        OpenCollectWindowButtonListener openCollectWindowButtonListener = new OpenCollectWindowButtonListener(collectWindow, configuration.getCamera(), configuration.getUiStage());
+
+        ActionButton actionButton = new ActionButton(configuration, "COLLECT", openCollectWindowButtonListener);
+
+        RemoveOnPlayerMovePlugin plugin = new RemoveOnPlayerMovePlugin(configuration.getGameEventService(), actionButton);
+        actionButton.addActionButtonPlugin(plugin);
+
+        configuration.getUiStage().addActor(actionButton);
     }
 }

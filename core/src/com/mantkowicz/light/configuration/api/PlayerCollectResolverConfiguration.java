@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mantkowicz.light.service.event.GameEventService;
 import com.mantkowicz.light.service.resources.ResourcesService;
 
-public interface PlayerCollectResolverConfiguration extends CollectWindowConfiguration, OpenButtonForWindowConfiguration, CameraTrackingPluginConfiguration {
+public interface PlayerCollectResolverConfiguration extends UIConfiguration, CollectWindowConfiguration, OpenButtonForWindowConfiguration, CameraTrackingPluginConfiguration {
     @Override
     Stage getUiStage();
 
