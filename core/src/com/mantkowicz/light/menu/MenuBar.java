@@ -32,6 +32,7 @@ public class MenuBar extends Table {
 
         Table buttonsTable = new Table();
         buttonsTable.add(new Button(resourcesService.getSkin(), "mail"));
+        buttonsTable.add(new Button(resourcesService.getSkin(), "notepad"));
         buttonsTable.add(new Button(resourcesService.getSkin(), "settings"));
 
         inventoryCell = add(inventoryTable).expand();

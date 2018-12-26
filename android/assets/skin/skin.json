@@ -1,5 +1,5 @@
 {
-	com.badlogic.gdx.graphics.g2d.BitmapFont: { 
+	com.badlogic.gdx.graphics.g2d.BitmapFont: {
 	    default-font: { file: default.fnt },
 		big-font: { file: default_big.fnt }
 	},
@@ -36,6 +36,8 @@
 		textButtonOkDrawable: { region: textButtonOk, minWidth: 256, minHeight: 128 },
 		textButtonNoDownDrawable: { region: textButtonNoDown, minWidth: 256, minHeight: 128 },
 		textButtonNoDrawable: { region: textButtonNo, minWidth: 256, minHeight: 128 }
+		actionButtonDrawable: { region: actionButton, minWidth: 256, minHeight: 128 }
+		actionButtonDownDrawable: { region: actionButtonDown, minWidth: 256, minHeight: 128 }
     },
 	com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 		collect: {
@@ -46,6 +48,10 @@
 			down: mailButtonDown,
 			up: mailButton
 		},
+        notepad: {
+            down: notepadButtonDown,
+            up: notepadButton
+        },
 		settings: {
 			down: settingsButtonDown,
 			up: settingsButton
@@ -54,6 +60,7 @@
 	com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 		default: { down: textButtonDownDrawable, up: textButtonDrawable, font: default-font, fontColor: white },
 		ok: { down: textButtonOkDownDrawable, up: textButtonOkDrawable, font: big-font, fontColor: white },
-		no: { down: textButtonNoDownDrawable, up: textButtonNoDrawable, font: big-font, fontColor: white }
+		no: { down: textButtonNoDownDrawable, up: textButtonNoDrawable, font: big-font, fontColor: white },
+		action: { down: actionButtonDownDrawable, up: actionButtonDrawable, font: big-font, fontColor: white }
 	},
 }

@@ -10,12 +10,12 @@ import com.mantkowicz.light.plugin.OpenCollectWindowButtonListener;
 import com.mantkowicz.light.plugin.implementation.RemoveOnPlayerMovePlugin;
 import com.mantkowicz.light.ui.window.CollectWindow;
 
-import static com.mantkowicz.light.actor.GameActorType.OPEN_BUTTON;
+import static com.mantkowicz.light.actor.GameActorType.ACTION_BUTTON;
 import static com.mantkowicz.light.board.tile.TilePoint.RIGHT_TOP_CORNER;
 
 public class OpenButtonForWindow extends GameActor {
     public OpenButtonForWindow(OpenButtonForWindowConfiguration configuration, Collectible collectible, CollectWindow collectWindow) {
-        super(OPEN_BUTTON);
+        super(ACTION_BUTTON);
 
         Button openButton = getOpenButton(configuration, collectible);
         openButton.addListener(new OpenCollectWindowButtonListener(collectWindow, configuration.getCamera(), configuration.getUiStage()));

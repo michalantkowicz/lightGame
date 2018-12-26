@@ -20,7 +20,7 @@ class CollectWindowItemListener extends ClickListener {
     public void clicked(InputEvent event, float x, float y) {
         super.clicked(event, x, y);
         CollectWindowItemState itemState = collectItem.getState();
-        if (UNCHOSEN.equals(itemState) && !window.isAnyItemChosen()) {
+        if (UNCHOSEN.equals(itemState) && !window.isAnyItemChosen() && !collectItem.isEmpty()) {
             collectItem.setState(CHOSEN);
             window.setChosenItem(collectItem);
             window.onItemChosen();
