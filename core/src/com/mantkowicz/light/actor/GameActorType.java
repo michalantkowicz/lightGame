@@ -1,5 +1,5 @@
 package com.mantkowicz.light.actor;
 
 public enum GameActorType {
-    PLAYER, LIGHTER, CHEST, ACTION_BUTTON, CAMERA_ACTOR, DOG
+    PLAYER, LIGHTER, CHEST, ACTION_BUTTON, CAMERA_ACTOR, DOG, COLLECT_WINDOW
 }

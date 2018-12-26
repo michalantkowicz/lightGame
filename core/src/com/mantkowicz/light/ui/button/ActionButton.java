@@ -2,12 +2,13 @@ package com.mantkowicz.light.ui.button;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mantkowicz.light.actor.GameActor;
 import com.mantkowicz.light.configuration.api.UIConfiguration;
 import com.mantkowicz.light.plugin.Plugin;
+import com.mantkowicz.light.plugin.implementation.CenterActorByCameraPlugin;
+import com.mantkowicz.light.plugin.implementation.RemoveOnPlayerMovePlugin;
 
 import static com.mantkowicz.light.actor.GameActorType.ACTION_BUTTON;
 
@@ -23,15 +24,13 @@ public class ActionButton extends GameActor {
         button.addListener(listener);
 
         addActor(button);
-        setPosition(getPosition());
-    }
 
-    public void addActionButtonPlugin(Plugin plugin) {
-        addPlugin(plugin);
-    }
+        setSize(button.getWidth(), button.getHeight());
 
-    private Vector2 getPosition() {
-        Vector3 cameraPosition = camera.position;
-        return new Vector2(cameraPosition.x, cameraPosition.y).sub(button.getWidth() / 2f, button.getHeight() / 2f);
+        Plugin centerActorByCameraPlugin = new CenterActorByCameraPlugin(this, configuration.getCamera(), new Vector2());
+        addPlugin(centerActorByCameraPlugin);
+
+        RemoveOnPlayerMovePlugin removeOnPlayerMovePlugin = new RemoveOnPlayerMovePlugin(configuration.getGameEventService(), this);
+        addPlugin(removeOnPlayerMovePlugin);
     }
 }

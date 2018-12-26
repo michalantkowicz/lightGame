@@ -3,6 +3,7 @@ package com.mantkowicz.light.ui.window;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
@@ -12,18 +13,22 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mantkowicz.light.actor.Collectible;
 import com.mantkowicz.light.actor.Collecting;
+import com.mantkowicz.light.actor.GameActor;
 import com.mantkowicz.light.actor.Item;
 import com.mantkowicz.light.configuration.api.CollectWindowConfiguration;
+import com.mantkowicz.light.plugin.Plugin;
+import com.mantkowicz.light.plugin.implementation.CenterActorByCameraPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mantkowicz.light.actor.GameActorType.COLLECT_WINDOW;
 import static com.mantkowicz.light.ui.window.CollectItemType.COLLECTIBLE_ITEM;
 import static com.mantkowicz.light.ui.window.CollectItemType.COLLECTING_ITEM;
 import static com.mantkowicz.light.ui.window.CollectWindowItemState.ABLE_TO_PUT;
 import static com.mantkowicz.light.ui.window.CollectWindowItemState.UNCHOSEN;
 
-public class CollectWindow extends Group {
+public class CollectWindow extends GameActor {
     private final int WIDTH = 600;
     private final int HEIGHT = 600;
     private final int PADDING = 20;
@@ -37,6 +42,8 @@ public class CollectWindow extends Group {
     private Table mainTable;
 
     public CollectWindow(CollectWindowConfiguration configuration, Collecting collecting, Collectible collectible) {
+        super(COLLECT_WINDOW);
+
         this.collectible = collectible;
         this.collecting = collecting;
         this.skin = configuration.getResourcesService().getSkin();
@@ -64,8 +71,13 @@ public class CollectWindow extends Group {
 
         mainTable.add(getContent(HEIGHT - 2 * PADDING)).pad(PADDING).expand().center();
 
-        mainTable.setPosition(-mainTable.getWidth() / 2f, -mainTable.getHeight() / 2f);
+//        mainTable.setPosition(-mainTable.getWidth() / 2f, -mainTable.getHeight() / 2f);
         addActor(mainTable);
+
+        setSize(mainTable.getWidth(), mainTable.getHeight());
+
+        Plugin plugin = new CenterActorByCameraPlugin(this, configuration.getCamera(), new Vector2());
+        addPlugin(plugin);
     }
 
     public void onItemChosen() {
