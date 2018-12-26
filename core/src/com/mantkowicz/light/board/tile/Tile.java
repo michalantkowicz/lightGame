@@ -7,7 +7,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
+import com.mantkowicz.light.board.tile.listener.TileClickListener;
 import com.mantkowicz.light.configuration.GamePrepareConfiguration;
 import com.mantkowicz.light.service.resources.ResourcesService;
 
@@ -42,7 +44,10 @@ public abstract class Tile extends Group {
         this.setSize(this.background.getWidth(), this.background.getHeight());
     }
 
-    public abstract void prepare(GamePrepareConfiguration configuration);
+    public void prepare(GamePrepareConfiguration configuration) {
+        ClickListener listener = new TileClickListener(this, configuration);
+        addListener(listener);
+    }
 
     protected Vector2[] getPolygonVertices() {
         Vector2[] result = new Vector2[polygon.size];

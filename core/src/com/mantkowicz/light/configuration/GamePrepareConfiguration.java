@@ -6,13 +6,14 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mantkowicz.light.board.service.BoardService;
 import com.mantkowicz.light.configuration.api.PlayerConfiguration;
+import com.mantkowicz.light.configuration.api.TileClickListenerConfiguration;
 import com.mantkowicz.light.service.event.GameEventService;
 import com.mantkowicz.light.service.phrase.PhraseService;
 import com.mantkowicz.light.service.resources.ResourcesService;
 import com.mantkowicz.light.stage.MenuStage;
 import com.mantkowicz.light.stage.NotificationStage;
 
-public class GamePrepareConfiguration implements PlayerConfiguration {
+public class GamePrepareConfiguration implements PlayerConfiguration, TileClickListenerConfiguration {
     private final GameEventService gameEventService;
     private final BoardService boardService;
     private final World world;

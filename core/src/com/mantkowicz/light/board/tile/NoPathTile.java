@@ -1,7 +1,5 @@
 package com.mantkowicz.light.board.tile;
 
-import com.mantkowicz.light.board.tile.listener.NoPathTileClickListener;
-import com.mantkowicz.light.configuration.GamePrepareConfiguration;
 import com.mantkowicz.light.service.resources.ResourcesService;
 
 public abstract class NoPathTile extends Tile {
@@ -13,11 +11,5 @@ public abstract class NoPathTile extends Tile {
     @Override
     public boolean isAccessible() {
         return false;
-    }
-
-    @Override
-    public void prepare(GamePrepareConfiguration configuration) {
-        NoPathTileClickListener listener = new NoPathTileClickListener(this, configuration.getNotificationStage(), configuration.getPhraseService());
-        addListener(listener);
     }
 }
