@@ -1,6 +1,7 @@
 package com.mantkowicz.light.board.tile;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
@@ -29,7 +30,7 @@ public abstract class Tile extends Group {
 
     private MapProperties attributes;
     private Array<Vector2> polygon;
-    private final Image background;
+    private Image background;
 
     private boolean marked = false;
 
@@ -37,7 +38,11 @@ public abstract class Tile extends Group {
         this.id = ID_SEQUENCE++;
         this.neighbours = new ArrayList<>();
 
-        Texture backgroundTexture = resourcesService.getAssetManager().get(backgroundTextureName, Texture.class);
+        setBackground(resourcesService, backgroundTextureName);
+    }
+
+    protected void setBackground(ResourcesService resourcesService, String backgroundTextureName) {
+        TextureRegion backgroundTexture = resourcesService.getTexture(backgroundTextureName);
         this.background = new Image(backgroundTexture);
 
         addActor(this.background);
@@ -101,10 +106,6 @@ public abstract class Tile extends Group {
 
     public void addNeighbour(Tile neighbour) {
         this.neighbours.add(neighbour);
-    }
-
-    private Image getBackground() {
-        return background;
     }
 
     public Integer getId() {

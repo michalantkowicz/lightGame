@@ -5,141 +5,204 @@ filter: Linear,Linear
 repeat: none
 actionButton
   rotate: false
-  xy: 0, 0
+  xy: 447, 383
   size: 256, 128
   orig: 256, 128
   offset: 0, 0
   index: -1
 actionButtonDown
   rotate: false
-  xy: 256, 0
+  xy: 704, 383
   size: 256, 128
   orig: 256, 128
   offset: 0, 0
   index: -1
 black
   rotate: false
-  xy: 512, 0
+  xy: 0, 0
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 collectButton
   rotate: false
-  xy: 544, 0
+  xy: 93, 0
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 collectButtonDown
   rotate: false
-  xy: 604, 0
+  xy: 33, 0
   size: 59, 59
   orig: 59, 59
   offset: 0, 0
   index: -1
 default
   rotate: false
-  xy: 663, 0
+  xy: 149, 512
   size: 256, 128
   orig: 256, 128
   offset: 0, 0
   index: -1
 default_big
   rotate: false
-  xy: 0, 128
+  xy: 0, 641
   size: 512, 128
   orig: 512, 128
   offset: 0, 0
   index: -1
 mailButton
   rotate: false
-  xy: 512, 128
+  xy: 0, 254
   size: 126, 126
   orig: 126, 126
   offset: 0, 0
   index: -1
 mailButtonDown
   rotate: false
-  xy: 638, 128
+  xy: 127, 254
   size: 126, 126
   orig: 126, 126
   offset: 0, 0
   index: -1
 notepadButton
   rotate: false
-  xy: 764, 128
+  xy: 381, 254
   size: 126, 126
   orig: 126, 126
   offset: 0, 0
   index: -1
 notepadButtonDown
   rotate: false
-  xy: 890, 128
+  xy: 254, 254
   size: 126, 126
   orig: 126, 126
   offset: 0, 0
   index: -1
 settingsButton
   rotate: false
-  xy: 0, 256
+  xy: 284, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 settingsButtonDown
   rotate: false
-  xy: 64, 256
+  xy: 219, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 targetMarker
   rotate: false
-  xy: 128, 256
+  xy: 154, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 textButton
   rotate: false
-  xy: 192, 256
+  xy: 759, 127
   size: 252, 126
   orig: 252, 126
   offset: 0, 0
   index: -1
 textButtonDown
   rotate: false
-  xy: 444, 256
+  xy: 602, 0
   size: 252, 126
   orig: 252, 126
   offset: 0, 0
   index: -1
 textButtonNo
   rotate: false
-  xy: 696, 256
+  xy: 506, 127
   size: 252, 126
   orig: 252, 126
   offset: 0, 0
   index: -1
 textButtonNoDown
   rotate: false
-  xy: 0, 382
+  xy: 0, 127
   size: 252, 126
   orig: 252, 126
   offset: 0, 0
   index: -1
 textButtonOk
   rotate: false
-  xy: 252, 382
+  xy: 253, 127
   size: 252, 126
   orig: 252, 126
   offset: 0, 0
   index: -1
 textButtonOkDown
   rotate: false
-  xy: 504, 382
+  xy: 349, 0
   size: 252, 126
   orig: 252, 126
+  offset: 0, 0
+  index: -1
+wall1
+  rotate: false
+  xy: 555, 512
+  size: 148, 128
+  orig: 148, 128
+  offset: 0, 0
+  index: -1
+wall2
+  rotate: false
+  xy: 0, 512
+  size: 148, 128
+  orig: 148, 128
+  offset: 0, 0
+  index: -1
+wall3
+  rotate: false
+  xy: 0, 383
+  size: 148, 128
+  orig: 148, 128
+  offset: 0, 0
+  index: -1
+wall4
+  rotate: false
+  xy: 508, 254
+  size: 148, 128
+  orig: 148, 128
+  offset: 0, 0
+  index: -1
+wall5
+  rotate: false
+  xy: 149, 383
+  size: 148, 128
+  orig: 148, 128
+  offset: 0, 0
+  index: -1
+wall6
+  rotate: false
+  xy: 806, 254
+  size: 148, 128
+  orig: 148, 128
+  offset: 0, 0
+  index: -1
+wall_interior
+  rotate: false
+  xy: 298, 383
+  size: 148, 128
+  orig: 148, 128
+  offset: 0, 0
+  index: -1
+woodenFloorEven
+  rotate: false
+  xy: 657, 254
+  size: 148, 128
+  orig: 148, 128
+  offset: 0, 0
+  index: -1
+woodenFloorOdd
+  rotate: false
+  xy: 406, 512
+  size: 148, 128
+  orig: 148, 128
   offset: 0, 0
   index: -1

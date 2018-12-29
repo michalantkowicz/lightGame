@@ -11,6 +11,7 @@ import com.mantkowicz.light.plugin.implementation.CenterActorByCameraPlugin;
 import com.mantkowicz.light.plugin.implementation.RemoveOnPlayerMovePlugin;
 
 import static com.mantkowicz.light.actor.GameActorType.ACTION_BUTTON;
+import static com.mantkowicz.light.game.Main.SCREEN_WIDTH;
 
 public class ActionButton extends GameActor {
     private final Camera camera;
@@ -27,7 +28,7 @@ public class ActionButton extends GameActor {
 
         setSize(button.getWidth(), button.getHeight());
 
-        Plugin centerActorByCameraPlugin = new CenterActorByCameraPlugin(this, configuration.getCamera(), new Vector2());
+        Plugin centerActorByCameraPlugin = new CenterActorByCameraPlugin(this, configuration.getCamera(), new Vector2(0, SCREEN_WIDTH / 2f));
         addPlugin(centerActorByCameraPlugin);
 
         RemoveOnPlayerMovePlugin removeOnPlayerMovePlugin = new RemoveOnPlayerMovePlugin(configuration.getGameEventService(), this);

@@ -71,7 +71,6 @@ public class CollectWindow extends GameActor {
 
         mainTable.add(getContent(HEIGHT - 2 * PADDING)).pad(PADDING).expand().center();
 
-//        mainTable.setPosition(-mainTable.getWidth() / 2f, -mainTable.getHeight() / 2f);
         addActor(mainTable);
 
         setSize(mainTable.getWidth(), mainTable.getHeight());

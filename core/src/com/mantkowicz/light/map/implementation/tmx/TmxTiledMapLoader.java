@@ -41,7 +41,9 @@ public class TmxTiledMapLoader implements TiledMapLoader<TmxTileMapLoaderPropert
                 Tuple<Integer, Integer> cellPosition = Tuple.of(x, y);
 
                 Tile tile = createNewTile(tiledMap, cellPosition);
-                tilesMap.put(cellPosition, tile);
+                if(tile != null) {
+                    tilesMap.put(cellPosition, tile);
+                }
             }
         }
 

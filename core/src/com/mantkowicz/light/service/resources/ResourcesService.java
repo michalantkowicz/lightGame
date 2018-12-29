@@ -5,12 +5,14 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.TextureLoader;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 
 import java.util.Arrays;
 import java.util.List;
+
+import static com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 
 public class ResourcesService {
     private final Skin skin;
@@ -39,20 +41,20 @@ public class ResourcesService {
         skin = new Skin(Gdx.files.internal("skin/skin.json"), assetManager.get("skin/skin.atlas", TextureAtlas.class));
     }
 
-    public AtlasRegion getAtlasRegion(String regionName) {
-        AtlasRegion region = null;
-
+    public TextureRegion getTexture(String textureName) {
         for (TextureAtlas atlas : atlases) {
-            region = atlas.findRegion(regionName);
-
-            if (region != null) {
-                break;
+            AtlasRegion foundRegion = atlas.findRegion(textureName);
+            if (foundRegion != null) {
+                return foundRegion;
             }
         }
-        if (region == null) {
-            throw new IllegalArgumentException("Couldn't find region: " + regionName);
+
+        try {
+            Texture texture = assetManager.get(textureName, Texture.class);
+            return new TextureRegion(texture);
+        } catch (Throwable t) {
+            throw new IllegalArgumentException("Couldn't find texture: " + textureName);
         }
-        return region;
     }
 
     public Skin getSkin() {

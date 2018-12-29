@@ -87,7 +87,8 @@ public class GameScreen implements Screen {
 
     private RayHandler prepareLights() {
         RayHandler rayHandler = new RayHandler(world);
-        rayHandler.setAmbientLight(0.02f, 0.02f, 0.02f, 0.1f);
+//        rayHandler.setAmbientLight(0.02f, 0.02f, 0.02f, 0.1f);
+        rayHandler.setAmbientLight(0.02f, 0.02f, 0.02f, 1f);
         return rayHandler;
     }
 
