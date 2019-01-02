@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.6" orientation="hexagonal" renderorder="left-down" width="20" height="30" tilewidth="148" tileheight="128" infinite="0" hexsidelength="72" staggeraxis="x" staggerindex="odd" nextobjectid="1">
+<map version="1.0" tiledversion="1.1.6" orientation="hexagonal" renderorder="left-down" width="20" height="30" tilewidth="148" tileheight="128" infinite="0" hexsidelength="72" staggeraxis="x" staggerindex="odd" nextobjectid="20">
  <tileset firstgid="1" source="lightgame_tileset.tsx"/>
  <layer name="Warstwa Kafelków 1" width="20" height="30">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,18,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,17,18,17,18,0,0,0,0,0,0,0,0,0,0,
-0,0,0,18,17,18,0,18,17,18,17,0,0,0,0,0,0,0,0,0,
-0,4,17,0,0,18,17,18,0,0,0,18,17,18,0,0,0,0,0,0,
-17,0,0,18,17,18,0,0,17,18,17,18,17,18,17,18,0,0,0,0,
-0,0,18,18,17,18,17,0,0,18,17,18,17,18,17,18,17,0,0,0,
-0,0,0,0,17,0,0,18,17,18,17,18,17,18,17,0,0,0,0,0,
-0,0,0,0,0,0,0,0,17,18,17,18,17,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,17,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,36,0,17,18,17,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+18,17,36,36,18,17,0,0,0,17,0,0,0,0,0,0,0,0,0,0,
+18,17,18,0,36,36,0,17,18,17,18,17,0,0,0,0,0,0,0,0,
+0,0,18,0,18,17,36,36,18,17,18,17,18,0,0,0,0,0,0,0,
+0,0,0,0,18,17,18,17,0,0,18,0,0,0,0,0,0,0,0,0,
+0,0,0,0,18,17,18,17,18,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,18,17,18,17,18,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,18,17,18,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,18,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -35,4 +35,105 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup name="objects">
+  <object id="7" name="BED" x="379.333" y="365.333" width="50" height="50">
+   <properties>
+    <property name="cellX" type="int" value="3"/>
+    <property name="cellY" type="int" value="2"/>
+    <property name="objectClass" value="SPRITE"/>
+    <property name="textureName" value="sprite_bed"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="10" name="BOOKS" x="491" y="309" width="50" height="50">
+   <properties>
+    <property name="cellX" type="int" value="4"/>
+    <property name="cellY" type="int" value="2"/>
+    <property name="objectClass" value="SPRITE"/>
+    <property name="textureName" value="sprite_bookshelf"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="11" name="TABLE" x="595" y="877" width="50" height="50">
+   <properties>
+    <property name="cellX" type="int" value="5"/>
+    <property name="cellY" type="int" value="6"/>
+    <property name="objectClass" value="SPRITE"/>
+    <property name="textureName" value="sprite_table"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="12" name="FIRE" x="925" y="943" width="50" height="50">
+   <properties>
+    <property name="cellX" type="int" value="8"/>
+    <property name="cellY" type="int" value="7"/>
+    <property name="objectClass" value="SPRITE"/>
+    <property name="textureName" value="sprite_fireplace"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="13" name="BOOKS" x="595" y="367" width="50" height="50">
+   <properties>
+    <property name="cellX" type="int" value="5"/>
+    <property name="cellY" type="int" value="2"/>
+    <property name="objectClass" value="SPRITE"/>
+    <property name="textureName" value="sprite_bookshelf"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="14" name="TV" x="595" y="495" width="50" height="50">
+   <properties>
+    <property name="cellX" type="int" value="5"/>
+    <property name="cellY" type="int" value="3"/>
+    <property name="objectClass" value="SPRITE"/>
+    <property name="textureName" value="sprite_tv"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="15" name="BOOKS_BACK" x="489" y="1077" width="50" height="50">
+   <properties>
+    <property name="cellX" type="int" value="4"/>
+    <property name="cellY" type="int" value="8"/>
+    <property name="objectClass" value="SPRITE"/>
+    <property name="textureName" value="sprite_bookshelf_back"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="16" name="BOOKS_BACK" x="593" y="1139" width="50" height="50">
+   <properties>
+    <property name="cellX" type="int" value="5"/>
+    <property name="cellY" type="int" value="8"/>
+    <property name="objectClass" value="SPRITE"/>
+    <property name="textureName" value="sprite_bookshelf_back"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="17" name="BOOKS_BACK" x="707" y="1197" width="50" height="50">
+   <properties>
+    <property name="cellX" type="int" value="6"/>
+    <property name="cellY" type="int" value="9"/>
+    <property name="objectClass" value="SPRITE"/>
+    <property name="textureName" value="sprite_bookshelf_back"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="18" name="BOOKS_BACK" x="809" y="1267" width="50" height="50">
+   <properties>
+    <property name="cellX" type="int" value="7"/>
+    <property name="cellY" type="int" value="9"/>
+    <property name="objectClass" value="SPRITE"/>
+    <property name="textureName" value="sprite_bookshelf_back"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="19" name="BOOKS_BACK" x="925" y="1325" width="50" height="50">
+   <properties>
+    <property name="cellX" type="int" value="8"/>
+    <property name="cellY" type="int" value="10"/>
+    <property name="objectClass" value="SPRITE"/>
+    <property name="textureName" value="sprite_bookshelf_back"/>
+   </properties>
+   <ellipse/>
+  </object>
+ </objectgroup>
 </map>

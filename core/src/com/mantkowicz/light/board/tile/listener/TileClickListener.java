@@ -43,11 +43,13 @@ public class TileClickListener extends ClickListener {
     @Override
     public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
         Tile touchedTile = resolveTile(x, y);
-        if (!touchedTile.isAccessible()) {
-            handleNoPathTile(touchedTile);
-        } else if (touchedTile != null && touchedTile.isMarked()) {
-            touchedTile.unmark();
-            gameEventService.addEvent(new TileTouchedEvent(touchedTile));
+        if(touchedTile != null) {
+            if (!touchedTile.isAccessible()) {
+                handleNoPathTile(touchedTile);
+            } else if (touchedTile.isMarked()) {
+                touchedTile.unmark();
+                gameEventService.addEvent(new TileTouchedEvent(touchedTile));
+            }
         }
     }
 

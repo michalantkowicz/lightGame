@@ -5,14 +5,14 @@ filter: Linear,Linear
 repeat: none
 actionButton
   rotate: false
-  xy: 447, 383
+  xy: 0, 691
   size: 256, 128
   orig: 256, 128
   offset: 0, 0
   index: -1
 actionButtonDown
   rotate: false
-  xy: 704, 383
+  xy: 504, 563
   size: 256, 128
   orig: 256, 128
   offset: 0, 0
@@ -24,184 +24,226 @@ black
   orig: 32, 32
   offset: 0, 0
   index: -1
+carpet
+  rotate: false
+  xy: 696, 126
+  size: 148, 128
+  orig: 148, 128
+  offset: 0, 0
+  index: -1
 collectButton
   rotate: false
-  xy: 93, 0
+  xy: 91, 0
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 collectButtonDown
   rotate: false
-  xy: 33, 0
+  xy: 32, 0
   size: 59, 59
   orig: 59, 59
   offset: 0, 0
   index: -1
 default
   rotate: false
-  xy: 149, 512
+  xy: 760, 563
   size: 256, 128
   orig: 256, 128
   offset: 0, 0
   index: -1
 default_big
   rotate: false
-  xy: 0, 641
+  xy: 489, 691
   size: 512, 128
   orig: 512, 128
   offset: 0, 0
   index: -1
 mailButton
   rotate: false
-  xy: 0, 254
+  xy: 0, 126
   size: 126, 126
   orig: 126, 126
   offset: 0, 0
   index: -1
 mailButtonDown
   rotate: false
-  xy: 127, 254
+  xy: 830, 0
   size: 126, 126
   orig: 126, 126
   offset: 0, 0
   index: -1
 notepadButton
   rotate: false
-  xy: 381, 254
+  xy: 126, 126
   size: 126, 126
   orig: 126, 126
   offset: 0, 0
   index: -1
 notepadButtonDown
   rotate: false
-  xy: 254, 254
+  xy: 704, 0
   size: 126, 126
   orig: 126, 126
   offset: 0, 0
   index: -1
 settingsButton
   rotate: false
-  xy: 284, 0
+  xy: 151, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 settingsButtonDown
   rotate: false
-  xy: 219, 0
+  xy: 215, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
+sprite_bed
+  rotate: false
+  xy: 484, 0
+  size: 110, 101
+  orig: 110, 101
+  offset: 0, 0
+  index: -1
+sprite_books
+  rotate: false
+  xy: 343, 0
+  size: 70, 99
+  orig: 70, 99
+  offset: 0, 0
+  index: -1
+sprite_bookshelf
+  rotate: false
+  xy: 413, 0
+  size: 71, 110
+  orig: 71, 110
+  offset: 0, 0
+  index: -1
+sprite_bookshelf_back
+  rotate: false
+  xy: 444, 254
+  size: 177, 177
+  orig: 177, 177
+  offset: 0, 0
+  index: -1
+sprite_fireplace
+  rotate: false
+  xy: 621, 254
+  size: 177, 183
+  orig: 177, 183
+  offset: 0, 0
+  index: -1
+sprite_table
+  rotate: false
+  xy: 256, 691
+  size: 233, 233
+  orig: 233, 233
+  offset: 0, 0
+  index: -1
+sprite_tv
+  rotate: false
+  xy: 594, 0
+  size: 110, 110
+  orig: 110, 110
+  offset: 0, 0
+  index: -1
 targetMarker
   rotate: false
-  xy: 154, 0
+  xy: 279, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 textButton
   rotate: false
-  xy: 759, 127
+  xy: 0, 437
   size: 252, 126
   orig: 252, 126
   offset: 0, 0
   index: -1
 textButtonDown
   rotate: false
-  xy: 602, 0
+  xy: 504, 437
   size: 252, 126
   orig: 252, 126
   offset: 0, 0
   index: -1
 textButtonNo
   rotate: false
-  xy: 506, 127
+  xy: 756, 437
   size: 252, 126
   orig: 252, 126
   offset: 0, 0
   index: -1
 textButtonNoDown
   rotate: false
-  xy: 0, 127
+  xy: 252, 563
   size: 252, 126
   orig: 252, 126
   offset: 0, 0
   index: -1
 textButtonOk
   rotate: false
-  xy: 253, 127
+  xy: 0, 563
   size: 252, 126
   orig: 252, 126
   offset: 0, 0
   index: -1
 textButtonOkDown
   rotate: false
-  xy: 349, 0
+  xy: 252, 437
   size: 252, 126
   orig: 252, 126
   offset: 0, 0
   index: -1
-wall1
-  rotate: false
-  xy: 555, 512
-  size: 148, 128
-  orig: 148, 128
-  offset: 0, 0
-  index: -1
-wall2
-  rotate: false
-  xy: 0, 512
-  size: 148, 128
-  orig: 148, 128
-  offset: 0, 0
-  index: -1
-wall3
-  rotate: false
-  xy: 0, 383
-  size: 148, 128
-  orig: 148, 128
-  offset: 0, 0
-  index: -1
-wall4
-  rotate: false
-  xy: 508, 254
-  size: 148, 128
-  orig: 148, 128
-  offset: 0, 0
-  index: -1
-wall5
-  rotate: false
-  xy: 149, 383
-  size: 148, 128
-  orig: 148, 128
-  offset: 0, 0
-  index: -1
-wall6
-  rotate: false
-  xy: 806, 254
-  size: 148, 128
-  orig: 148, 128
-  offset: 0, 0
-  index: -1
 wall_interior
   rotate: false
-  xy: 298, 383
+  xy: 252, 126
   size: 148, 128
   orig: 148, 128
   offset: 0, 0
   index: -1
 woodenFloorEven
   rotate: false
-  xy: 657, 254
+  xy: 548, 126
+  size: 148, 128
+  orig: 148, 128
+  offset: 0, 0
+  index: -1
+woodenFloorEvenHalfBottom
+  rotate: false
+  xy: 844, 126
+  size: 148, 128
+  orig: 148, 128
+  offset: 0, 0
+  index: -1
+woodenFloorEvenHalfTop
+  rotate: false
+  xy: 0, 254
   size: 148, 128
   orig: 148, 128
   offset: 0, 0
   index: -1
 woodenFloorOdd
   rotate: false
-  xy: 406, 512
+  xy: 296, 254
+  size: 148, 128
+  orig: 148, 128
+  offset: 0, 0
+  index: -1
+woodenFloorOddHalfBottom
+  rotate: false
+  xy: 400, 126
+  size: 148, 128
+  orig: 148, 128
+  offset: 0, 0
+  index: -1
+woodenFloorOddHalfTop
+  rotate: false
+  xy: 148, 254
   size: 148, 128
   orig: 148, 128
   offset: 0, 0

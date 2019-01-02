@@ -1,6 +1,5 @@
 package com.mantkowicz.light.board.tile;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.Intersector;
@@ -10,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
+import com.mantkowicz.light.board.object.TileObject;
 import com.mantkowicz.light.board.tile.listener.TileClickListener;
 import com.mantkowicz.light.configuration.GamePrepareConfiguration;
 import com.mantkowicz.light.service.resources.ResourcesService;
@@ -34,6 +34,8 @@ public abstract class Tile extends Group {
 
     private boolean marked = false;
 
+    protected List<TileObject> objects = new ArrayList<>();
+
     protected Tile(ResourcesService resourcesService, String backgroundTextureName) {
         this.id = ID_SEQUENCE++;
         this.neighbours = new ArrayList<>();
@@ -52,6 +54,11 @@ public abstract class Tile extends Group {
     public void prepare(GamePrepareConfiguration configuration) {
         ClickListener listener = new TileClickListener(this, configuration);
         addListener(listener);
+
+        for (TileObject object : objects) {
+            Actor actor = object.prepare(configuration);
+            addActor(actor);
+        }
     }
 
     protected Vector2[] getPolygonVertices() {
@@ -188,5 +195,9 @@ public abstract class Tile extends Group {
         int result = id;
         result = 31 * result + (polygon != null ? polygon.hashCode() : 0);
         return result;
+    }
+
+    public void addTileObject(TileObject object) {
+        objects.add(object);
     }
 }
