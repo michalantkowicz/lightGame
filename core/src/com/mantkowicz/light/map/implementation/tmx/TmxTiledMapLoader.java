@@ -3,10 +3,12 @@ package com.mantkowicz.light.map.implementation.tmx;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.maps.objects.EllipseMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.math.Ellipse;
 import com.badlogic.gdx.math.Vector2;
 import com.mantkowicz.light.board.object.TileObject;
 import com.mantkowicz.light.board.object.TileObjectType;
@@ -23,7 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.mantkowicz.light.board.object.TileObjectAttribute.*;
+import static com.mantkowicz.light.board.object.TileObjectAttribute.OBJECT_CLASS;
 import static com.mantkowicz.light.board.tile.TileAttribute.TILE_CLASS;
 
 public class TmxTiledMapLoader implements TiledMapLoader<TmxTileMapLoaderProperties> {
@@ -85,14 +87,42 @@ public class TmxTiledMapLoader implements TiledMapLoader<TmxTileMapLoaderPropert
     private void initializeObjectsMap(TiledMap tiledMap, int layerHeight) {
         for (MapObject object : getObjectLayer(tiledMap).getObjects()) {
             MapProperties objectProperties = object.getProperties();
-            if (objectProperties.containsKey(X.getValue()) && objectProperties.containsKey(Y.getValue())) {
-                Integer objectX = objectProperties.get(X.getValue(), Integer.class);
-                Integer objectY = layerHeight - 1 - objectProperties.get(Y.getValue(), Integer.class);
+            if (object instanceof EllipseMapObject) {
+                Ellipse ellipse = ((EllipseMapObject) object).getEllipse();
+                TiledMapTileLayer tileLayer = getTileLayer(tiledMap);
+
+                float tileHeight = tileLayer.getTileHeight();
+                float tileWidth = Math.round((Math.sqrt(3) * tileHeight) / 2f);
+
+                Integer objectX = 0;
+                Integer objectY = 0;
+
+                //TODO to improve this algorithm
+                for (int x = 0; x < tileLayer.getWidth(); x++) {
+                    for (int y = 0; y < tileLayer.getHeight(); y++) {
+                        float ellipseCenterX = ellipse.x + ellipse.width / 2f;
+                        float ellipseCenterY = ellipse.y + ellipse.height / 2f;
+                        float newDistance = new Vector2(ellipseCenterX, ellipseCenterY).dst2(getTileCenter(Tuple.of(x, y), tileWidth, tileHeight));
+                        float currentDistance = new Vector2(ellipseCenterX, ellipseCenterY).dst2(getTileCenter(Tuple.of(objectX, objectY), tileWidth, tileHeight));
+                        if (newDistance < currentDistance) {
+                            objectX = x;
+                            objectY = y;
+                        }
+                    }
+                }
+
                 TileObjectType objectType = TileObjectType.valueOf(objectProperties.get(OBJECT_CLASS.getValue(), String.class));
                 objectsMap.put(Tuple.of(objectX, objectY), TileObjectFactory.createTileObject(objectType, objectProperties));
             }
         }
     }
+
+    private Vector2 getTileCenter(Tuple<Integer, Integer> coordinates, float tileWidth, float tileHeight) {
+        float x = coordinates.getX() * tileWidth;
+        float y = (coordinates.getY() - (coordinates.getX() % 2) / 2f) * tileHeight;
+        return new Vector2(x, y).add(tileWidth / 2f, tileHeight / 2f);
+    }
+
 
     private void addNeighbour(Tile tile, Tuple<Integer, Integer> neighbourPosition) {
         if (tilesMap.containsKey(neighbourPosition)) {

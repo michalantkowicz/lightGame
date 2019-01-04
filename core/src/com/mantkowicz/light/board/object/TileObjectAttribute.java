@@ -2,8 +2,6 @@ package com.mantkowicz.light.board.object;
 
 public enum TileObjectAttribute {
     OBJECT_CLASS("objectClass"),
-    X("cellX"),
-    Y("cellY"),
     TEXTURE_NAME("textureName");
 
     private final String value;
