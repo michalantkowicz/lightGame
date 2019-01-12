@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset name="lightgame_tileset" tilewidth="148" tileheight="128" tilecount="20" columns="0">
+<tileset name="lightgame_tileset" tilewidth="148" tileheight="128" tilecount="19" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
+ <properties>
+  <property name="textureName" value="tileFloor"/>
+  <property name="tileClass" value="FLOOR"/>
+ </properties>
  <tile id="0">
   <properties>
    <property name="tileClass" value="FLOOR"/>
@@ -132,18 +136,11 @@
   </properties>
   <image width="148" height="128" source="woodenFloorOdd.png"/>
  </tile>
- <tile id="18">
+ <tile id="19">
   <properties>
-   <property name="textureName" value="wall_interior"/>
-   <property name="tileClass" value="WALL"/>
-  </properties>
-  <image width="148" height="128" source="S:/lightgame_assets/assets/wall_interior.png"/>
- </tile>
- <tile id="35">
-  <properties>
-   <property name="textureName" value="carpet"/>
+   <property name="textureName" value="tileFloor"/>
    <property name="tileClass" value="FLOOR"/>
   </properties>
-  <image width="148" height="128" source="S:/lightgame_assets/assets/carpet.png"/>
+  <image width="148" height="128" source="tileFloor.png"/>
  </tile>
 </tileset>
