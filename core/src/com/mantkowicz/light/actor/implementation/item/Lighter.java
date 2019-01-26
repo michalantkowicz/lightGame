@@ -1,6 +1,6 @@
 package com.mantkowicz.light.actor.implementation.item;
 
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mantkowicz.light.actor.BoardGameActor;
 import com.mantkowicz.light.actor.Collectible;
 import com.mantkowicz.light.actor.Inventory;
@@ -10,15 +10,15 @@ import com.mantkowicz.light.configuration.api.PlayerConfiguration;
 import static com.mantkowicz.light.actor.GameActorType.LIGHTER;
 
 public class Lighter extends BoardGameActor implements Item, Collectible {
-    private final Texture thumbnail;
+    private final TextureRegion thumbnail;
 
     public Lighter(PlayerConfiguration configuration) {
         super(LIGHTER, configuration.getBoardService());
-        thumbnail = configuration.getResourcesService().getAssetManager().get("lighter.png", Texture.class);
+        thumbnail = configuration.getResourcesService().getTexture("lighter");
     }
 
     @Override
-    public Texture getThumbnail() {
+    public TextureRegion getThumbnail() {
         return thumbnail;
     }
 

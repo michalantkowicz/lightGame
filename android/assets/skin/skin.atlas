@@ -5,14 +5,14 @@ filter: Linear,Linear
 repeat: none
 actionButton
   rotate: false
-  xy: 448, 239
+  xy: 701, 239
   size: 256, 128
   orig: 256, 128
   offset: 0, 0
   index: -1
 actionButtonDown
   rotate: false
-  xy: 705, 239
+  xy: 958, 239
   size: 256, 128
   orig: 256, 128
   offset: 0, 0
@@ -26,154 +26,189 @@ black
   index: -1
 carpet
   rotate: false
-  xy: 1219, 239
+  xy: 1215, 239
   size: 148, 128
   orig: 148, 128
   offset: 0, 0
   index: -1
 collectButton
   rotate: false
-  xy: 153, 1
+  xy: 184, 1
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 collectButtonDown
   rotate: false
-  xy: 93, 1
+  xy: 124, 1
   size: 59, 59
   orig: 59, 59
   offset: 0, 0
   index: -1
 default
   rotate: false
-  xy: 962, 239
+  xy: 1, 368
   size: 256, 128
   orig: 256, 128
   offset: 0, 0
   index: -1
 default_big
   rotate: false
-  xy: 1368, 239
+  xy: 1364, 239
   size: 512, 128
   orig: 512, 128
   offset: 0, 0
   index: -1
+depositItemCover
+  rotate: false
+  xy: 1, 112
+  size: 128, 125
+  orig: 128, 125
+  offset: 0, 0
+  index: -1
+depositItemDefault
+  rotate: false
+  xy: 93, 1
+  size: 30, 55
+  orig: 30, 55
+  offset: 0, 0
+  index: -1
+inventoryItemBackground
+  rotate: false
+  xy: 407, 368
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+lighter
+  rotate: false
+  xy: 440, 1
+  size: 82, 66
+  orig: 82, 66
+  offset: 0, 0
+  index: -1
 mailButton
   rotate: false
-  xy: 760, 112
+  xy: 889, 112
   size: 126, 126
   orig: 126, 126
   offset: 0, 0
   index: -1
 mailButtonDown
   rotate: false
-  xy: 1647, 112
+  xy: 1016, 112
   size: 126, 126
   orig: 126, 126
   offset: 0, 0
   index: -1
 menuBar
   rotate: false
-  xy: 1, 368
-  size: 768, 221
-  orig: 768, 221
+  xy: 536, 368
+  size: 600, 197
+  orig: 600, 197
+  offset: 0, 0
+  index: -1
+menuBarBackground
+  rotate: false
+  xy: 1137, 368
+  size: 716, 200
+  orig: 716, 200
   offset: 0, 0
   index: -1
 notepadButton
   rotate: false
-  xy: 1393, 112
+  xy: 1776, 112
   size: 126, 126
   orig: 126, 126
   offset: 0, 0
   index: -1
 notepadButtonDown
   rotate: false
-  xy: 1520, 112
+  xy: 1396, 112
   size: 126, 126
   orig: 126, 126
   offset: 0, 0
   index: -1
 settingsButton
   rotate: false
-  xy: 279, 1
+  xy: 245, 1
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 settingsButtonDown
   rotate: false
-  xy: 214, 1
+  xy: 375, 1
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 sprite_armchair
   rotate: false
-  xy: 409, 1
+  xy: 523, 1
   size: 70, 76
   orig: 70, 76
   offset: 0, 0
   index: -1
 sprite_bath
   rotate: false
-  xy: 715, 1
+  xy: 829, 1
   size: 120, 83
   orig: 120, 83
   offset: 0, 0
   index: -1
 sprite_bed
   rotate: false
-  xy: 1025, 1
+  xy: 1139, 1
   size: 105, 96
   orig: 105, 96
   offset: 0, 0
   index: -1
 sprite_bookshelf
   rotate: false
-  xy: 1617, 1
+  xy: 1771, 1
   size: 71, 110
   orig: 71, 110
   offset: 0, 0
   index: -1
 sprite_cactus
   rotate: false
-  xy: 1289, 1
+  xy: 1326, 1
   size: 32, 100
   orig: 32, 100
   offset: 0, 0
   index: -1
 sprite_fireplace
   rotate: false
-  xy: 1380, 1
+  xy: 1553, 1
   size: 90, 105
   orig: 90, 105
   offset: 0, 0
   index: -1
 sprite_fridge
   rotate: false
-  xy: 1757, 1
+  xy: 1644, 1
   size: 58, 110
   orig: 58, 110
   offset: 0, 0
   index: -1
 sprite_guitar
   rotate: false
-  xy: 1322, 1
+  xy: 1359, 1
   size: 57, 100
   orig: 57, 100
   offset: 0, 0
   index: -1
 sprite_kitchen_cabinet
   rotate: false
-  xy: 480, 1
+  xy: 594, 1
   size: 76, 80
   orig: 76, 80
   offset: 0, 0
   index: -1
 sprite_kitchen_drawer
   rotate: false
-  xy: 1689, 1
+  xy: 1703, 1
   size: 67, 110
   orig: 67, 110
   offset: 0, 0
@@ -187,133 +222,133 @@ sprite_laundry
   index: -1
 sprite_radio_commode
   rotate: false
-  xy: 836, 1
+  xy: 950, 1
   size: 105, 87
   orig: 105, 87
   offset: 0, 0
   index: -1
 sprite_sink
   rotate: false
-  xy: 1471, 1
+  xy: 1494, 1
   size: 58, 105
   orig: 58, 105
   offset: 0, 0
   index: -1
 sprite_stove
   rotate: false
-  xy: 557, 1
+  xy: 753, 1
   size: 75, 80
   orig: 75, 80
   offset: 0, 0
   index: -1
 sprite_table
   rotate: false
-  xy: 633, 1
+  xy: 671, 1
   size: 81, 80
   orig: 81, 80
   offset: 0, 0
   index: -1
 sprite_toilet
   rotate: false
-  xy: 1131, 1
+  xy: 1417, 1
   size: 76, 100
   orig: 76, 100
   offset: 0, 0
   index: -1
 sprite_tv
   rotate: false
-  xy: 1530, 1
+  xy: 1843, 1
   size: 86, 110
   orig: 86, 110
   offset: 0, 0
   index: -1
 sprite_wardrobe
   rotate: false
-  xy: 1208, 1
+  xy: 1245, 1
   size: 80, 100
   orig: 80, 100
   offset: 0, 0
   index: -1
 sprite_washer
   rotate: false
-  xy: 942, 1
+  xy: 1056, 1
   size: 82, 90
   orig: 82, 90
   offset: 0, 0
   index: -1
 targetMarker
   rotate: false
-  xy: 344, 1
+  xy: 310, 1
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 textButton
   rotate: false
-  xy: 1, 112
+  xy: 636, 112
   size: 252, 126
   orig: 252, 126
   offset: 0, 0
   index: -1
 textButtonDown
   rotate: false
-  xy: 507, 112
+  xy: 1143, 112
   size: 252, 126
   orig: 252, 126
   offset: 0, 0
   index: -1
 textButtonNo
   rotate: false
-  xy: 887, 112
+  xy: 1, 239
   size: 252, 126
   orig: 252, 126
   offset: 0, 0
   index: -1
 textButtonNoDown
   rotate: false
-  xy: 1140, 112
+  xy: 1523, 112
   size: 252, 126
   orig: 252, 126
   offset: 0, 0
   index: -1
 textButtonOk
   rotate: false
-  xy: 1774, 112
+  xy: 130, 112
   size: 252, 126
   orig: 252, 126
   offset: 0, 0
   index: -1
 textButtonOkDown
   rotate: false
-  xy: 254, 112
+  xy: 383, 112
   size: 252, 126
   orig: 252, 126
   offset: 0, 0
   index: -1
 tileFloor
   rotate: false
-  xy: 1, 239
+  xy: 254, 239
   size: 148, 128
   orig: 148, 128
   offset: 0, 0
   index: -1
 wall_interior
   rotate: false
-  xy: 299, 239
+  xy: 552, 239
   size: 148, 128
   orig: 148, 128
   offset: 0, 0
   index: -1
 woodenFloorEven
   rotate: false
-  xy: 150, 239
+  xy: 403, 239
   size: 148, 128
   orig: 148, 128
   offset: 0, 0
   index: -1
 woodenFloorOdd
   rotate: false
-  xy: 1881, 239
+  xy: 258, 368
   size: 148, 128
   orig: 148, 128
   offset: 0, 0

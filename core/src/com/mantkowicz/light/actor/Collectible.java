@@ -1,8 +1,11 @@
 package com.mantkowicz.light.actor;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mantkowicz.light.board.tile.Tile;
 
 public interface Collectible {
+    Collectible DEFAULT = null;
+
     /**
      * Defines whether the collectible should collide with neighbour tiles
      */
@@ -17,4 +20,6 @@ public interface Collectible {
     String getName();
 
     Tile getTile();
+
+    TextureRegion getThumbnail();
 }

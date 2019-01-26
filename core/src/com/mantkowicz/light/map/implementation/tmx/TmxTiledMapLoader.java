@@ -86,7 +86,6 @@ public class TmxTiledMapLoader implements TiledMapLoader<TmxTileMapLoaderPropert
 
     private void initializeObjectsMap(TiledMap tiledMap, int layerHeight) {
         for (MapObject object : getObjectLayer(tiledMap).getObjects()) {
-            MapProperties objectProperties = object.getProperties();
             if (object instanceof EllipseMapObject) {
                 Ellipse ellipse = ((EllipseMapObject) object).getEllipse();
                 TiledMapTileLayer tileLayer = getTileLayer(tiledMap);
@@ -111,6 +110,7 @@ public class TmxTiledMapLoader implements TiledMapLoader<TmxTileMapLoaderPropert
                     }
                 }
 
+                MapProperties objectProperties = object.getProperties();
                 TileObjectType objectType = TileObjectType.valueOf(objectProperties.get(OBJECT_CLASS.getValue(), String.class));
                 objectsMap.put(Tuple.of(objectX, objectY), TileObjectFactory.createTileObject(objectType, objectProperties));
             }

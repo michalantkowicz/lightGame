@@ -48,7 +48,6 @@ public class ResourcesService {
                 return foundRegion;
             }
         }
-
         try {
             Texture texture = assetManager.get(textureName, Texture.class);
             return new TextureRegion(texture);

@@ -1,11 +1,13 @@
 package com.mantkowicz.light.actor.implementation.collectible;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.mantkowicz.light.actor.BoardGameActor;
 import com.mantkowicz.light.actor.Collectible;
 import com.mantkowicz.light.actor.Inventory;
 import com.mantkowicz.light.configuration.api.PlayerConfiguration;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 
@@ -48,5 +50,10 @@ public class Chest extends BoardGameActor implements Collectible {
     @Override
     public Inventory getInventory() {
         return inventory;
+    }
+
+    @Override
+    public TextureRegion getThumbnail() {
+        throw new NotImplementedException();
     }
 }
