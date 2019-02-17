@@ -1,26 +1,26 @@
-package com.mantkowicz.light.board.tile.implementation;
+package com.mantkowicz.light.board.object.implementation.chest;
 
 import com.mantkowicz.light.actor.Item;
 import com.mantkowicz.light.actor.implementation.collectible.Chest;
 import com.mantkowicz.light.actor.implementation.item.Lighter;
-import com.mantkowicz.light.board.tile.AccessibleTile;
+import com.mantkowicz.light.board.object.TileObject;
+import com.mantkowicz.light.board.tile.Tile;
 import com.mantkowicz.light.configuration.GamePrepareConfiguration;
-import com.mantkowicz.light.service.resources.ResourcesService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChestTile extends AccessibleTile {
-    public ChestTile(ResourcesService resourcesService) {
-        super(resourcesService, "floor-tile.png");
+import static com.mantkowicz.light.board.object.TileObjectType.CHEST;
+
+public class TileChest extends TileObject {
+    public TileChest() {
+        super(CHEST);
     }
 
     @Override
-    public void prepare(GamePrepareConfiguration configuration) {
-        super.prepare(configuration);
-
+    public void prepare(Tile tile, GamePrepareConfiguration configuration) {
         Chest chest = new Chest(configuration);
-        chest.setTile(this);
+        chest.setTile(tile);
 
         List<Item> content = getContent(configuration);
         chest.getInventory().setItemsAndCompleteWithNulls(content);
@@ -35,5 +35,10 @@ public class ChestTile extends AccessibleTile {
         content.add(lighter);
 
         return content;
+    }
+
+    @Override
+    public boolean isAccessible() {
+        return true;
     }
 }

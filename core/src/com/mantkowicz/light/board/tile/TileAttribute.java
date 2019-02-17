@@ -1,10 +1,7 @@
 package com.mantkowicz.light.board.tile;
 
 public enum TileAttribute {
-    TILE_CLASS("tileClass"),
-    LIGHT_TYPE("lightType"),
-    LIGHT_COLOR_HEX("lightColorHex"),
-    BORDER_LIGHT_POSITION("borderLightPosition");
+    TILE_CLASS("tileClass");
 
     private final String value;
 

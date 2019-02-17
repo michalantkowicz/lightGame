@@ -3,7 +3,10 @@ package com.mantkowicz.light.board.object;
 public enum TileObjectAttribute {
     OBJECT_CLASS("objectClass"),
     TEXTURE_NAME("textureName"),
-    TEXTURE_OFFSET("textureOffset");
+    TEXTURE_OFFSET("textureOffset"),
+    LIGHT_TYPE("lightType"),
+    LIGHT_COLOR_HEX("lightColorHex"),
+    BORDER_LIGHT_POSITION("borderLightPosition");
 
     private final String value;
 

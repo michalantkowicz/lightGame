@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mantkowicz.light.actor.Collecting;
 import com.mantkowicz.light.actor.implementation.item.Lighter;
 import com.mantkowicz.light.configuration.GamePrepareConfiguration;
+import com.mantkowicz.light.menu.item.MenuBarItem;
 import com.mantkowicz.light.service.resources.ResourcesService;
 
 import static com.mantkowicz.light.game.Main.SCREEN_HEIGHT;

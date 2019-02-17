@@ -1,5 +1,5 @@
 package com.mantkowicz.light.board.object;
 
 public enum TileObjectType {
-    SPRITE
+    SPRITE, CHEST, LIGHT, PLAYER, DOG
 }

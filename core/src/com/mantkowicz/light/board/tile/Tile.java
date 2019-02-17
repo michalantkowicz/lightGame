@@ -56,8 +56,7 @@ public abstract class Tile extends Group {
         addListener(listener);
 
         for (TileObject object : objects) {
-            Actor actor = object.prepare(configuration);
-            addActor(actor);
+            object.prepare(this, configuration);
         }
     }
 
@@ -127,7 +126,7 @@ public abstract class Tile extends Group {
         return new Vector2(getX(), getY());
     }
 
-    protected MapProperties getAttributes() {
+    public MapProperties getAttributes() {
         return attributes;
     }
 

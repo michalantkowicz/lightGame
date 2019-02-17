@@ -1,6 +1,6 @@
 package com.mantkowicz.light.board.object;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.mantkowicz.light.board.tile.Tile;
 import com.mantkowicz.light.configuration.GamePrepareConfiguration;
 
 public abstract class TileObject {
@@ -10,7 +10,7 @@ public abstract class TileObject {
         this.objectType = objectType;
     }
 
-    public abstract Actor prepare(GamePrepareConfiguration configuration);
+    public abstract void prepare(Tile tile, GamePrepareConfiguration configuration);
 
     public abstract boolean isAccessible();
 }

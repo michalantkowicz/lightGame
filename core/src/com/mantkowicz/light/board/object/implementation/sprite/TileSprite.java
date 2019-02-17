@@ -1,10 +1,10 @@
-package com.mantkowicz.light.board.object.implementation;
+package com.mantkowicz.light.board.object.implementation.sprite;
 
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mantkowicz.light.board.object.TileObject;
+import com.mantkowicz.light.board.tile.Tile;
 import com.mantkowicz.light.configuration.GamePrepareConfiguration;
 
 import static com.mantkowicz.light.board.object.TileObjectAttribute.TEXTURE_NAME;
@@ -25,10 +25,11 @@ public class TileSprite extends TileObject {
     }
 
     @Override
-    public Actor prepare(GamePrepareConfiguration configuration) {
+    public void prepare(Tile tile, GamePrepareConfiguration configuration) {
         Image image = new Image(configuration.getResourcesService().getTexture(textureName));
         image.setPosition(74 - image.getWidth() / 2f + offset.x, 64 - image.getHeight() / 2f + offset.y);
-        return image;
+
+        tile.addActor(image);
     }
 
     @Override

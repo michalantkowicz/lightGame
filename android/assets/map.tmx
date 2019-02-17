@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.6" orientation="hexagonal" renderorder="left-down" width="20" height="30" tilewidth="148" tileheight="128" infinite="0" hexsidelength="72" staggeraxis="x" staggerindex="odd" nextobjectid="37">
+<map version="1.0" tiledversion="1.1.6" orientation="hexagonal" renderorder="left-down" width="20" height="30" tilewidth="148" tileheight="128" infinite="0" hexsidelength="72" staggeraxis="x" staggerindex="odd" nextobjectid="42">
  <tileset firstgid="1" source="lightgame_tileset.tsx"/>
  <layer name="Warstwa Kafelków 1" width="20" height="30">
   <data encoding="csv">
@@ -10,7 +10,7 @@
 0,0,0,0,0,0,0,0,0,0,17,0,0,20,0,0,0,0,0,0,
 0,0,0,0,0,0,0,18,0,0,17,0,20,20,20,0,0,0,0,0,
 0,0,0,0,0,0,17,18,17,0,17,18,20,20,20,0,0,0,0,0,
-0,0,0,0,0,0,17,18,17,18,17,4,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,17,18,17,18,17,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -169,6 +169,32 @@
    <properties>
     <property name="objectClass" value="SPRITE"/>
     <property name="textureName" value="sprite_sink"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="37" name="LIGHT" x="1148.33" y="553.667" width="50" height="50">
+   <properties>
+    <property name="borderLightPosition" value="TOP"/>
+    <property name="lightType" value="TORCH"/>
+    <property name="objectClass" value="LIGHT"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="38" name="CHEST" x="1148.33" y="672.333" width="50" height="50">
+   <properties>
+    <property name="objectClass" value="CHEST"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="39" name="PLAYER" x="1152.33" y="936.333" width="50" height="50">
+   <properties>
+    <property name="objectClass" value="PLAYER"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="41" name="DOG" x="1037.67" y="1000.33" width="50" height="50">
+   <properties>
+    <property name="objectClass" value="DOG"/>
    </properties>
    <ellipse/>
   </object>

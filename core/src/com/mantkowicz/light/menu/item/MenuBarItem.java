@@ -1,4 +1,4 @@
-package com.mantkowicz.light.menu;
+package com.mantkowicz.light.menu.item;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
