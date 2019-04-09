@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset name="lightgame_tileset" tilewidth="148" tileheight="128" tilecount="6" columns="0">
+<tileset name="lightgame_tileset" tilewidth="148" tileheight="128" tilecount="5" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <properties>
   <property name="textureName" value="tileFloor"/>
@@ -16,12 +16,6 @@
    <property name="tileClass" value="WALL"/>
   </properties>
   <image width="148" height="128" source="wall-tile.png"/>
- </tile>
- <tile id="15">
-  <properties>
-   <property name="tileClass" value="DOG"/>
-  </properties>
-  <image width="148" height="128" source="dogTile.png"/>
  </tile>
  <tile id="16">
   <properties>
