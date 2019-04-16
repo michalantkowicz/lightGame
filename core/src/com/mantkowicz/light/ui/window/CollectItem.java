@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mantkowicz.light.actor.Item;
+import com.mantkowicz.light.service.resources.ResourcesService;
 
 import static com.mantkowicz.light.ui.window.CollectWindowItemState.UNCHOSEN;
 
@@ -20,21 +21,23 @@ public class CollectItem extends Button {
     private final CollectItemType collectItemType;
     private CollectWindowItemState state;
 
+    private ResourcesService resourcesService;
     private Item item;
     private Image itemImage;
 
-    public CollectItem(AssetManager assetManager, CollectItemType collectItemType, Item item) {
-        super(getButtonStyle(assetManager));
+    public CollectItem(ResourcesService resourcesService, CollectItemType collectItemType, Item item) {
+        super(getButtonStyle(resourcesService.getAssetManager()));
+        this.resourcesService = resourcesService;
         this.item = item;
         this.collectItemType = collectItemType;
         this.state = UNCHOSEN;
 
         tryAddItemImage(item);
 
-        unchosenUpDrawable = getDrawable(assetManager.get("item_background.png", Texture.class));
-        unchosenDownDrawable = getDrawable(assetManager.get("item_background_pressed.png", Texture.class));
-        chosenUpDrawable = getDrawable(assetManager.get("item_background_chosen.png", Texture.class));
-        ableToPutDrawable = getDrawable(assetManager.get("item_background_able_to_put.png", Texture.class));
+        unchosenUpDrawable = getDrawable(resourcesService.getAssetManager().get("item_background.png", Texture.class));
+        unchosenDownDrawable = getDrawable(resourcesService.getAssetManager().get("item_background_pressed.png", Texture.class));
+        chosenUpDrawable = getDrawable(resourcesService.getAssetManager().get("item_background_chosen.png", Texture.class));
+        ableToPutDrawable = getDrawable(resourcesService.getAssetManager().get("item_background_able_to_put.png", Texture.class));
     }
 
     public CollectWindowItemState getState() {
@@ -91,7 +94,8 @@ public class CollectItem extends Button {
 
     private void tryAddItemImage(Item item) {
         if (item != null) {
-            itemImage = new Image(item.getThumbnail());
+            TextureRegion thumbnail = resourcesService.getThumbnail(item.getThumbnailType());
+            itemImage = new Image(thumbnail);
             add(itemImage);
         } else {
             itemImage = null;

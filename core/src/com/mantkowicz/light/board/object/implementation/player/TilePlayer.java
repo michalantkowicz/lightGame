@@ -19,7 +19,6 @@ public class TilePlayer extends TileObject {
         player.setTile(tile);
 
         configuration.getStage().addActor(player);
-        configuration.getMenuStage().setCollectingActor(player);
 
         configuration.getGameEventService().addEvent(new PlayerCreatedEvent(player));
     }

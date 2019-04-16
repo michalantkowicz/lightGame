@@ -1,12 +1,12 @@
 package com.mantkowicz.light.feature.implementation;
 
 import com.badlogic.gdx.math.Vector2;
-import com.mantkowicz.light.actor.BoardGameActor;
+import com.mantkowicz.light.actor.GameBoardActor;
 import com.mantkowicz.light.actor.implementation.CameraActor;
-import com.mantkowicz.light.configuration.api.CameraTrackingPluginConfiguration;
+import com.mantkowicz.light.configuration.api.CameraTrackingFeatureConfiguration;
 import com.mantkowicz.light.feature.Feature;
 import com.mantkowicz.light.service.event.GameEventService;
-import com.mantkowicz.light.service.event.implementation.LookAtMeEvent;
+import com.mantkowicz.light.service.event.implementation.camera.LookAtMeEvent;
 
 import static com.mantkowicz.light.service.event.GameEventType.LOOK_AT_ME;
 
@@ -14,12 +14,12 @@ public class CameraTrackingFeature implements Feature {
     private static final float DISTANCE_LEFT_RIGHT = 420;
     private static final float DISTANCE_TOP_BOTTOM = 420;
 
-    private BoardGameActor actor;
+    private GameBoardActor actor;
     private CameraActor cameraActor;
     private Vector2 interval = new Vector2();
     private GameEventService gameEventService;
 
-    public CameraTrackingFeature(BoardGameActor actor, CameraTrackingPluginConfiguration configuration) {
+    public CameraTrackingFeature(GameBoardActor actor, CameraTrackingFeatureConfiguration configuration) {
         this.actor = actor;
         this.gameEventService = configuration.getGameEventService();
 
@@ -45,7 +45,7 @@ public class CameraTrackingFeature implements Feature {
 
     private void handleLookAtMeEvent() {
         LookAtMeEvent event = gameEventService.getEvent(LOOK_AT_ME, LookAtMeEvent.class, true);
-        BoardGameActor boardGameActor = event.getEventObject();
+        GameBoardActor boardGameActor = event.getEventObject();
         cameraActor.centerAt(boardGameActor.getCenter());
 
         this.actor = boardGameActor;

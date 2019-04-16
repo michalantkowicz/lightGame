@@ -12,7 +12,7 @@ public class NotificationBuilder {
     private NotificationType notificationType;
     private NotificationStyle notificationStyle;
     private NotificationAnimation notificationAnimation;
-    private Vector2 notificationCenter;
+    private Vector2 notificationCenter = new Vector2();
     private final String text;
 
     public NotificationBuilder(String text) {
@@ -48,9 +48,7 @@ public class NotificationBuilder {
 
         Notification notification = new Notification(notificationType, label);
         notification.addAction(notificationAnimation.getAction(notification));
-
-        notificationCenter.sub(notification.getWidth() / 2f, notification.getHeight() / 2f);
-        notification.setPosition(notificationCenter.x, notificationCenter.y);
+        notification.setCenterAt(notificationCenter);
 
         return notification;
     }

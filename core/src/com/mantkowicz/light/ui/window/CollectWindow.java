@@ -1,7 +1,5 @@
 package com.mantkowicz.light.ui.window;
 
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -18,6 +16,7 @@ import com.mantkowicz.light.actor.Item;
 import com.mantkowicz.light.configuration.api.CollectWindowConfiguration;
 import com.mantkowicz.light.plugin.Plugin;
 import com.mantkowicz.light.plugin.implementation.CenterActorByCameraPlugin;
+import com.mantkowicz.light.service.resources.ResourcesService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +35,7 @@ public class CollectWindow extends GameActor {
     private final Collectible collectible;
     private final Collecting collecting;
     private final Skin skin;
-    private final AssetManager assetManager;
+    private final ResourcesService resourcesService;
     private final List<CollectItem> collectItems;
     private CollectItem chosenItem;
     private Table mainTable;
@@ -47,14 +46,14 @@ public class CollectWindow extends GameActor {
         this.collectible = collectible;
         this.collecting = collecting;
         this.skin = configuration.getResourcesService().getSkin();
-        this.assetManager = configuration.getResourcesService().getAssetManager();
+        this.resourcesService = configuration.getResourcesService();
         this.collectItems = new ArrayList<>();
 
         Table backgroundTable = new Table();
         backgroundTable.setSize(configuration.getUiStage().getWidth() * 2, configuration.getUiStage().getHeight() * 2);
         backgroundTable.setTouchable(Touchable.enabled);
         backgroundTable.addListener(new StopClickThroughClickListener());
-        TextureRegionDrawable backgroundDrawable = new TextureRegionDrawable(new TextureRegion(assetManager.get("black.png", Texture.class)));
+        TextureRegionDrawable backgroundDrawable = new TextureRegionDrawable(new TextureRegion(resourcesService.getTexture("black.png")));
         backgroundTable.setBackground(backgroundDrawable);
         backgroundTable.setPosition(-backgroundTable.getWidth() / 2f, -backgroundTable.getHeight() / 2f);
         backgroundTable.debug();
@@ -66,7 +65,7 @@ public class CollectWindow extends GameActor {
 
         mainTable.addListener(new StopClickThroughClickListener());
 
-        TextureRegionDrawable textureRegionDrawable = new TextureRegionDrawable(new TextureRegion(assetManager.get("table_background.png", Texture.class)));
+        TextureRegionDrawable textureRegionDrawable = new TextureRegionDrawable(new TextureRegion(resourcesService.getTexture("table_background.png")));
         mainTable.setBackground(textureRegionDrawable);
 
         mainTable.add(getContent(HEIGHT - 2 * PADDING)).pad(PADDING).expand().center();
@@ -127,7 +126,7 @@ public class CollectWindow extends GameActor {
     private Table getInventoryTable() {
         Table inventoryTable = new Table();
         for (Item collectingItem : collecting.getInventory().getItems()) {
-            CollectItem item = new CollectItem(assetManager, COLLECTING_ITEM, collectingItem);
+            CollectItem item = new CollectItem(resourcesService, COLLECTING_ITEM, collectingItem);
             item.addListener(new CollectWindowItemListener(this, item));
             collectItems.add(item);
 
@@ -140,7 +139,7 @@ public class CollectWindow extends GameActor {
     private Table getCollectibleTable() {
         Table collectibleTable = new Table();
         for (Item collectibleItem : collectible.getInventory().getItems()) {
-            CollectItem item = new CollectItem(assetManager, COLLECTIBLE_ITEM, collectibleItem);
+            CollectItem item = new CollectItem(resourcesService, COLLECTIBLE_ITEM, collectibleItem);
             item.addListener(new CollectWindowItemListener(this, item));
             collectItems.add(item);
 

@@ -1,25 +1,24 @@
 package com.mantkowicz.light.actor.implementation.collectible;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.mantkowicz.light.actor.BoardGameActor;
 import com.mantkowicz.light.actor.Collectible;
+import com.mantkowicz.light.actor.GameBoardActor;
 import com.mantkowicz.light.actor.Inventory;
 import com.mantkowicz.light.configuration.api.PlayerConfiguration;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import com.mantkowicz.light.service.resources.ThumbnailType;
 
 import java.util.ArrayList;
 
 import static com.mantkowicz.light.actor.GameActorType.CHEST;
 
-public class Chest extends BoardGameActor implements Collectible {
+public class Chest extends GameBoardActor implements Collectible {
     private static final String AVATAR_RESOURCE_NAME = "chest.png";
 
     private final Inventory inventory;
 
     public Chest(PlayerConfiguration configuration) {
-        super(CHEST, configuration.getBoardService());
+        super(CHEST, configuration.getBoardService(), configuration.getGameEventService());
 
         inventory = new Inventory(2, new ArrayList<>());
         setName("Nice Chest");
@@ -53,7 +52,12 @@ public class Chest extends BoardGameActor implements Collectible {
     }
 
     @Override
-    public TextureRegion getThumbnail() {
-        throw new NotImplementedException();
+    protected String getDescription() {
+        return "chest";
+    }
+
+    @Override
+    public ThumbnailType getThumbnailType() {
+        return ThumbnailType.DEFAULT;
     }
 }

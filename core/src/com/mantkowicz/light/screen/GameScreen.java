@@ -2,11 +2,13 @@ package com.mantkowicz.light.screen;
 
 import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mantkowicz.light.board.Board;
@@ -15,6 +17,7 @@ import com.mantkowicz.light.board.tile.Tile;
 import com.mantkowicz.light.configuration.GamePrepareConfiguration;
 import com.mantkowicz.light.feature.Feature;
 import com.mantkowicz.light.feature.implementation.CameraTrackingFeature;
+import com.mantkowicz.light.feature.implementation.MenuFeature;
 import com.mantkowicz.light.map.TiledMapLoader;
 import com.mantkowicz.light.map.implementation.tmx.TmxTileMapLoaderProperties;
 import com.mantkowicz.light.map.implementation.tmx.TmxTiledMapLoader;
@@ -22,7 +25,7 @@ import com.mantkowicz.light.service.event.GameEventService;
 import com.mantkowicz.light.service.event.implementation.PlayerCreatedEvent;
 import com.mantkowicz.light.service.phrase.PhraseService;
 import com.mantkowicz.light.service.resources.ResourcesService;
-import com.mantkowicz.light.stage.MenuStage;
+import com.mantkowicz.light.stage.GameStage;
 import com.mantkowicz.light.stage.NotificationStage;
 
 import java.util.ArrayList;
@@ -36,8 +39,7 @@ public class GameScreen implements Screen {
     private final ResourcesService resourcesService;
     private final GameEventService gameEventService;
     private final World world;
-    private Stage stage;
-    private MenuStage menuStage;
+    private GameStage gameStage;
     private Stage uiStage;
     private NotificationStage notificationStage;
     private final Board board = new Board();
@@ -53,15 +55,13 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         Viewport viewport = new ExtendViewport(SCREEN_WIDTH, SCREEN_HEIGHT);
-        Viewport menuViewport = new ExtendViewport(SCREEN_WIDTH, SCREEN_HEIGHT);
-        stage = new Stage(viewport);
-        menuStage = new MenuStage(resourcesService, menuViewport);
+        gameStage = new GameStage(viewport, resourcesService);
         uiStage = new Stage(viewport);
         notificationStage = new NotificationStage(viewport);
 
         InputMultiplexer multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(uiStage);
-        multiplexer.addProcessor(stage);
+        multiplexer.addProcessor(gameStage);
         Gdx.input.setInputProcessor(multiplexer);
 
         rayHandler = prepareLights();
@@ -72,7 +72,7 @@ public class GameScreen implements Screen {
         GamePrepareConfiguration configuration = prepareConfiguration();
 
         for (Tile tile : tiles) {
-            stage.addActor(tile);
+            gameStage.addActor(tile);
             tile.toBack();
 
             tile.prepare(configuration);
@@ -83,6 +83,8 @@ public class GameScreen implements Screen {
             CameraTrackingFeature cameraTrackingFeature = new CameraTrackingFeature(gameEvent.getEventObject(), configuration);
             addFeature(cameraTrackingFeature);
         }
+
+        addFeature(new MenuFeature(configuration));
     }
 
     private RayHandler prepareLights() {
@@ -102,15 +104,14 @@ public class GameScreen implements Screen {
     private GamePrepareConfiguration prepareConfiguration() {
         BoardService boardService = new BoardService(gameEventService, board);
         PhraseService phraseService = new PhraseService();
-        OrthographicCamera camera = (OrthographicCamera) stage.getCamera();
+        OrthographicCamera camera = (OrthographicCamera) gameStage.getCamera();
 
         return new GamePrepareConfiguration(gameEventService,
                 boardService,
                 world,
                 rayHandler,
-                stage,
+                gameStage,
                 notificationStage,
-                menuStage,
                 phraseService,
                 uiStage,
                 resourcesService,
@@ -119,18 +120,21 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        world.step(1 / 60f, 6, 2);
-        stage.act(delta);
-        stage.draw();
+        if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
+            gameStage.fadeOut();
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
+            gameStage.fadeIn();
+        }
 
-        rayHandler.setCombinedMatrix((OrthographicCamera) stage.getCamera());
+        world.step(1 / 60f, 6, 2);
+        gameStage.act(delta);
+        gameStage.draw();
+
+        rayHandler.setCombinedMatrix((OrthographicCamera) gameStage.getCamera());
         rayHandler.updateAndRender();
 
         notificationStage.act(delta);
         notificationStage.draw();
-
-        menuStage.act(delta);
-        menuStage.draw();
 
         uiStage.act(delta);
         uiStage.draw();
@@ -148,8 +152,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        stage.getViewport().update(width, height, true);
-        menuStage.getViewport().update(width, height, true);
+        gameStage.getViewport().update(width, height, true);
     }
 
     @Override
@@ -169,7 +172,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        stage.dispose();
+        gameStage.dispose();
         rayHandler.dispose();
     }
 }

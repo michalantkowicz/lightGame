@@ -1,10 +1,8 @@
 package com.mantkowicz.light.actor;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.mantkowicz.light.thumbnail.Thumbnail;
 
-public interface Item {
-    TextureRegion getThumbnail();
-
+public interface Item extends Thumbnail {
     void use();
 
     void unuse();

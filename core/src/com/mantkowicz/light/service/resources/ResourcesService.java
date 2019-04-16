@@ -3,6 +3,7 @@ package com.mantkowicz.light.service.resources;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.TextureLoader;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -56,6 +57,10 @@ public class ResourcesService {
         }
     }
 
+    public TextureRegion getThumbnail(ThumbnailType thumbnailType) {
+        return getTexture(thumbnailType.getRegionName());
+    }
+
     public Skin getSkin() {
         return skin;
     }
@@ -67,5 +72,13 @@ public class ResourcesService {
     public void dispose() {
         assetManager.dispose();
         skin.dispose();
+    }
+
+    public FileHandle getShaderVertex(ShaderType shader) {
+        return Gdx.files.internal(shader.getVertexPath());
+    }
+
+    public FileHandle getShaderFragment(ShaderType shader) {
+        return Gdx.files.internal(shader.getFragmentPath());
     }
 }

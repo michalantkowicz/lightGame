@@ -34,6 +34,11 @@ public class Notification extends Group {
         return label;
     }
 
+    public void setCenterAt(Vector2 position) {
+        position.sub(this.getWidth() / 2f, this.getHeight() / 2f);
+        setPosition(position.x, position.y);
+    }
+
     public Vector2 getCenter() {
         return new Vector2(getX() + getWidth() / 2f, getY() + getHeight() / 2f);
     }

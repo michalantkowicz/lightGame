@@ -1,9 +1,9 @@
 package com.mantkowicz.light.actor;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mantkowicz.light.board.tile.Tile;
+import com.mantkowicz.light.thumbnail.Thumbnail;
 
-public interface Collectible {
+public interface Collectible extends Thumbnail {
     Collectible DEFAULT = null;
 
     /**
@@ -20,6 +20,4 @@ public interface Collectible {
     String getName();
 
     Tile getTile();
-
-    TextureRegion getThumbnail();
 }

@@ -1,8 +1,10 @@
 package com.mantkowicz.light.actor.implementation.player;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.mantkowicz.light.actor.BoardGameActor;
+import com.mantkowicz.light.actor.GameBoardActor;
 import com.mantkowicz.light.actor.Collecting;
 import com.mantkowicz.light.actor.Inventory;
 import com.mantkowicz.light.configuration.api.PlayerConfiguration;
@@ -19,7 +21,7 @@ import static com.mantkowicz.light.actor.GameActorType.PLAYER;
 import static com.mantkowicz.light.actor.implementation.player.Status.IDLE;
 import static com.mantkowicz.light.actor.implementation.player.Status.MOVEMENT;
 
-public class Player extends BoardGameActor implements Collecting {
+public class Player extends GameBoardActor implements Collecting {
     private static final String AVATAR_RESOURCE_NAME = "player.png";
     private static final float SPEED = 0.20f;
 
@@ -28,7 +30,7 @@ public class Player extends BoardGameActor implements Collecting {
     private final Inventory inventory;
 
     public Player(PlayerConfiguration configuration) {
-        super(PLAYER, configuration.getBoardService());
+        super(PLAYER, configuration.getBoardService(), configuration.getGameEventService());
 
         gameEventService = configuration.getGameEventService();
         inventory = new Inventory(3, new ArrayList<>());
@@ -40,7 +42,7 @@ public class Player extends BoardGameActor implements Collecting {
         addPlugin(boardMovementPlugin);
 
         PlayerNotificationPlugin playerNotificationPlugin = new PlayerNotificationPlugin(this, configuration);
-        addPlugin(playerNotificationPlugin);
+//        addPlugin(playerNotificationPlugin);
 
         PlayerCollectResolver collectResolver = new PlayerCollectResolver(this, configuration);
         CollectPlugin collectPlugin = new CollectPlugin(collectResolver, configuration);
@@ -48,6 +50,18 @@ public class Player extends BoardGameActor implements Collecting {
 
         setStatus(IDLE);
         addListener(new PlayerClickListener(this, configuration.getGameEventService()));
+    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        ShaderProgram shader = batch.getShader();
+        if (shader != null) {
+            batch.setShader(null);
+            super.draw(batch, parentAlpha);
+            batch.setShader(shader);
+        } else {
+            super.draw(batch, parentAlpha);
+        }
     }
 
     @Override
@@ -73,5 +87,10 @@ public class Player extends BoardGameActor implements Collecting {
     @Override
     public Inventory getInventory() {
         return inventory;
+    }
+
+    @Override
+    protected String getDescription() {
+        return "player";
     }
 }

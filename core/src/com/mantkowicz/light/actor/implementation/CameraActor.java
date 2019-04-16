@@ -1,6 +1,6 @@
 package com.mantkowicz.light.actor.implementation;
 
-import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -12,9 +12,9 @@ import com.mantkowicz.light.actor.GameActor;
 import static com.mantkowicz.light.actor.GameActorType.CAMERA_ACTOR;
 
 public class CameraActor extends GameActor {
-    private Camera camera;
+    private OrthographicCamera camera;
 
-    public CameraActor(Camera camera) {
+    public CameraActor(OrthographicCamera camera) {
         super(CAMERA_ACTOR);
         this.camera = camera;
 
@@ -47,6 +47,11 @@ public class CameraActor extends GameActor {
             MoveToAction moveToTargetAction = Actions.moveTo(target.x, target.y, 1f, Interpolation.pow2Out);
             addAction(moveToTargetAction);
         }
+    }
+
+    public void centerAtWithZoom(Vector2 target, float zoom) {
+        centerAt(target);
+        camera.zoom = zoom;
     }
 
     public boolean isNotCentering() {
