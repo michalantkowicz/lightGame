@@ -8,7 +8,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mantkowicz.light.board.Board;
@@ -26,6 +25,7 @@ import com.mantkowicz.light.service.event.implementation.PlayerCreatedEvent;
 import com.mantkowicz.light.service.phrase.PhraseService;
 import com.mantkowicz.light.service.resources.ResourcesService;
 import com.mantkowicz.light.stage.GameStage;
+import com.mantkowicz.light.stage.MenuStage;
 import com.mantkowicz.light.stage.NotificationStage;
 
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class GameScreen implements Screen {
     private final GameEventService gameEventService;
     private final World world;
     private GameStage gameStage;
-    private Stage uiStage;
+    private MenuStage uiStage;
     private NotificationStage notificationStage;
     private final Board board = new Board();
     private RayHandler rayHandler;
@@ -56,7 +56,7 @@ public class GameScreen implements Screen {
     public void show() {
         Viewport viewport = new ExtendViewport(SCREEN_WIDTH, SCREEN_HEIGHT);
         gameStage = new GameStage(viewport, resourcesService);
-        uiStage = new Stage(viewport);
+        uiStage = new MenuStage(viewport);
         notificationStage = new NotificationStage(viewport);
 
         InputMultiplexer multiplexer = new InputMultiplexer();

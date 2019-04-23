@@ -7,8 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.mantkowicz.light.notification.NotificationStyle;
 
-class LabelFactory {
-    static Label createLabel(NotificationStyle notificationStyle, String text) {
+public class LabelFactory {
+    public static Label createLabel(NotificationStyle notificationStyle, String text) {
         LabelStyle labelStyle = new LabelStyle();
         labelStyle.font = new BitmapFont(Gdx.files.internal("font.fnt"));
         switch (notificationStyle) {
