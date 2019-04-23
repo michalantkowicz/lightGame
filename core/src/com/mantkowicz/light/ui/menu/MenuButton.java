@@ -22,7 +22,7 @@ public class MenuButton extends Group {
         addActor(image);
 
         Label label = LabelFactory.createLabel(NotificationStyle.DEFAULT, "button");
-        label.setPosition(-label.getWidth() / 2f, -image.getHeight() / 2f - label.getHeight());
+        label.setPosition(-label.getWidth() / 2f, image.getHeight() / 2f + 5f);
         addActor(label);
 
         this.interaction = interaction;

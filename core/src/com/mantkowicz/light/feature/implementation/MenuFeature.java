@@ -28,7 +28,7 @@ import static com.mantkowicz.light.service.event.GameEventType.MENU_CLOSE;
 import static com.mantkowicz.light.service.event.GameEventType.MENU_OPEN;
 
 public class MenuFeature implements Feature {
-    private static final float MENU_RADIUS = 110f;
+    private static final float MENU_RADIUS = 150f;
     private final float BUTTON_OFFSET_DEGREES = 60f;
 
     private final Stage stage;
