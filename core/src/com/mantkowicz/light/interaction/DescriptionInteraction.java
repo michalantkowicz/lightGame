@@ -8,14 +8,14 @@ import com.mantkowicz.light.service.resources.ThumbnailType;
 public class DescriptionInteraction implements Interaction {
     private final GameEventService eventService;
     private final DescriptionDefinition descriptionDefinition;
-private final GameBoardActor actor;
+    private final GameBoardActor actor;
 
 
     public DescriptionInteraction(GameEventService eventService, GameBoardActor actor, String description) {
         this.eventService = eventService;
         this.actor = actor;
 
-        descriptionDefinition = new DescriptionDefinition().setDescription(description).setPosition(actor.getCenter().add(0, actor.getHeight() / 2f));
+        descriptionDefinition = DescriptionDefinition.builder().description(description).position(actor.getCenter().add(0, actor.getHeight() / 2f)).build();
     }
 
     @Override
