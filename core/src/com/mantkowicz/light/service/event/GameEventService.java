@@ -1,56 +1,72 @@
 package com.mantkowicz.light.service.event;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class GameEventService {
-    private final List<GameEvent> gameEventQueue;
-    private final GameEventCountByType gameEventCountByType;
-
-    public GameEventService() {
-        gameEventQueue = new ArrayList<>();
-        gameEventCountByType = new GameEventCountByType();
-    }
+    private final Map<GameEventType, List<GameEvent>> queue = new HashMap<>();
 
     public void addEvent(GameEvent gameEvent) {
-        gameEventQueue.add(gameEvent);
-        gameEventCountByType.increase(gameEvent.getGameEventType());
+        createIfDoesNotExist(gameEvent.getGameEventType());
+        queue.get(gameEvent.getGameEventType()).add(gameEvent);
     }
 
     @SuppressWarnings("unchecked")
-    public <T extends GameEvent> T getEvent(GameEventType gameEventType, Class<T> type, boolean removeEventFromQueue) {
-        Iterator<GameEvent> iterator = gameEventQueue.iterator();
-        while (iterator.hasNext()) {
-            GameEvent gameEventItem = iterator.next();
-            GameEventType gameEventItemType = gameEventItem.getGameEventType();
-            if (gameEventItemType.equals(gameEventType) && type.isInstance(gameEventItem)) {
-                if (removeEventFromQueue) {
-                    iterator.remove();
-                    gameEventCountByType.decrease(gameEventItemType);
+    public <T extends GameEvent> T getEvent(GameEventType eventType, Class<T> type) {
+        createIfDoesNotExist(eventType);
+        if (containsEvent(eventType)) {
+            List<GameEvent> eventList = queue.get(eventType);
+            for (int i = 0; i < eventList.size(); i++) {
+                if (type.isInstance(eventList.get(i))) {
+                    return (T) eventList.get(i);
                 }
-                return (T) gameEventItem;
             }
         }
         throw new IllegalArgumentException("No such game event type");
     }
 
-    public boolean containsEvent(GameEventType gameEventType) {
-        return gameEventCountByType.containsAny(gameEventType);
+    @SuppressWarnings("unchecked")
+    public <T extends GameEvent> T removeEventFromQueue(GameEventType eventType, Class<T> type) {
+        createIfDoesNotExist(eventType);
+        if (containsEvent(eventType)) {
+            List<GameEvent> eventList = queue.get(eventType);
+            for (int i = 0; i < eventList.size(); i++) {
+                if (type.isInstance(eventList.get(i))) {
+                    return (T) eventList.remove(i);
+                }
+            }
+        }
+        throw new IllegalArgumentException("No such game event type");
+    }
+
+    public boolean containsEvent(GameEventType eventType) {
+        createIfDoesNotExist(eventType);
+        return queue.containsKey(eventType) && !queue.get(eventType).isEmpty();
+    }
+
+    private void createIfDoesNotExist(GameEventType eventType) {
+        if (!queue.containsKey(eventType)) {
+            queue.put(eventType, new ArrayList<>());
+        }
     }
 
     /**
      * this method should be called at the end of main loop of the application to provide housekeeping
      */
-    public void updateEventsLifesAndClean() {
-        Iterator<GameEvent> iterator = gameEventQueue.iterator();
-        while (iterator.hasNext()) {
-            GameEvent gameEvent = iterator.next();
-            GameEventType gameEventType = gameEvent.getGameEventType();
-            gameEvent.increaseAge();
-            if (gameEvent.isTooOld()) {
-                iterator.remove();
-                gameEventCountByType.decrease(gameEventType);
+    public void updateEventsLivesAndClean() {
+        for (GameEventType eventType : queue.keySet()) {
+            if (queue.get(eventType) != null) {
+                Iterator<GameEvent> iterator = queue.get(eventType).iterator();
+                while (iterator.hasNext()) {
+                    GameEvent gameEvent = iterator.next();
+                    gameEvent.increaseAge();
+                    if (gameEvent.isTooOld()) {
+                        iterator.remove();
+                    }
+                }
             }
         }
     }

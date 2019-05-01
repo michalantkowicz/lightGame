@@ -44,7 +44,7 @@ public class CameraTrackingFeature implements Feature {
     }
 
     private void handleLookAtMeEvent() {
-        LookAtMeEvent event = gameEventService.getEvent(LOOK_AT_ME, LookAtMeEvent.class, true);
+        LookAtMeEvent event = gameEventService.removeEventFromQueue(LOOK_AT_ME, LookAtMeEvent.class);
         GameBoardActor boardGameActor = event.getEventObject();
         cameraActor.centerAt(boardGameActor.getCenter());
 

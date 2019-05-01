@@ -35,7 +35,7 @@ public class BoardMovementPlugin implements Plugin {
     @Override
     public void run(float delta) {
         if (gameEventService.containsEvent(TILE_TOUCHED) && IDLE.equals(player.getStatus())) {
-            TileTouchedEvent gameEvent = gameEventService.getEvent(TILE_TOUCHED, TileTouchedEvent.class, true);
+            TileTouchedEvent gameEvent = gameEventService.removeEventFromQueue(TILE_TOUCHED, TileTouchedEvent.class);
             player.addAction(getMoveByPathAction(gameEvent));
         }
     }

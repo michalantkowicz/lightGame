@@ -1,13 +1,13 @@
 package com.mantkowicz.light.stage;
 
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mantkowicz.light.service.resources.ResourcesService;
 
 import static com.mantkowicz.light.service.resources.ShaderType.FADE_OUT;
+import static com.mantkowicz.light.stage.StageType.GAME_STAGE;
 
-public class GameStage extends Stage {
+public class GameStage extends AbstractStage {
     private final ShaderProgram shaderProgram;
 
     public GameStage(Viewport viewport, ResourcesService resourcesService) {
@@ -26,5 +26,10 @@ public class GameStage extends Stage {
 
     public void fadeIn() {
         getBatch().setShader(null);
+    }
+
+    @Override
+    public StageType getStageType() {
+        return GAME_STAGE;
     }
 }

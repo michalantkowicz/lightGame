@@ -45,22 +45,14 @@ public class MenuFeature implements Feature {
     @Override
     public void run(float delta) {
         if (gameEventService.containsEvent(MENU_OPEN)) {
-            MenuOpenEvent event = gameEventService.getEvent(MENU_OPEN, MenuOpenEvent.class, true);
+            MenuOpenEvent event = gameEventService.removeEventFromQueue(MENU_OPEN, MenuOpenEvent.class);
             GameBoardActor actor = event.getEventObject();
 
             for (MenuButton button : createMenuButtons(actor)) {
                 stage.addActor(button);
             }
         } else if (gameEventService.containsEvent(MENU_CLOSE)) {
-            gameEventService.getEvent(MENU_CLOSE, MenuCloseEvent.class, true);
-            for (Actor actor : stage.getActors()) {
-                if (actor instanceof MenuButton) {
-                    MenuButton button = (MenuButton) actor;
-                    if (button.isActive()) {
-                        button.interact();
-                    }
-                }
-            }
+            gameEventService.removeEventFromQueue(MENU_CLOSE, MenuCloseEvent.class);
             stage.clear();
         }
     }

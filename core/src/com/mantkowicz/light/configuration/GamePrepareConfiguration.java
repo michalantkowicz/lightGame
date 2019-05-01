@@ -1,19 +1,23 @@
 package com.mantkowicz.light.configuration;
 
 import box2dLight.RayHandler;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mantkowicz.light.board.service.BoardService;
+import com.mantkowicz.light.configuration.api.BasicConfiguration;
 import com.mantkowicz.light.configuration.api.PlayerConfiguration;
+import com.mantkowicz.light.configuration.api.StagesConfiguration;
 import com.mantkowicz.light.configuration.api.TileClickListenerConfiguration;
 import com.mantkowicz.light.service.event.GameEventService;
 import com.mantkowicz.light.service.phrase.PhraseService;
 import com.mantkowicz.light.service.resources.ResourcesService;
+import com.mantkowicz.light.stage.AbstractStage;
 import com.mantkowicz.light.stage.NotificationStage;
 
-public class  GamePrepareConfiguration implements PlayerConfiguration, TileClickListenerConfiguration {
+import java.util.List;
+
+public class GamePrepareConfiguration implements PlayerConfiguration, TileClickListenerConfiguration, StagesConfiguration, BasicConfiguration {
     private final GameEventService gameEventService;
     private final BoardService boardService;
     private final World world;
@@ -24,6 +28,7 @@ public class  GamePrepareConfiguration implements PlayerConfiguration, TileClick
     private final PhraseService phraseService;
     private final ResourcesService resourcesService;
     private final OrthographicCamera camera;
+    private final List<AbstractStage> stages;
 
     public GamePrepareConfiguration(GameEventService gameEventService,
                                     BoardService boardService,
@@ -34,7 +39,8 @@ public class  GamePrepareConfiguration implements PlayerConfiguration, TileClick
                                     PhraseService phraseService,
                                     Stage uiStage,
                                     ResourcesService resourcesService,
-                                    OrthographicCamera camera) {
+                                    OrthographicCamera camera,
+                                    List<AbstractStage> stages) {
         this.gameEventService = gameEventService;
         this.boardService = boardService;
         this.world = world;
@@ -45,6 +51,7 @@ public class  GamePrepareConfiguration implements PlayerConfiguration, TileClick
         this.uiStage = uiStage;
         this.resourcesService = resourcesService;
         this.camera = camera;
+        this.stages = stages;
     }
 
     public World getWorld() {
@@ -92,5 +99,9 @@ public class  GamePrepareConfiguration implements PlayerConfiguration, TileClick
     @Override
     public OrthographicCamera getCamera() {
         return camera;
+    }
+
+    public List<AbstractStage> getStages() {
+        return stages;
     }
 }

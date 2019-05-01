@@ -7,7 +7,6 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mantkowicz.light.board.Board;
@@ -17,6 +16,7 @@ import com.mantkowicz.light.configuration.GamePrepareConfiguration;
 import com.mantkowicz.light.feature.Feature;
 import com.mantkowicz.light.feature.implementation.CameraTrackingFeature;
 import com.mantkowicz.light.feature.implementation.MenuFeature;
+import com.mantkowicz.light.feature.implementation.StageFeature;
 import com.mantkowicz.light.map.TiledMapLoader;
 import com.mantkowicz.light.map.implementation.tmx.TmxTileMapLoaderProperties;
 import com.mantkowicz.light.map.implementation.tmx.TmxTiledMapLoader;
@@ -34,13 +34,14 @@ import java.util.List;
 import static com.mantkowicz.light.game.Main.SCREEN_HEIGHT;
 import static com.mantkowicz.light.game.Main.SCREEN_WIDTH;
 import static com.mantkowicz.light.service.event.GameEventType.PLAYER_CREATED;
+import static java.util.Arrays.asList;
 
 public class GameScreen implements Screen {
     private final ResourcesService resourcesService;
     private final GameEventService gameEventService;
     private final World world;
     private GameStage gameStage;
-    private MenuStage uiStage;
+    private MenuStage menuStage;
     private NotificationStage notificationStage;
     private final Board board = new Board();
     private RayHandler rayHandler;
@@ -56,11 +57,11 @@ public class GameScreen implements Screen {
     public void show() {
         Viewport viewport = new ExtendViewport(SCREEN_WIDTH, SCREEN_HEIGHT);
         gameStage = new GameStage(viewport, resourcesService);
-        uiStage = new MenuStage(viewport);
+        menuStage = new MenuStage(viewport);
         notificationStage = new NotificationStage(viewport);
 
         InputMultiplexer multiplexer = new InputMultiplexer();
-        multiplexer.addProcessor(uiStage);
+        multiplexer.addProcessor(menuStage);
         multiplexer.addProcessor(gameStage);
         Gdx.input.setInputProcessor(multiplexer);
 
@@ -79,12 +80,13 @@ public class GameScreen implements Screen {
         }
 
         if (gameEventService.containsEvent(PLAYER_CREATED)) {
-            PlayerCreatedEvent gameEvent = gameEventService.getEvent(PLAYER_CREATED, PlayerCreatedEvent.class, true);
+            PlayerCreatedEvent gameEvent = gameEventService.removeEventFromQueue(PLAYER_CREATED, PlayerCreatedEvent.class);
             CameraTrackingFeature cameraTrackingFeature = new CameraTrackingFeature(gameEvent.getEventObject(), configuration);
             addFeature(cameraTrackingFeature);
         }
 
         addFeature(new MenuFeature(configuration));
+        addFeature(new StageFeature(configuration));
     }
 
     private RayHandler prepareLights() {
@@ -113,9 +115,10 @@ public class GameScreen implements Screen {
                 gameStage,
                 notificationStage,
                 phraseService,
-                uiStage,
+                menuStage,
                 resourcesService,
-                camera);
+                camera,
+                asList(gameStage, notificationStage, menuStage));
     }
 
     @Override
@@ -136,14 +139,14 @@ public class GameScreen implements Screen {
         notificationStage.act(delta);
         notificationStage.draw();
 
-        uiStage.act(delta);
-        uiStage.draw();
+        menuStage.act(delta);
+        menuStage.draw();
 
         for (Feature feature : features) {
             feature.run(delta);
         }
 
-        gameEventService.updateEventsLifesAndClean();
+        gameEventService.updateEventsLivesAndClean();
     }
 
     protected void addFeature(Feature feature) {

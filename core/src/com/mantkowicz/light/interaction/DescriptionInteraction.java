@@ -1,33 +1,27 @@
 package com.mantkowicz.light.interaction;
 
 import com.mantkowicz.light.actor.GameBoardActor;
-import com.mantkowicz.light.notification.Notification;
-import com.mantkowicz.light.notification.NotificationType;
-import com.mantkowicz.light.notification.animation.MoveUpperAndFadeOutAnimation;
-import com.mantkowicz.light.notification.factory.NotificationBuilder;
+import com.mantkowicz.light.service.event.GameEventService;
+import com.mantkowicz.light.service.event.implementation.AddToStageEvent;
 import com.mantkowicz.light.service.resources.ThumbnailType;
-import com.mantkowicz.light.stage.NotificationStage;
 
 public class DescriptionInteraction implements Interaction {
-    private final NotificationStage stage;
-    private final GameBoardActor actor;
-    private final Notification description;
+    private final GameEventService eventService;
+    private final DescriptionDefinition descriptionDefinition;
+private final GameBoardActor actor;
 
-    public DescriptionInteraction(NotificationStage stage, GameBoardActor actor, String description) {
-        this.stage = stage;
+
+    public DescriptionInteraction(GameEventService eventService, GameBoardActor actor, String description) {
+        this.eventService = eventService;
         this.actor = actor;
 
-        this.description = new NotificationBuilder(description)
-                .notificationAnimation(new MoveUpperAndFadeOutAnimation())
-                .notificationType(NotificationType.DESCRIPTION)
-                .build();
+        descriptionDefinition = new DescriptionDefinition().setDescription(description).setPosition(actor.getCenter().add(0, actor.getHeight() / 2f));
     }
 
     @Override
     public void interact() {
-        description.setCenterAt(actor.getCenter());
-//        stage.addActor(description);
-        System.out.println(description);
+        descriptionDefinition.setPosition(actor.getCenter().add(0, actor.getHeight() / 2f));
+        eventService.addEvent(new AddToStageEvent(descriptionDefinition));
     }
 
     @Override

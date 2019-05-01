@@ -24,9 +24,7 @@ public abstract class GameBoardActor extends GameActor implements Interactive {
         this.boardService = boardService;
         this.gameEventService = gameEventService;
 
-        interactions.add(new DescriptionInteraction(null, this, getDescription()));
-        interactions.add(new DescriptionInteraction(null, this, getDescription()));
-        interactions.add(new DescriptionInteraction(null, this, getDescription()));
+        interactions.add(new DescriptionInteraction(gameEventService, this, getDescription()));
         addListener(new GameBoardActorListener(this, gameEventService));
     }
 
