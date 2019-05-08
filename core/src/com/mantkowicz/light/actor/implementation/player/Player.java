@@ -4,8 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.mantkowicz.light.actor.GameBoardActor;
 import com.mantkowicz.light.actor.Collecting;
+import com.mantkowicz.light.actor.GameBoardActor;
 import com.mantkowicz.light.actor.Inventory;
 import com.mantkowicz.light.configuration.api.PlayerConfiguration;
 import com.mantkowicz.light.plugin.PlayerCollectResolver;
@@ -30,7 +30,7 @@ public class Player extends GameBoardActor implements Collecting {
     private final Inventory inventory;
 
     public Player(PlayerConfiguration configuration) {
-        super(PLAYER, configuration.getBoardService(), configuration.getGameEventService());
+        super(PLAYER, configuration);
 
         gameEventService = configuration.getGameEventService();
         inventory = new Inventory(3, new ArrayList<>());

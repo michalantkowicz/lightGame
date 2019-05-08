@@ -15,7 +15,7 @@ public class Lighter extends GameBoardActor implements Item, Collectible {
     private final TextureRegion thumbnail;
 
     public Lighter(PlayerConfiguration configuration) {
-        super(LIGHTER, configuration.getBoardService(), configuration.getGameEventService());
+        super(LIGHTER, configuration);
         thumbnail = configuration.getResourcesService().getTexture("lighter");
     }
 

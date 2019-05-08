@@ -1,6 +1,7 @@
 package com.mantkowicz.light.interaction;
 
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.mantkowicz.light.actor.GameActor;
 import com.mantkowicz.light.actor.GameActorDefinition;
 import com.mantkowicz.light.stage.StageType;
 import lombok.Builder;
@@ -13,8 +14,9 @@ import static com.mantkowicz.light.stage.StageType.NOTIFICATION_STAGE;
 @Setter
 @Builder
 public class DescriptionDefinition implements GameActorDefinition<Description> {
-    private Vector2 position;
+    private GameActor parent;
     private String description;
+    private Drawable background;
 
     @Override
     public Description getActor() {

@@ -18,7 +18,7 @@ public class Chest extends GameBoardActor implements Collectible {
     private final Inventory inventory;
 
     public Chest(PlayerConfiguration configuration) {
-        super(CHEST, configuration.getBoardService(), configuration.getGameEventService());
+        super(CHEST, configuration);
 
         inventory = new Inventory(2, new ArrayList<>());
         setName("Nice Chest");

@@ -3,10 +3,10 @@ package com.mantkowicz.light.actor;
 import com.badlogic.gdx.math.Vector2;
 import com.mantkowicz.light.board.service.BoardService;
 import com.mantkowicz.light.board.tile.Tile;
+import com.mantkowicz.light.configuration.api.PlayerConfiguration;
 import com.mantkowicz.light.interaction.DescriptionInteraction;
 import com.mantkowicz.light.interaction.Interaction;
 import com.mantkowicz.light.interaction.Interactive;
-import com.mantkowicz.light.service.event.GameEventService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,16 +16,14 @@ import static com.mantkowicz.light.board.tile.TilePoint.CENTER;
 public abstract class GameBoardActor extends GameActor implements Interactive {
     private final List<Interaction> interactions = new ArrayList<>();
     private final BoardService boardService;
-    private final GameEventService gameEventService;
     private Tile tile;
 
-    protected GameBoardActor(GameActorType gameActorType, BoardService boardService, GameEventService gameEventService) {
+    protected GameBoardActor(GameActorType gameActorType, PlayerConfiguration configuration) {
         super(gameActorType);
-        this.boardService = boardService;
-        this.gameEventService = gameEventService;
+        this.boardService = configuration.getBoardService();
 
-        interactions.add(new DescriptionInteraction(gameEventService, this, getDescription()));
-        addListener(new GameBoardActorListener(this, gameEventService));
+        interactions.add(new DescriptionInteraction(configuration.getResourcesService(), configuration.getGameEventService(), this, getDescription()));
+        addListener(new GameBoardActorListener(this, configuration.getGameEventService()));
     }
 
     protected abstract String getDescription();

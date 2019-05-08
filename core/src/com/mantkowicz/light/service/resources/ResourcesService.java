@@ -5,9 +5,11 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.TextureLoader;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Array;
 
 import java.util.Arrays;
@@ -52,6 +54,21 @@ public class ResourcesService {
         try {
             Texture texture = assetManager.get(textureName, Texture.class);
             return new TextureRegion(texture);
+        } catch (Throwable t) {
+            throw new IllegalArgumentException("Couldn't find texture: " + textureName);
+        }
+    }
+
+    public NinePatchDrawable getNinePatch(String textureName) {
+        for (TextureAtlas atlas : atlases) {
+            AtlasRegion foundRegion = atlas.findRegion(textureName);
+            if (foundRegion != null) {
+                return new NinePatchDrawable(atlas.createPatch(textureName));
+            }
+        }
+        try {
+            Texture texture = assetManager.get(textureName, Texture.class);
+            return new NinePatchDrawable(new NinePatch(texture));
         } catch (Throwable t) {
             throw new IllegalArgumentException("Couldn't find texture: " + textureName);
         }
