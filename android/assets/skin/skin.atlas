@@ -5,358 +5,498 @@ filter: Linear,Linear
 repeat: none
 actionButton
   rotate: false
-  xy: 701, 239
+  xy: 768, 511
   size: 256, 128
   orig: 256, 128
   offset: 0, 0
   index: -1
 actionButtonDown
   rotate: false
-  xy: 958, 239
+  xy: 254, 511
   size: 256, 128
   orig: 256, 128
   offset: 0, 0
   index: -1
 black
   rotate: false
-  xy: 1, 1
+  xy: 32, 1
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 carpet
   rotate: false
-  xy: 1215, 239
+  xy: 767, 112
   size: 148, 128
   orig: 148, 128
   offset: 0, 0
   index: -1
 collectButton
   rotate: false
-  xy: 235, 1
+  xy: 444, 1
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 collectButtonDown
   rotate: false
-  xy: 175, 1
+  xy: 384, 1
   size: 59, 59
   orig: 59, 59
   offset: 0, 0
   index: -1
 default
   rotate: false
-  xy: 1, 368
+  xy: 511, 511
   size: 256, 128
   orig: 256, 128
   offset: 0, 0
   index: -1
 default_big
   rotate: false
-  xy: 1364, 239
+  xy: 1025, 511
   size: 512, 128
   orig: 512, 128
   offset: 0, 0
   index: -1
 depositItemCover
   rotate: false
-  xy: 1, 112
+  xy: 638, 112
   size: 128, 125
   orig: 128, 125
   offset: 0, 0
   index: -1
 depositItemDefault
   rotate: false
-  xy: 144, 1
+  xy: 1, 1
   size: 30, 55
   orig: 30, 55
   offset: 0, 0
   index: -1
+floor-tile
+  rotate: false
+  xy: 1065, 112
+  size: 148, 128
+  orig: 148, 128
+  offset: 0, 0
+  index: -1
+grass1
+  rotate: false
+  xy: 613, 245
+  size: 152, 132
+  orig: 152, 132
+  offset: 0, 0
+  index: -1
+grass2
+  rotate: false
+  xy: 919, 245
+  size: 152, 132
+  orig: 152, 132
+  offset: 0, 0
+  index: -1
+grass3
+  rotate: false
+  xy: 766, 245
+  size: 152, 132
+  orig: 152, 132
+  offset: 0, 0
+  index: -1
 inventoryItemBackground
   rotate: false
-  xy: 407, 368
+  xy: 509, 112
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 lighter
   rotate: false
-  xy: 491, 1
+  xy: 1304, 1
   size: 82, 66
   orig: 82, 66
   offset: 0, 0
   index: -1
 mailButton
   rotate: false
-  xy: 889, 112
+  xy: 128, 112
   size: 126, 126
   orig: 126, 126
   offset: 0, 0
   index: -1
 mailButtonDown
   rotate: false
-  xy: 1396, 112
+  xy: 1, 112
   size: 126, 126
   orig: 126, 126
   offset: 0, 0
   index: -1
 menuBar
   rotate: false
-  xy: 536, 368
+  xy: 1, 640
   size: 600, 197
   orig: 600, 197
   offset: 0, 0
   index: -1
 menuBarBackground
   rotate: false
-  xy: 1137, 368
+  xy: 602, 640
   size: 716, 200
   orig: 716, 200
   offset: 0, 0
   index: -1
 notepadButton
   rotate: false
-  xy: 1776, 112
+  xy: 382, 112
   size: 126, 126
   orig: 126, 126
   offset: 0, 0
   index: -1
 notepadButtonDown
   rotate: false
-  xy: 1269, 112
+  xy: 255, 112
   size: 126, 126
   orig: 126, 126
   offset: 0, 0
   index: -1
+road1
+  rotate: false
+  xy: 1072, 245
+  size: 152, 132
+  orig: 152, 132
+  offset: 0, 0
+  index: -1
+road2
+  rotate: false
+  xy: 460, 378
+  size: 152, 132
+  orig: 152, 132
+  offset: 0, 0
+  index: -1
+road3
+  rotate: false
+  xy: 307, 378
+  size: 152, 132
+  orig: 152, 132
+  offset: 0, 0
+  index: -1
+road4
+  rotate: false
+  xy: 1225, 245
+  size: 152, 132
+  orig: 152, 132
+  offset: 0, 0
+  index: -1
+road5
+  rotate: false
+  xy: 1378, 245
+  size: 152, 132
+  orig: 152, 132
+  offset: 0, 0
+  index: -1
+road6
+  rotate: false
+  xy: 1512, 112
+  size: 152, 132
+  orig: 152, 132
+  offset: 0, 0
+  index: -1
+road7
+  rotate: false
+  xy: 1684, 245
+  size: 152, 132
+  orig: 152, 132
+  offset: 0, 0
+  index: -1
+road8
+  rotate: false
+  xy: 1837, 245
+  size: 152, 132
+  orig: 152, 132
+  offset: 0, 0
+  index: -1
+road9
+  rotate: false
+  xy: 460, 245
+  size: 152, 132
+  orig: 152, 132
+  offset: 0, 0
+  index: -1
+road10
+  rotate: false
+  xy: 307, 245
+  size: 152, 132
+  orig: 152, 132
+  offset: 0, 0
+  index: -1
+road11
+  rotate: false
+  xy: 1818, 112
+  size: 152, 132
+  orig: 152, 132
+  offset: 0, 0
+  index: -1
+road12
+  rotate: false
+  xy: 154, 245
+  size: 152, 132
+  orig: 152, 132
+  offset: 0, 0
+  index: -1
+road13
+  rotate: false
+  xy: 1, 245
+  size: 152, 132
+  orig: 152, 132
+  offset: 0, 0
+  index: -1
+road14
+  rotate: false
+  xy: 1665, 112
+  size: 152, 132
+  orig: 152, 132
+  offset: 0, 0
+  index: -1
+road15
+  rotate: false
+  xy: 1531, 245
+  size: 152, 132
+  orig: 152, 132
+  offset: 0, 0
+  index: -1
+road16
+  rotate: false
+  xy: 1, 378
+  size: 152, 132
+  orig: 152, 132
+  offset: 0, 0
+  index: -1
+road17
+  rotate: false
+  xy: 154, 378
+  size: 152, 132
+  orig: 152, 132
+  offset: 0, 0
+  index: -1
 settingsButton
   rotate: false
-  xy: 296, 1
+  xy: 570, 1
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 settingsButtonDown
   rotate: false
-  xy: 361, 1
+  xy: 635, 1
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 sprite_armchair
   rotate: false
-  xy: 574, 1
+  xy: 768, 1
   size: 70, 76
   orig: 70, 76
   offset: 0, 0
   index: -1
 sprite_bath
   rotate: false
-  xy: 880, 1
+  xy: 1860, 1
   size: 120, 83
   orig: 120, 83
   offset: 0, 0
   index: -1
 sprite_bed
   rotate: false
-  xy: 1190, 1
+  xy: 1754, 1
   size: 105, 96
   orig: 105, 96
   offset: 0, 0
   index: -1
 sprite_bookshelf
   rotate: false
-  xy: 1841, 1
+  xy: 839, 1
   size: 71, 110
   orig: 71, 110
   offset: 0, 0
   index: -1
 sprite_cactus
   rotate: false
-  xy: 1296, 1
+  xy: 65, 1
   size: 32, 100
   orig: 32, 100
   offset: 0, 0
   index: -1
 sprite_fireplace
   rotate: false
-  xy: 1604, 1
+  xy: 1557, 1
   size: 90, 105
   orig: 90, 105
   offset: 0, 0
   index: -1
 sprite_fridge
   rotate: false
-  xy: 1782, 1
+  xy: 207, 1
   size: 58, 110
   orig: 58, 110
   offset: 0, 0
   index: -1
 sprite_guitar
   rotate: false
-  xy: 1487, 1
+  xy: 149, 1
   size: 57, 100
   orig: 57, 100
   offset: 0, 0
   index: -1
 sprite_kitchen_cabinet
   rotate: false
-  xy: 645, 1
+  xy: 987, 1
   size: 76, 80
   orig: 76, 80
   offset: 0, 0
   index: -1
 sprite_kitchen_drawer
   rotate: false
-  xy: 1913, 1
+  xy: 700, 1
   size: 67, 110
   orig: 67, 110
   offset: 0, 0
   index: -1
 sprite_laundry
   rotate: false
-  xy: 85, 1
+  xy: 325, 1
   size: 58, 50
   orig: 58, 50
   offset: 0, 0
   index: -1
 sprite_radio_commode
   rotate: false
-  xy: 1001, 1
+  xy: 1648, 1
   size: 105, 87
   orig: 105, 87
   offset: 0, 0
   index: -1
 sprite_sink
   rotate: false
-  xy: 1545, 1
+  xy: 266, 1
   size: 58, 105
   orig: 58, 105
   offset: 0, 0
   index: -1
 sprite_stove
   rotate: false
-  xy: 722, 1
+  xy: 911, 1
   size: 75, 80
   orig: 75, 80
   offset: 0, 0
   index: -1
 sprite_table
   rotate: false
-  xy: 798, 1
+  xy: 1222, 1
   size: 81, 80
   orig: 81, 80
   offset: 0, 0
   index: -1
 sprite_toilet
   rotate: false
-  xy: 1410, 1
+  xy: 1064, 1
   size: 76, 100
   orig: 76, 100
   offset: 0, 0
   index: -1
 sprite_tv
   rotate: false
-  xy: 1695, 1
+  xy: 1470, 1
   size: 86, 110
   orig: 86, 110
   offset: 0, 0
   index: -1
 sprite_wardrobe
   rotate: false
-  xy: 1329, 1
+  xy: 1141, 1
   size: 80, 100
   orig: 80, 100
   offset: 0, 0
   index: -1
 sprite_washer
   rotate: false
-  xy: 1107, 1
+  xy: 1387, 1
   size: 82, 90
   orig: 82, 90
   offset: 0, 0
   index: -1
 targetMarker
   rotate: false
-  xy: 426, 1
+  xy: 505, 1
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 textButton
   rotate: false
-  xy: 130, 112
+  xy: 1, 511
   size: 252, 126
   orig: 252, 126
   offset: 0, 0
   index: -1
 textButtonDown
   rotate: false
-  xy: 636, 112
+  xy: 1372, 378
   size: 252, 126
   orig: 252, 126
   offset: 0, 0
   index: -1
 textButtonNo
   rotate: false
-  xy: 1016, 112
+  xy: 1119, 378
   size: 252, 126
   orig: 252, 126
   offset: 0, 0
   index: -1
 textButtonNoDown
   rotate: false
-  xy: 1, 239
+  xy: 1625, 378
   size: 252, 126
   orig: 252, 126
   offset: 0, 0
   index: -1
 textButtonOk
   rotate: false
-  xy: 1523, 112
+  xy: 866, 378
   size: 252, 126
   orig: 252, 126
   offset: 0, 0
   index: -1
 textButtonOkDown
   rotate: false
-  xy: 383, 112
+  xy: 613, 378
   size: 252, 126
   orig: 252, 126
   offset: 0, 0
   index: -1
 tileFloor
   rotate: false
-  xy: 254, 239
+  xy: 1214, 112
   size: 148, 128
   orig: 148, 128
   offset: 0, 0
   index: -1
 tooltip
   rotate: false
-  xy: 34, 1
+  xy: 98, 1
   size: 50, 50
   split: 10, 10, 10, 10
   orig: 50, 50
   offset: 0, 0
   index: -1
-wall_interior
-  rotate: false
-  xy: 403, 239
-  size: 148, 128
-  orig: 148, 128
-  offset: 0, 0
-  index: -1
 woodenFloorEven
   rotate: false
-  xy: 552, 239
+  xy: 916, 112
   size: 148, 128
   orig: 148, 128
   offset: 0, 0
   index: -1
 woodenFloorOdd
   rotate: false
-  xy: 258, 368
+  xy: 1363, 112
   size: 148, 128
   orig: 148, 128
   offset: 0, 0

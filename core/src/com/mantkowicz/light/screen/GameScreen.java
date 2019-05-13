@@ -6,6 +6,10 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.HexagonalTiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -87,7 +91,14 @@ public class GameScreen implements Screen {
 
         addFeature(new MenuFeature(configuration));
         addFeature(new StageFeature(configuration));
+
+
+        TiledMap map = new TmxMapLoader().load("map2_outer.tmx");
+        renderer = new HexagonalTiledMapRenderer(map, 1f);
+        renderer.setView((OrthographicCamera) gameStage.getCamera());
     }
+
+    HexagonalTiledMapRenderer renderer;
 
     private RayHandler prepareLights() {
         RayHandler rayHandler = new RayHandler(world);
@@ -97,7 +108,7 @@ public class GameScreen implements Screen {
     }
 
     private List<Tile> loadTiles(Board board) {
-        TmxTileMapLoaderProperties properties = new TmxTileMapLoaderProperties().setTileMapFileName("map.tmx");
+        TmxTileMapLoaderProperties properties = new TmxTileMapLoaderProperties().setTileMapFileName("map2_outer.tmx");
         TiledMapLoader<TmxTileMapLoaderProperties> tmxTiledMapLoader = new TmxTiledMapLoader(resourcesService);
 
         return board.loadTiles(tmxTiledMapLoader, properties);
@@ -130,6 +141,11 @@ public class GameScreen implements Screen {
         }
 
         world.step(1 / 60f, 6, 2);
+
+        renderer.render();
+        gameStage.getCamera().update();
+        renderer.setView((OrthographicCamera) gameStage.getCamera());
+
         gameStage.act(delta);
         gameStage.draw();
 

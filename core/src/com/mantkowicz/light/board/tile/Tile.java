@@ -1,5 +1,6 @@
 package com.mantkowicz.light.board.tile;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.Intersector;
@@ -66,6 +67,11 @@ public abstract class Tile extends Group {
             result[i] = polygon.get(i);
         }
         return result;
+    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+//        super.draw(batch, parentAlpha);
     }
 
     @Override
