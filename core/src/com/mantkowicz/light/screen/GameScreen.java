@@ -9,10 +9,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.HexagonalTiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mantkowicz.light.actor.implementation.player.Player;
 import com.mantkowicz.light.board.Board;
 import com.mantkowicz.light.board.service.BoardService;
 import com.mantkowicz.light.board.tile.Tile;
@@ -24,6 +25,8 @@ import com.mantkowicz.light.feature.implementation.StageFeature;
 import com.mantkowicz.light.map.TiledMapLoader;
 import com.mantkowicz.light.map.implementation.tmx.TmxTileMapLoaderProperties;
 import com.mantkowicz.light.map.implementation.tmx.TmxTiledMapLoader;
+import com.mantkowicz.light.notification.NotificationStyle;
+import com.mantkowicz.light.notification.factory.LabelFactory;
 import com.mantkowicz.light.service.event.GameEventService;
 import com.mantkowicz.light.service.event.implementation.PlayerCreatedEvent;
 import com.mantkowicz.light.service.phrase.PhraseService;
@@ -50,6 +53,8 @@ public class GameScreen implements Screen {
     private final Board board = new Board();
     private RayHandler rayHandler;
     private List<Feature> features = new ArrayList<>();
+
+    private Label FPS;
 
     public GameScreen(ResourcesService resourcesService, GameEventService gameEventService, World world) {
         this.resourcesService = resourcesService;
@@ -85,7 +90,9 @@ public class GameScreen implements Screen {
 
         if (gameEventService.containsEvent(PLAYER_CREATED)) {
             PlayerCreatedEvent gameEvent = gameEventService.removeEventFromQueue(PLAYER_CREATED, PlayerCreatedEvent.class);
-            CameraTrackingFeature cameraTrackingFeature = new CameraTrackingFeature(gameEvent.getEventObject(), configuration);
+            Player eventObject = gameEvent.getEventObject();
+            this.player = eventObject;
+            CameraTrackingFeature cameraTrackingFeature = new CameraTrackingFeature(eventObject, configuration);
             addFeature(cameraTrackingFeature);
         }
 
@@ -96,8 +103,12 @@ public class GameScreen implements Screen {
         TiledMap map = new TmxMapLoader().load("map2_outer.tmx");
         renderer = new HexagonalTiledMapRenderer(map, 1f);
         renderer.setView((OrthographicCamera) gameStage.getCamera());
+
+        FPS = LabelFactory.createLabel(NotificationStyle.DEFAULT, "60");
+        notificationStage.addActor(FPS);
     }
 
+    Player player;
     HexagonalTiledMapRenderer renderer;
 
     private RayHandler prepareLights() {
@@ -146,8 +157,11 @@ public class GameScreen implements Screen {
         gameStage.getCamera().update();
         renderer.setView((OrthographicCamera) gameStage.getCamera());
 
+        FPS.setPosition(player.getX() + 30, player.getY() + 30);
+        FPS.setText(String.valueOf(Gdx.graphics.getFramesPerSecond()));
+
         gameStage.act(delta);
-        gameStage.draw();
+//        gameStage.draw();
 
         rayHandler.setCombinedMatrix((OrthographicCamera) gameStage.getCamera());
         rayHandler.updateAndRender();

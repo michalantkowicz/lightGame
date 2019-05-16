@@ -20,7 +20,7 @@ import java.util.List;
 
 import static com.mantkowicz.light.board.tile.TilePoint.*;
 
-public abstract class Tile extends Group {
+public abstract class Tile extends Actor {
     private static final int NOTIFICATION_OFFSET = 5;
     private static final float TAN_30_DIV_6 = 0.289f;
 
@@ -48,7 +48,7 @@ public abstract class Tile extends Group {
         TextureRegion backgroundTexture = resourcesService.getTexture(backgroundTextureName);
         this.background = new Image(backgroundTexture);
 
-        addActor(this.background);
+//        addActor(this.background);
         this.setSize(this.background.getWidth(), this.background.getHeight());
     }
 
