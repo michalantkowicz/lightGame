@@ -1,25 +1,28 @@
 package com.mantkowicz.light.board.tile;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.mantkowicz.light.board.object.TileObject;
-import com.mantkowicz.light.board.tile.listener.TileClickListener;
 import com.mantkowicz.light.configuration.GamePrepareConfiguration;
 import com.mantkowicz.light.service.resources.ResourcesService;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mantkowicz.light.board.tile.TilePoint.*;
+import static com.mantkowicz.light.board.tile.TilePoint.LEFT_BOTTOM_CORNER;
+import static com.mantkowicz.light.board.tile.TilePoint.LEFT_CORNER;
+import static com.mantkowicz.light.board.tile.TilePoint.LEFT_TOP_CORNER;
+import static com.mantkowicz.light.board.tile.TilePoint.RIGHT_BOTTOM_CORNER;
+import static com.mantkowicz.light.board.tile.TilePoint.RIGHT_CORNER;
+import static com.mantkowicz.light.board.tile.TilePoint.RIGHT_TOP_CORNER;
 
-public abstract class Tile extends Group {
+public abstract class Tile {//} extends Actor {
     private static final int NOTIFICATION_OFFSET = 5;
     private static final float TAN_30_DIV_6 = 0.289f;
 
@@ -30,30 +33,41 @@ public abstract class Tile extends Group {
 
     private MapProperties attributes;
     private Array<Vector2> polygon;
-    private Image background;
+
+    @Getter
+    private float width, height;
+
+    @Getter
+    private float x, y;
+
+    public void setSize(float width, float height) {
+        this.width = width;
+        this.height = height;
+    }
 
     private boolean marked = false;
 
     protected List<TileObject> objects = new ArrayList<>();
+    private TextureRegion backgroundTexture;
 
     protected Tile(ResourcesService resourcesService, String backgroundTextureName) {
         this.id = ID_SEQUENCE++;
         this.neighbours = new ArrayList<>();
-
         setBackground(resourcesService, backgroundTextureName);
     }
 
     protected void setBackground(ResourcesService resourcesService, String backgroundTextureName) {
-        TextureRegion backgroundTexture = resourcesService.getTexture(backgroundTextureName);
-        this.background = new Image(backgroundTexture);
+        backgroundTexture = resourcesService.getTexture(backgroundTextureName);
+        setSize(backgroundTexture.getRegionWidth(), backgroundTexture.getRegionHeight()); //TODO: move setSize to tile creation place
+//        this.background = new Image(backgroundTexture);
 
-        addActor(this.background);
-        this.setSize(this.background.getWidth(), this.background.getHeight());
+//        addActor(this.background);
+//        this.setSize(this.background.getWidth(), this.background.getHeight());
     }
 
     public void prepare(GamePrepareConfiguration configuration) {
-        ClickListener listener = new TileClickListener(this, configuration);
-        addListener(listener);
+//        ClickListener listener = new TileClickListener(this, configuration);
+//        addListener(listener);
 
         for (TileObject object : objects) {
             object.prepare(this, configuration);
@@ -68,9 +82,9 @@ public abstract class Tile extends Group {
         return result;
     }
 
-    @Override
     public void setPosition(float x, float y) {
-        super.setPosition(x, y);
+        this.x = x;
+        this.y = y;
         initTilePolygon();
     }
 
@@ -198,5 +212,13 @@ public abstract class Tile extends Group {
 
     public void addTileObject(TileObject object) {
         objects.add(object);
+    }
+
+    public void draw(Batch batch, float parentAlpha) {
+        batch.draw(backgroundTexture, getX(), getY());
+    }
+
+    protected Vector2 stageToLocalCoordinates(Vector2 tilePosition) {
+        throw new UnsupportedOperationException("to be implemented");
     }
 }

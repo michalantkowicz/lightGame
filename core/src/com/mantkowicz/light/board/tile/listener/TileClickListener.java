@@ -73,16 +73,16 @@ public class TileClickListener extends ClickListener {
     }
 
     private Tile resolveTile(float x, float y) {
-        Vector2 point = tile.localToStageCoordinates(new Vector2(x, y));
-        if (tile.doesContainPoint(point)) {
-            return tile;
-        } else {
-            for (Tile neighbour : tile.getNeighbours()) {
-                if (neighbour.doesContainPoint(point)) {
-                    return neighbour;
-                }
-            }
-        }
+//        Vector2 point = tile.localToStageCoordinates(new Vector2(x, y));
+//        if (tile.doesContainPoint(point)) {
+//            return tile;
+//        } else {
+//            for (Tile neighbour : tile.getNeighbours()) {
+//                if (neighbour.doesContainPoint(point)) {
+//                    return neighbour;
+//                }
+//            }
+//        }
         return null;
     }
 }

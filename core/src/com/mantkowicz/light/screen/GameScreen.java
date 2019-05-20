@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -15,11 +16,9 @@ import com.mantkowicz.light.board.tile.Tile;
 import com.mantkowicz.light.configuration.GamePrepareConfiguration;
 import com.mantkowicz.light.feature.Feature;
 import com.mantkowicz.light.feature.implementation.CameraTrackingFeature;
+import com.mantkowicz.light.feature.implementation.FPSFeature;
 import com.mantkowicz.light.feature.implementation.MenuFeature;
 import com.mantkowicz.light.feature.implementation.StageFeature;
-import com.mantkowicz.light.map.TiledMapLoader;
-import com.mantkowicz.light.map.implementation.tmx.TmxTileMapLoaderProperties;
-import com.mantkowicz.light.map.implementation.tmx.TmxTiledMapLoader;
 import com.mantkowicz.light.service.event.GameEventService;
 import com.mantkowicz.light.service.event.implementation.PlayerCreatedEvent;
 import com.mantkowicz.light.service.phrase.PhraseService;
@@ -43,7 +42,7 @@ public class GameScreen implements Screen {
     private GameStage gameStage;
     private MenuStage menuStage;
     private NotificationStage notificationStage;
-    private final Board board = new Board();
+    private Board board;
     private RayHandler rayHandler;
     private List<Feature> features = new ArrayList<>();
 
@@ -67,17 +66,21 @@ public class GameScreen implements Screen {
 
         rayHandler = prepareLights();
 
-        List<Tile> tiles = loadTiles(board);
+        board = Board.load(resourcesService, "map.tmx");
+
+//        List<Tile> tiles = Bo(board);
 
         // Preparing configuration after loading tiles
         GamePrepareConfiguration configuration = prepareConfiguration();
 
-        for (Tile tile : tiles) {
-            gameStage.addActor(tile);
-            tile.toBack();
-
+        for (Tile tile : board.getTiles()) {
+//            gameStage.addActor(tile);
+//            tile.toBack();
             tile.prepare(configuration);
         }
+
+        gameStage.addActor(board);
+
 
         if (gameEventService.containsEvent(PLAYER_CREATED)) {
             PlayerCreatedEvent gameEvent = gameEventService.removeEventFromQueue(PLAYER_CREATED, PlayerCreatedEvent.class);
@@ -87,6 +90,7 @@ public class GameScreen implements Screen {
 
         addFeature(new MenuFeature(configuration));
         addFeature(new StageFeature(configuration));
+        addFeature(new FPSFeature(gameStage, new Vector2(300, 520)));
     }
 
     private RayHandler prepareLights() {
@@ -94,13 +98,6 @@ public class GameScreen implements Screen {
         rayHandler.setAmbientLight(0.02f, 0.02f, 0.02f, 0.5f);
 //        rayHandler.setAmbientLight(0.02f, 0.02f, 0.02f, 1f);
         return rayHandler;
-    }
-
-    private List<Tile> loadTiles(Board board) {
-        TmxTileMapLoaderProperties properties = new TmxTileMapLoaderProperties().setTileMapFileName("map.tmx");
-        TiledMapLoader<TmxTileMapLoaderProperties> tmxTiledMapLoader = new TmxTiledMapLoader(resourcesService);
-
-        return board.loadTiles(tmxTiledMapLoader, properties);
     }
 
     private GamePrepareConfiguration prepareConfiguration() {
