@@ -66,16 +66,16 @@ public class GameScreen implements Screen {
 
         rayHandler = prepareLights();
 
-        board = Board.load(resourcesService, "map.tmx");
-
-//        List<Tile> tiles = Bo(board);
 
         // Preparing configuration after loading tiles
         GamePrepareConfiguration configuration = prepareConfiguration();
 
+        board = Board.load(configuration, "map.tmx");
+
+        configuration.setBoardService(new BoardService(gameEventService, board));
+
+
         for (Tile tile : board.getTiles()) {
-//            gameStage.addActor(tile);
-//            tile.toBack();
             tile.prepare(configuration);
         }
 
@@ -95,18 +95,17 @@ public class GameScreen implements Screen {
 
     private RayHandler prepareLights() {
         RayHandler rayHandler = new RayHandler(world);
-        rayHandler.setAmbientLight(0.02f, 0.02f, 0.02f, 0.5f);
+        rayHandler.setAmbientLight(0.02f, 0.02f, 0.02f, 2 * 0.5f);
 //        rayHandler.setAmbientLight(0.02f, 0.02f, 0.02f, 1f);
         return rayHandler;
     }
 
     private GamePrepareConfiguration prepareConfiguration() {
-        BoardService boardService = new BoardService(gameEventService, board);
         PhraseService phraseService = new PhraseService();
         OrthographicCamera camera = (OrthographicCamera) gameStage.getCamera();
 
         return new GamePrepareConfiguration(gameEventService,
-                boardService,
+                null,
                 world,
                 rayHandler,
                 gameStage,

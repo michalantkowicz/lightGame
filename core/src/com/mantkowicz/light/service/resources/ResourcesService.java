@@ -53,6 +53,7 @@ public class ResourcesService {
         }
         try {
             Texture texture = assetManager.get(textureName, Texture.class);
+            texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             return new TextureRegion(texture);
         } catch (Throwable t) {
             throw new IllegalArgumentException("Couldn't find texture: " + textureName);

@@ -66,7 +66,7 @@ public abstract class Tile {//} extends Actor {
     }
 
     public void prepare(GamePrepareConfiguration configuration) {
-//        ClickListener listener = new TileClickListener(this, configuration);
+//        ClickListener listener = new BoardClickListener(this, configuration);
 //        addListener(listener);
 
         for (TileObject object : objects) {
