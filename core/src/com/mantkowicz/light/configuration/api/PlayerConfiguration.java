@@ -1,7 +1,6 @@
 package com.mantkowicz.light.configuration.api;
 
 import box2dLight.RayHandler;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mantkowicz.light.board.service.BoardService;
 import com.mantkowicz.light.service.event.GameEventService;

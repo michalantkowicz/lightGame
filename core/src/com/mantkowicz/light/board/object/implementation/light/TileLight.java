@@ -10,9 +10,7 @@ import com.mantkowicz.light.lights.GameLight;
 import com.mantkowicz.light.lights.LightType;
 import com.mantkowicz.light.lights.factory.LightFactory;
 
-import static com.mantkowicz.light.board.object.TileObjectAttribute.BORDER_LIGHT_POSITION;
-import static com.mantkowicz.light.board.object.TileObjectAttribute.LIGHT_COLOR_HEX;
-import static com.mantkowicz.light.board.object.TileObjectAttribute.LIGHT_TYPE;
+import static com.mantkowicz.light.board.object.TileObjectAttribute.*;
 import static com.mantkowicz.light.board.object.TileObjectType.CHEST;
 
 public class TileLight extends TileObject {

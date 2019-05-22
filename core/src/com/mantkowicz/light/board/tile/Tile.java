@@ -10,17 +10,11 @@ import com.badlogic.gdx.utils.Array;
 import com.mantkowicz.light.board.object.TileObject;
 import com.mantkowicz.light.configuration.GamePrepareConfiguration;
 import com.mantkowicz.light.service.resources.ResourcesService;
-import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mantkowicz.light.board.tile.TilePoint.LEFT_BOTTOM_CORNER;
-import static com.mantkowicz.light.board.tile.TilePoint.LEFT_CORNER;
-import static com.mantkowicz.light.board.tile.TilePoint.LEFT_TOP_CORNER;
-import static com.mantkowicz.light.board.tile.TilePoint.RIGHT_BOTTOM_CORNER;
-import static com.mantkowicz.light.board.tile.TilePoint.RIGHT_CORNER;
-import static com.mantkowicz.light.board.tile.TilePoint.RIGHT_TOP_CORNER;
+import static com.mantkowicz.light.board.tile.TilePoint.*;
 
 public abstract class Tile {//} extends Actor {
     private static final int NOTIFICATION_OFFSET = 5;
@@ -34,10 +28,8 @@ public abstract class Tile {//} extends Actor {
     private MapProperties attributes;
     private Array<Vector2> polygon;
 
-    @Getter
     private float width, height;
 
-    @Getter
     private float x, y;
 
     public void setSize(float width, float height) {
@@ -220,5 +212,21 @@ public abstract class Tile {//} extends Actor {
 
     protected Vector2 stageToLocalCoordinates(Vector2 tilePosition) {
         throw new UnsupportedOperationException("to be implemented");
+    }
+
+    public float getWidth() {
+        return this.width;
+    }
+
+    public float getHeight() {
+        return this.height;
+    }
+
+    public float getX() {
+        return this.x;
+    }
+
+    public float getY() {
+        return this.y;
     }
 }

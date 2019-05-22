@@ -19,11 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.badlogic.gdx.math.Interpolation.swingOut;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.alpha;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.scaleTo;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 import static com.mantkowicz.light.service.event.GameEventType.MENU_CLOSE;
 import static com.mantkowicz.light.service.event.GameEventType.MENU_OPEN;
 

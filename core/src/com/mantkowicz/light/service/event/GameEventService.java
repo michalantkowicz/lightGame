@@ -1,10 +1,6 @@
 package com.mantkowicz.light.service.event;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class GameEventService {
     private final Map<GameEventType, List<GameEvent>> queue = new HashMap<>();
