@@ -16,17 +16,20 @@ import com.mantkowicz.light.board.object.factory.TileObjectFactory;
 import com.mantkowicz.light.board.tile.Tile;
 import com.mantkowicz.light.board.tile.TileType;
 import com.mantkowicz.light.board.tile.factory.TileFactory;
+import com.mantkowicz.light.map.TileSet;
+import com.mantkowicz.light.map.TileSet.TilesetProperties;
 import com.mantkowicz.light.map.TiledMapLoader;
 import com.mantkowicz.light.service.resources.ResourcesService;
 import com.mantkowicz.light.util.Tuple;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static com.mantkowicz.light.board.object.TileObjectAttribute.OBJECT_CLASS;
 import static com.mantkowicz.light.board.tile.TileAttribute.TILE_CLASS;
+import static com.mantkowicz.light.map.TileSet.builder;
+import static com.mantkowicz.light.util.Tuple.of;
 
 public class TmxTiledMapLoader implements TiledMapLoader<TmxTileMapLoaderProperties> {
     private final ResourcesService resourcesService;
@@ -38,7 +41,7 @@ public class TmxTiledMapLoader implements TiledMapLoader<TmxTileMapLoaderPropert
     }
 
     @Override
-    public List<Tile> loadTiles(TmxTileMapLoaderProperties properties) {
+    public TileSet loadTiles(TmxTileMapLoaderProperties properties) {
         TiledMap tiledMap = new TmxMapLoader().load(properties.getTileMapFileName());
 
         int layerWidth = getTileLayer(tiledMap).getWidth();
@@ -49,7 +52,7 @@ public class TmxTiledMapLoader implements TiledMapLoader<TmxTileMapLoaderPropert
         //create tiles
         for (int x = 0; x < layerWidth; x++) {
             for (int y = 0; y < layerHeight; y++) {
-                Tuple<Integer, Integer> cellPosition = Tuple.of(x, y);
+                Tuple<Integer, Integer> cellPosition = of(x, y);
 
                 Tile tile = createNewTile(tiledMap, cellPosition);
                 if (tile != null) {
@@ -61,7 +64,7 @@ public class TmxTiledMapLoader implements TiledMapLoader<TmxTileMapLoaderPropert
         //collect neighbours
         for (int x = 0; x < layerWidth; x++) {
             for (int y = 0; y < layerHeight; y++) {
-                Tuple<Integer, Integer> cellPosition = Tuple.of(x, y);
+                Tuple<Integer, Integer> cellPosition = of(x, y);
 
                 if (tilesMap.containsKey(cellPosition)) {
                     Tile tile = tilesMap.get(cellPosition);
@@ -69,19 +72,30 @@ public class TmxTiledMapLoader implements TiledMapLoader<TmxTileMapLoaderPropert
                     Integer tileX = cellPosition.getX();
                     Integer tileY = cellPosition.getY();
 
-                    addNeighbour(tile, Tuple.of(tileX - 1, tileY - (tileX % 2)));
-                    addNeighbour(tile, Tuple.of(tileX + 1, tileY - (tileX % 2)));
-                    addNeighbour(tile, Tuple.of(tileX, tileY - 1));
-                    addNeighbour(tile, Tuple.of(tileX, tileY + 1));
-                    addNeighbour(tile, Tuple.of(tileX - 1, tileY + 1 - (tileX % 2)));
-                    addNeighbour(tile, Tuple.of(tileX + 1, tileY + 1 - (tileX % 2)));
+                    addNeighbour(tile, of(tileX - 1, tileY - (tileX % 2)));
+                    addNeighbour(tile, of(tileX + 1, tileY - (tileX % 2)));
+                    addNeighbour(tile, of(tileX, tileY - 1));
+                    addNeighbour(tile, of(tileX, tileY + 1));
+                    addNeighbour(tile, of(tileX - 1, tileY + 1 - (tileX % 2)));
+                    addNeighbour(tile, of(tileX + 1, tileY + 1 - (tileX % 2)));
                 }
             }
         }
-
+        
         tiledMap.dispose();
 
-        return new ArrayList<>(tilesMap.values());
+        return builder()
+                .tiles(new ArrayList<>(tilesMap.values()))
+                .properties(getTilesetProperties(tiledMap))
+                .build();
+    }
+
+    private TilesetProperties getTilesetProperties(TiledMap tiledMap) {
+        TilesetProperties tilesetProperties = new TilesetProperties();
+        float tileHeight = getTileLayer(tiledMap).getTileWidth();
+        float tileWidth = getTileLayer(tiledMap).getTileWidth();
+        tilesetProperties.setTileSize(of(tileWidth, tileHeight));
+        return tilesetProperties;
     }
 
     private void initializeObjectsMap(TiledMap tiledMap, int layerHeight) {
@@ -101,8 +115,8 @@ public class TmxTiledMapLoader implements TiledMapLoader<TmxTileMapLoaderPropert
                     for (int y = 0; y < tileLayer.getHeight(); y++) {
                         float ellipseCenterX = ellipse.x + ellipse.width / 2f;
                         float ellipseCenterY = ellipse.y + ellipse.height / 2f;
-                        float newDistance = new Vector2(ellipseCenterX, ellipseCenterY).dst2(getTileCenter(Tuple.of(x, y), tileWidth, tileHeight));
-                        float currentDistance = new Vector2(ellipseCenterX, ellipseCenterY).dst2(getTileCenter(Tuple.of(objectX, objectY), tileWidth, tileHeight));
+                        float newDistance = new Vector2(ellipseCenterX, ellipseCenterY).dst2(getTileCenter(of(x, y), tileWidth, tileHeight));
+                        float currentDistance = new Vector2(ellipseCenterX, ellipseCenterY).dst2(getTileCenter(of(objectX, objectY), tileWidth, tileHeight));
                         if (newDistance < currentDistance) {
                             objectX = x;
                             objectY = y;
@@ -112,7 +126,7 @@ public class TmxTiledMapLoader implements TiledMapLoader<TmxTileMapLoaderPropert
 
                 MapProperties objectProperties = object.getProperties();
                 TileObjectType objectType = TileObjectType.valueOf(objectProperties.get(OBJECT_CLASS.getValue(), String.class));
-                objectsMap.put(Tuple.of(objectX, objectY), TileObjectFactory.createTileObject(objectType, objectProperties));
+                objectsMap.put(of(objectX, objectY), TileObjectFactory.createTileObject(objectType, objectProperties));
             }
         }
     }

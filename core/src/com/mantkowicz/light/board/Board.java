@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.mantkowicz.light.board.tile.Tile;
 import com.mantkowicz.light.configuration.api.BoardConfiguration;
+import com.mantkowicz.light.map.TileSet;
 import com.mantkowicz.light.map.TiledMapLoader;
 import com.mantkowicz.light.map.implementation.tmx.TmxTileMapLoaderProperties;
 import com.mantkowicz.light.map.implementation.tmx.TmxTiledMapLoader;
@@ -18,8 +19,8 @@ public class Board extends Actor {
     @Getter
     private final List<Tile> tiles;
 
-    public Board(BoardConfiguration configuration, List<Tile> tiles) {
-        this.tiles = tiles;
+    public Board(BoardConfiguration configuration, TileSet tileSet) {
+        this.tiles = tileSet.getTiles();
         setupPositionAndSize(tiles);
         addListener(new BoardClickListener(configuration, this));
     }
