@@ -28,7 +28,6 @@ import java.util.Map;
 
 import static com.mantkowicz.light.board.object.TileObjectAttribute.OBJECT_CLASS;
 import static com.mantkowicz.light.board.tile.TileAttribute.TILE_CLASS;
-import static com.mantkowicz.light.map.TileSet.builder;
 import static com.mantkowicz.light.util.Tuple.of;
 
 public class TmxTiledMapLoader implements TiledMapLoader<TmxTileMapLoaderProperties> {
@@ -84,7 +83,7 @@ public class TmxTiledMapLoader implements TiledMapLoader<TmxTileMapLoaderPropert
         
         tiledMap.dispose();
 
-        return builder()
+        return TileSet.builder()
                 .tiles(new ArrayList<>(tilesMap.values()))
                 .properties(getTilesetProperties(tiledMap))
                 .build();
