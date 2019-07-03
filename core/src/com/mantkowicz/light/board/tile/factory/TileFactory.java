@@ -2,8 +2,7 @@ package com.mantkowicz.light.board.tile.factory;
 
 import com.mantkowicz.light.board.tile.Tile;
 import com.mantkowicz.light.board.tile.TileType;
-import com.mantkowicz.light.board.tile.implementation.FloorTile;
-import com.mantkowicz.light.board.tile.implementation.WallTile;
+import com.mantkowicz.light.board.tile.implementation.*;
 import com.mantkowicz.light.service.resources.ResourcesService;
 
 public class TileFactory {

@@ -8,6 +8,7 @@ import com.mantkowicz.light.map.TileSet;
 import com.mantkowicz.light.map.TiledMapLoader;
 import com.mantkowicz.light.map.implementation.tmx.TmxTileMapLoaderProperties;
 import com.mantkowicz.light.map.implementation.tmx.TmxTiledMapLoader;
+import lombok.Getter;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 public class Board extends Actor {
+    @Getter
     private final List<Tile> tiles;
 
     public Board(BoardConfiguration configuration, TileSet tileSet) {
@@ -54,9 +56,5 @@ public class Board extends Actor {
         TmxTileMapLoaderProperties properties = new TmxTileMapLoaderProperties().setTileMapFileName(mapName);
         TiledMapLoader<TmxTileMapLoaderProperties> tmxTiledMapLoader = new TmxTiledMapLoader(configuration.getResourcesService());
         return new Board(configuration, tmxTiledMapLoader.loadTiles(properties));
-    }
-
-    public List<Tile> getTiles() {
-        return this.tiles;
     }
 }

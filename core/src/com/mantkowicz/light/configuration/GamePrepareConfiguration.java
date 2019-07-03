@@ -14,11 +14,13 @@ import com.mantkowicz.light.service.phrase.PhraseService;
 import com.mantkowicz.light.service.resources.ResourcesService;
 import com.mantkowicz.light.stage.AbstractStage;
 import com.mantkowicz.light.stage.NotificationStage;
+import lombok.Setter;
 
 import java.util.List;
 
 public class GamePrepareConfiguration implements PlayerConfiguration, BoardConfiguration, StagesConfiguration, BasicConfiguration {
     private final GameEventService gameEventService;
+    @Setter
     private BoardService boardService;
     private final World world;
     private final RayHandler rayHandler;
@@ -103,9 +105,5 @@ public class GamePrepareConfiguration implements PlayerConfiguration, BoardConfi
 
     public List<AbstractStage> getStages() {
         return stages;
-    }
-
-    public void setBoardService(BoardService boardService) {
-        this.boardService = boardService;
     }
 }

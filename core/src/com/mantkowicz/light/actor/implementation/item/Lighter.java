@@ -9,6 +9,7 @@ import com.mantkowicz.light.configuration.api.PlayerConfiguration;
 import com.mantkowicz.light.service.resources.ThumbnailType;
 
 import static com.mantkowicz.light.actor.GameActorType.LIGHTER;
+import static com.mantkowicz.light.service.resources.ThumbnailType.DEFAULT;
 
 public class Lighter extends GameBoardActor implements Item, Collectible {
     private final TextureRegion thumbnail;

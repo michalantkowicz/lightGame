@@ -70,7 +70,7 @@ public class GameScreen implements Screen {
         // Preparing configuration after loading tiles
         GamePrepareConfiguration configuration = prepareConfiguration();
 
-        board = Board.load(configuration, "map2_outer.tmx");
+        board = Board.load(configuration, "map.tmx");
 
         configuration.setBoardService(new BoardService(gameEventService, board));
 

@@ -1,10 +1,13 @@
 package com.mantkowicz.light.interaction;
 
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.mantkowicz.light.actor.GameActor;
 import com.mantkowicz.light.notification.factory.LabelFactory;
 
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeOut;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 import static com.mantkowicz.light.actor.GameActorType.DESCRIPTION;
 import static com.mantkowicz.light.notification.NotificationStyle.DEFAULT;
 
