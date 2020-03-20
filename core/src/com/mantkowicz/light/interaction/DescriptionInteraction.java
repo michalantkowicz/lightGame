@@ -15,11 +15,11 @@ public class DescriptionInteraction implements Interaction {
         this.eventService = eventService;
         this.actor = actor;
 
-        descriptionDefinition = DescriptionDefinition.builder()
-                .background(resourcesService.getNinePatch("tooltip"))
-                .description(description)
-                .parent(actor)
-                .build();
+        descriptionDefinition = new DescriptionDefinition();
+        descriptionDefinition.setBackground(resourcesService.getNinePatch("tooltip"));
+        descriptionDefinition.setDescription(description);
+        descriptionDefinition.setParent(actor);
+
     }
 
     @Override

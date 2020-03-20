@@ -10,7 +10,6 @@ import com.badlogic.gdx.utils.Array;
 import com.mantkowicz.light.board.object.TileObject;
 import com.mantkowicz.light.configuration.GamePrepareConfiguration;
 import com.mantkowicz.light.service.resources.ResourcesService;
-import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,10 +33,8 @@ public abstract class Tile {//} extends Actor {
     private MapProperties attributes;
     private Array<Vector2> polygon;
 
-    @Getter
     private float width, height;
 
-    @Getter
     private float x, y;
 
     public void setSize(float width, float height) {
@@ -99,7 +96,7 @@ public abstract class Tile {//} extends Actor {
     }
 
     private float getCornerOffset() {
-        return TAN_30_DIV_6 * getHeight();
+        return TAN_30_DIV_6 * height;
     }
 
     public boolean doesContainPoint(Vector2 point) {
@@ -133,11 +130,11 @@ public abstract class Tile {//} extends Actor {
     }
 
     public Vector2 getCenter() {
-        return new Vector2(getX() + getWidth() / 2f, getY() + getHeight() / 2f);
+        return new Vector2(x + width / 2f, y + height / 2f);
     }
 
     protected Vector2 getLeftBottom() {
-        return new Vector2(getX(), getY());
+        return new Vector2(x, y);
     }
 
     public MapProperties getAttributes() {
@@ -162,29 +159,29 @@ public abstract class Tile {//} extends Actor {
      * @return center position for notification for this tile
      */
     public Vector2 getNotificationCenterPosition() {
-        return getCenter().cpy().add(0, getHeight() / 2f + NOTIFICATION_OFFSET);
+        return getCenter().cpy().add(0, height / 2f + NOTIFICATION_OFFSET);
     }
 
     private Vector2 getTilePointPosition(TilePoint tilePoint) {
         Vector2 result = getCenter();
         switch (tilePoint) {
             case RIGHT_TOP_CORNER:
-                result = new Vector2(getX() + getWidth() - getCornerOffset(), getY() + getHeight());
+                result = new Vector2(x + width - getCornerOffset(), y + height);
                 break;
             case RIGHT_CORNER:
-                result = new Vector2(getX() + getWidth(), getY() + getHeight() / 2f);
+                result = new Vector2(x + width, y + height / 2f);
                 break;
             case RIGHT_BOTTOM_CORNER:
-                result = new Vector2(getX() + getWidth() - getCornerOffset(), getY());
+                result = new Vector2(x + width - getCornerOffset(), y);
                 break;
             case LEFT_BOTTOM_CORNER:
-                result = new Vector2(getX() + getCornerOffset(), getY());
+                result = new Vector2(x + getCornerOffset(), y);
                 break;
             case LEFT_CORNER:
-                result = new Vector2(getX(), getY() + getHeight() / 2f);
+                result = new Vector2(x, y + height / 2f);
                 break;
             case LEFT_TOP_CORNER:
-                result = new Vector2(getX() + getCornerOffset(), getY() + getHeight());
+                result = new Vector2(x + getCornerOffset(), y + height);
                 break;
             case CENTER:
                 break;
@@ -215,10 +212,26 @@ public abstract class Tile {//} extends Actor {
     }
 
     public void draw(Batch batch, float parentAlpha) {
-        batch.draw(backgroundTexture, getX(), getY());
+        batch.draw(backgroundTexture, x, y);
     }
 
     protected Vector2 stageToLocalCoordinates(Vector2 tilePosition) {
         throw new UnsupportedOperationException("to be implemented");
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public float getHeight() {
+        return height;
     }
 }

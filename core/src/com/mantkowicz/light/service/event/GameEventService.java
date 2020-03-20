@@ -49,7 +49,7 @@ public class GameEventService {
 
     private void createIfDoesNotExist(GameEventType eventType) {
         if (!queue.containsKey(eventType)) {
-            queue.put(eventType, new ArrayList<>());
+            queue.put(eventType, new ArrayList<GameEvent>());
         }
     }
 

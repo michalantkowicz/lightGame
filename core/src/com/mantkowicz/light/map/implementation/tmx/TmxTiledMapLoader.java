@@ -80,13 +80,15 @@ public class TmxTiledMapLoader implements TiledMapLoader<TmxTileMapLoaderPropert
                 }
             }
         }
-        
+
         tiledMap.dispose();
 
-        return TileSet.builder()
-                .tiles(new ArrayList<>(tilesMap.values()))
-                .properties(getTilesetProperties(tiledMap))
-                .build();
+        TileSet tileSet = new TileSet();
+
+        tileSet.setTiles(new ArrayList<>(tilesMap.values()));
+        tileSet.setProperties(getTilesetProperties(tiledMap));
+
+        return tileSet;
     }
 
     private TilesetProperties getTilesetProperties(TiledMap tiledMap) {

@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.mantkowicz.light.actor.Collecting;
 import com.mantkowicz.light.actor.GameBoardActor;
 import com.mantkowicz.light.actor.Inventory;
+import com.mantkowicz.light.actor.Item;
 import com.mantkowicz.light.configuration.api.PlayerConfiguration;
 import com.mantkowicz.light.plugin.PlayerCollectResolver;
 import com.mantkowicz.light.plugin.implementation.BoardMovementPlugin;
@@ -33,7 +34,7 @@ public class Player extends GameBoardActor implements Collecting {
         super(PLAYER, configuration);
 
         gameEventService = configuration.getGameEventService();
-        inventory = new Inventory(3, new ArrayList<>());
+        inventory = new Inventory(3, new ArrayList<Item>());
 
         Texture avatarTexture = configuration.getResourcesService().getAssetManager().get(AVATAR_RESOURCE_NAME, Texture.class);
         createAvatar(avatarTexture);

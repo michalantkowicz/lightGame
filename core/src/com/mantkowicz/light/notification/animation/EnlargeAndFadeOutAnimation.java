@@ -20,7 +20,7 @@ public class EnlargeAndFadeOutAnimation implements NotificationAnimation {
         return TimeUtils.millis();
     }
 
-    private Action getEnlargeAction(Notification notification, long startTime) {
+    private Action getEnlargeAction(final Notification notification, final long startTime) {
         return new Action() {
             @Override
             public boolean act(float delta) {
