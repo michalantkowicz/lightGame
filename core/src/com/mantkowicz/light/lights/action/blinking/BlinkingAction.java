@@ -14,7 +14,7 @@ public class BlinkingAction extends SequenceAction {
         addAction(Actions.delay(speed.getValue()));
     }
 
-    private Action getSingleBlinkAction(Light light, BlinkingIntensity intensity, float baseDistance) {
+    private Action getSingleBlinkAction(final Light light, final BlinkingIntensity intensity, final float baseDistance) {
         return new Action() {
             @Override
             public boolean act(float delta) {

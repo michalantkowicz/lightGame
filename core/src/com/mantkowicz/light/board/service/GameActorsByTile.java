@@ -13,7 +13,7 @@ class GameActorsByTile {
 
     GameActorsByTile(List<Tile> tiles) {
         for (Tile tile : tiles) {
-            gameActorsByTile.put(tile, new ArrayList<>());
+            gameActorsByTile.put(tile, new ArrayList<GameActor>());
         }
     }
 

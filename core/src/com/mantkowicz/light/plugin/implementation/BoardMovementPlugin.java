@@ -63,7 +63,7 @@ public class BoardMovementPlugin implements Plugin {
         }
     }
 
-    private Action getSetStatusIdleAction(Player player) {
+    private Action getSetStatusIdleAction(final Player player) {
         return new Action() {
             @Override
             public boolean act(float delta) {
@@ -73,7 +73,7 @@ public class BoardMovementPlugin implements Plugin {
         };
     }
 
-    private Action getSetStatusMovementAction(Player player) {
+    private Action getSetStatusMovementAction(final Player player) {
         return new Action() {
             @Override
             public boolean act(float delta) {
@@ -83,7 +83,7 @@ public class BoardMovementPlugin implements Plugin {
         };
     }
 
-    private Action getSetTileAction(BoardPath path, Tile tile) {
+    private Action getSetTileAction(final BoardPath path, final Tile tile) {
         return new Action() {
             @Override
             public boolean act(float delta) {

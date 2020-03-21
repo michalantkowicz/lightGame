@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.mantkowicz.light.actor.Collectible;
 import com.mantkowicz.light.actor.GameBoardActor;
 import com.mantkowicz.light.actor.Inventory;
+import com.mantkowicz.light.actor.Item;
 import com.mantkowicz.light.configuration.api.PlayerConfiguration;
 import com.mantkowicz.light.service.resources.ThumbnailType;
 
@@ -20,7 +21,7 @@ public class Chest extends GameBoardActor implements Collectible {
     public Chest(PlayerConfiguration configuration) {
         super(CHEST, configuration);
 
-        inventory = new Inventory(2, new ArrayList<>());
+        inventory = new Inventory(2, new ArrayList<Item>());
         setName("Nice Chest");
 
         Texture avatarTexture = configuration.getResourcesService().getAssetManager().get(AVATAR_RESOURCE_NAME, Texture.class);

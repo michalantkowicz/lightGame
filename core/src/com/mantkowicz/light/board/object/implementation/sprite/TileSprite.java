@@ -29,7 +29,7 @@ public class TileSprite extends TileObject {
         Image image = new Image(configuration.getResourcesService().getTexture(textureName));
         image.setPosition(74 - image.getWidth() / 2f + offset.x, 64 - image.getHeight() / 2f + offset.y);
 
-        tile.addActor(image);
+//        tile.addActor(image);
     }
 
     @Override

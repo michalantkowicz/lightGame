@@ -2,7 +2,6 @@ package com.mantkowicz.light.ui.window;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -130,7 +129,7 @@ public class CollectWindow extends GameActor {
             item.addListener(new CollectWindowItemListener(this, item));
             collectItems.add(item);
 
-            Cell<Group> cell = inventoryTable.add(item);
+            Cell<CollectItem> cell = inventoryTable.add(item);
             setItemPadding(cell);
         }
         return inventoryTable;
@@ -143,7 +142,7 @@ public class CollectWindow extends GameActor {
             item.addListener(new CollectWindowItemListener(this, item));
             collectItems.add(item);
 
-            Cell<Group> cell = collectibleTable.add(item);
+            Cell<CollectItem> cell = collectibleTable.add(item);
             setItemPadding(cell);
         }
         return collectibleTable;

@@ -6,9 +6,9 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mantkowicz.light.board.service.BoardService;
 import com.mantkowicz.light.configuration.api.BasicConfiguration;
+import com.mantkowicz.light.configuration.api.BoardConfiguration;
 import com.mantkowicz.light.configuration.api.PlayerConfiguration;
 import com.mantkowicz.light.configuration.api.StagesConfiguration;
-import com.mantkowicz.light.configuration.api.TileClickListenerConfiguration;
 import com.mantkowicz.light.service.event.GameEventService;
 import com.mantkowicz.light.service.phrase.PhraseService;
 import com.mantkowicz.light.service.resources.ResourcesService;
@@ -17,9 +17,14 @@ import com.mantkowicz.light.stage.NotificationStage;
 
 import java.util.List;
 
-public class GamePrepareConfiguration implements PlayerConfiguration, TileClickListenerConfiguration, StagesConfiguration, BasicConfiguration {
+public class GamePrepareConfiguration implements PlayerConfiguration, BoardConfiguration, StagesConfiguration, BasicConfiguration {
     private final GameEventService gameEventService;
-    private final BoardService boardService;
+
+    public void setBoardService(BoardService boardService) {
+        this.boardService = boardService;
+    }
+
+    private BoardService boardService;
     private final World world;
     private final RayHandler rayHandler;
     private final Stage stage;

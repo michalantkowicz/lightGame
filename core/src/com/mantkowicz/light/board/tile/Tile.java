@@ -1,25 +1,27 @@
 package com.mantkowicz.light.board.tile;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.mantkowicz.light.board.object.TileObject;
-import com.mantkowicz.light.board.tile.listener.TileClickListener;
 import com.mantkowicz.light.configuration.GamePrepareConfiguration;
 import com.mantkowicz.light.service.resources.ResourcesService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mantkowicz.light.board.tile.TilePoint.*;
+import static com.mantkowicz.light.board.tile.TilePoint.LEFT_BOTTOM_CORNER;
+import static com.mantkowicz.light.board.tile.TilePoint.LEFT_CORNER;
+import static com.mantkowicz.light.board.tile.TilePoint.LEFT_TOP_CORNER;
+import static com.mantkowicz.light.board.tile.TilePoint.RIGHT_BOTTOM_CORNER;
+import static com.mantkowicz.light.board.tile.TilePoint.RIGHT_CORNER;
+import static com.mantkowicz.light.board.tile.TilePoint.RIGHT_TOP_CORNER;
 
-public abstract class Tile extends Group {
+public abstract class Tile {//} extends Actor {
     private static final int NOTIFICATION_OFFSET = 5;
     private static final float TAN_30_DIV_6 = 0.289f;
 
@@ -30,30 +32,39 @@ public abstract class Tile extends Group {
 
     private MapProperties attributes;
     private Array<Vector2> polygon;
-    private Image background;
+
+    private float width, height;
+
+    private float x, y;
+
+    public void setSize(float width, float height) {
+        this.width = width;
+        this.height = height;
+    }
 
     private boolean marked = false;
 
     protected List<TileObject> objects = new ArrayList<>();
+    private TextureRegion backgroundTexture;
 
     protected Tile(ResourcesService resourcesService, String backgroundTextureName) {
         this.id = ID_SEQUENCE++;
         this.neighbours = new ArrayList<>();
-
         setBackground(resourcesService, backgroundTextureName);
     }
 
     protected void setBackground(ResourcesService resourcesService, String backgroundTextureName) {
-        TextureRegion backgroundTexture = resourcesService.getTexture(backgroundTextureName);
-        this.background = new Image(backgroundTexture);
+        backgroundTexture = resourcesService.getTexture(backgroundTextureName);
+        setSize(backgroundTexture.getRegionWidth(), backgroundTexture.getRegionHeight()); //TODO: move setSize to tile creation place
+//        this.background = new Image(backgroundTexture);
 
-        addActor(this.background);
-        this.setSize(this.background.getWidth(), this.background.getHeight());
+//        addActor(this.background);
+//        this.setSize(this.background.getWidth(), this.background.getHeight());
     }
 
     public void prepare(GamePrepareConfiguration configuration) {
-        ClickListener listener = new TileClickListener(this, configuration);
-        addListener(listener);
+//        ClickListener listener = new BoardClickListener(this, configuration);
+//        addListener(listener);
 
         for (TileObject object : objects) {
             object.prepare(this, configuration);
@@ -68,9 +79,9 @@ public abstract class Tile extends Group {
         return result;
     }
 
-    @Override
     public void setPosition(float x, float y) {
-        super.setPosition(x, y);
+        this.x = x;
+        this.y = y;
         initTilePolygon();
     }
 
@@ -85,7 +96,7 @@ public abstract class Tile extends Group {
     }
 
     private float getCornerOffset() {
-        return TAN_30_DIV_6 * getHeight();
+        return TAN_30_DIV_6 * height;
     }
 
     public boolean doesContainPoint(Vector2 point) {
@@ -119,11 +130,11 @@ public abstract class Tile extends Group {
     }
 
     public Vector2 getCenter() {
-        return new Vector2(getX() + getWidth() / 2f, getY() + getHeight() / 2f);
+        return new Vector2(x + width / 2f, y + height / 2f);
     }
 
     protected Vector2 getLeftBottom() {
-        return new Vector2(getX(), getY());
+        return new Vector2(x, y);
     }
 
     public MapProperties getAttributes() {
@@ -148,29 +159,29 @@ public abstract class Tile extends Group {
      * @return center position for notification for this tile
      */
     public Vector2 getNotificationCenterPosition() {
-        return getCenter().cpy().add(0, getHeight() / 2f + NOTIFICATION_OFFSET);
+        return getCenter().cpy().add(0, height / 2f + NOTIFICATION_OFFSET);
     }
 
     private Vector2 getTilePointPosition(TilePoint tilePoint) {
         Vector2 result = getCenter();
         switch (tilePoint) {
             case RIGHT_TOP_CORNER:
-                result = new Vector2(getX() + getWidth() - getCornerOffset(), getY() + getHeight());
+                result = new Vector2(x + width - getCornerOffset(), y + height);
                 break;
             case RIGHT_CORNER:
-                result = new Vector2(getX() + getWidth(), getY() + getHeight() / 2f);
+                result = new Vector2(x + width, y + height / 2f);
                 break;
             case RIGHT_BOTTOM_CORNER:
-                result = new Vector2(getX() + getWidth() - getCornerOffset(), getY());
+                result = new Vector2(x + width - getCornerOffset(), y);
                 break;
             case LEFT_BOTTOM_CORNER:
-                result = new Vector2(getX() + getCornerOffset(), getY());
+                result = new Vector2(x + getCornerOffset(), y);
                 break;
             case LEFT_CORNER:
-                result = new Vector2(getX(), getY() + getHeight() / 2f);
+                result = new Vector2(x, y + height / 2f);
                 break;
             case LEFT_TOP_CORNER:
-                result = new Vector2(getX() + getCornerOffset(), getY() + getHeight());
+                result = new Vector2(x + getCornerOffset(), y + height);
                 break;
             case CENTER:
                 break;
@@ -198,5 +209,29 @@ public abstract class Tile extends Group {
 
     public void addTileObject(TileObject object) {
         objects.add(object);
+    }
+
+    public void draw(Batch batch, float parentAlpha) {
+        batch.draw(backgroundTexture, x, y);
+    }
+
+    protected Vector2 stageToLocalCoordinates(Vector2 tilePosition) {
+        throw new UnsupportedOperationException("to be implemented");
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public float getHeight() {
+        return height;
     }
 }

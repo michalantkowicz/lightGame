@@ -34,7 +34,7 @@ public class RemoveOnPlayerMovePlugin implements Plugin {
         }
     }
 
-    private static Action getActorRemoveAction(GameActor gameActor) {
+    private static Action getActorRemoveAction(final GameActor gameActor) {
         return new Action() {
             @Override
             public boolean act(float delta) {
